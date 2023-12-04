@@ -9,6 +9,8 @@ export const OTPForm = ({
 }) => {
   const [optNumber, setOptNumber] = useState(["", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(120); // 2 minutes in seconds
+  const [showOTPErrorToast, setShowOTPErrorToast] = useState(true);
+  const [showOTPSuccessToast, setShowOTPSuccessToast] = useState(true);
   const inputRefs = useRef([]);
 
   useEffect(() => {
@@ -93,15 +95,24 @@ export const OTPForm = ({
       timeLeft !== 0 &&
       optNumber.every((value) => value !== "")
     ) {
-      // Display toast notification when OTP is entered but does not match
-      toast.error("Entered OTP does not match.");
-    } else if (isOTPMatched && timeLeft !== 0) {
-      toast.success("OTP Match.Go Next");
+      if (showOTPErrorToast) {
+        toast.error("Entered OTP does not match.");
+        setShowOTPErrorToast(false);
+      }
+    } else {
+      setShowOTPErrorToast(true);
     }
-  }, [isOTPMatched, optNumber,timeLeft]);
+
+    if (isOTPMatched && showOTPSuccessToast) {
+      toast.success("OTP Match. Go Next");
+      setShowOTPSuccessToast(false);
+    } else {
+      setShowOTPSuccessToast(true);
+    }
+  }, [isOTPMatched, optNumber, timeLeft]);
 
   return (
-    <form  onSubmit={handleOTPSubmit} className="mt-2">
+    <form onSubmit={handleOTPSubmit} className="mt-2">
       <div className="form-group">
         <label>
           Enter OTP Code :{" "}
