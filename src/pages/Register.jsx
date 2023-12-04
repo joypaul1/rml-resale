@@ -21,7 +21,7 @@ const Register = () => {
   const [isHandleRegSubmit, setIsHandleRegSubmit] = useState(false); // State for form submission
   useEffect(() => {
     console.log('render object registration');
-  });
+  },[]);
   // Toast notification functions
   const notifySuccess = (msg) => {
     toast.success(msg);
