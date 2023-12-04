@@ -47,7 +47,7 @@ function Dashboard(props) {
     };
 
     fetchCommonData();
-  });
+  },[]);
 
   return (
     <div className="user-profile py-50">

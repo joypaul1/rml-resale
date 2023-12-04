@@ -98,7 +98,7 @@ export const OTPForm = ({
     } else if (isOTPMatched && timeLeft !== 0) {
       toast.success("OTP Match.Go Next");
     }
-  }, [isOTPMatched, optNumber]);
+  }, [isOTPMatched, optNumber,timeLeft]);
 
   return (
     <form  onSubmit={handleOTPSubmit} className="mt-2">
@@ -163,5 +163,3 @@ export const OTPForm = ({
     </form>
   );
 };
-
-// export default OTPForm;
