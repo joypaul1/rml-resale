@@ -26,7 +26,7 @@ function OurDeal(props) {
               >
               <div className="dealer-img">
                 <span className="dealer-listing">Mahindra</span>
-                <img src="../assets/img/dealer/01.png" alt="" />
+                <img src="../assets/img/dealer/06.png" alt="" />
               </div>
               <div className="dealer-content">
                 <h4>
@@ -55,7 +55,7 @@ function OurDeal(props) {
             >
               <div className="dealer-img">
                 <span className="dealer-listing">Mahindra</span>
-                <img src="../assets/img/dealer/02.png" alt="" />
+                <img src="../assets/img/dealer/06.png" alt="" />
               </div>
               <div className="dealer-content">
                 <h4>
@@ -84,7 +84,7 @@ function OurDeal(props) {
             >
               <div className="dealer-img">
                 <span className="dealer-listing">Mahindra</span>
-                <img src="../assets/img/dealer/03.png" alt="" />
+                <img src="../assets/img/dealer/06.png" alt="" />
               </div>
               <div className="dealer-content">
                 <h4>
@@ -113,7 +113,7 @@ function OurDeal(props) {
             >
               <div className="dealer-img">
                 <span className="dealer-listing">Mahindra</span>
-                <img src="../assets/img/dealer/04.png" alt="" />
+                <img src="../assets/img/dealer/06.png" alt="" />
               </div>
               <div className="dealer-content">
                 <h4>
@@ -142,7 +142,7 @@ function OurDeal(props) {
             >
               <div className="dealer-img">
                 <span className="dealer-listing">Eicher</span>
-                <img src="../assets/img/dealer/05.png" alt="" />
+                <img src="../assets/img/dealer/06.png" alt="" />
               </div>
               <div className="dealer-content">
                 <h4>
@@ -200,7 +200,7 @@ function OurDeal(props) {
             >
               <div className="dealer-img">
                 <span className="dealer-listing">Eicher</span>
-                <img src="../assets/img/dealer/07.png" alt="" />
+                <img src="../assets/img/dealer/06.png" alt="" />
               </div>
               <div className="dealer-content">
                 <h4>
@@ -228,7 +228,7 @@ function OurDeal(props) {
             >
               <div className="dealer-img">
                 <span className="dealer-listing">Eicher</span>
-                <img src="../assets/img/dealer/08.png" alt="" />
+                <img src="../assets/img/dealer/06.png" alt="" />
               </div>
               <div className="dealer-content">
                 <h4>
