@@ -21,7 +21,7 @@ const Register = () => {
   const [isSubmitting, setIsSubmitting] = useState(false); // State for form submission
   const [isHandleRegSubmit, setIsHandleRegSubmit] = useState(false); // State for form submission
   useEffect(() => {
-    console.log('render object registration');
+    console.log("render object registration");
   }, []);
   // Toast notification functions
   const notifySuccess = (msg) => {
@@ -89,22 +89,22 @@ const Register = () => {
     }
   };
 
-
   const sendOtpRequest = async () => {
-    console.log('send otp request');
     try {
       const response = await axios.get("https://api.rangsmotors.com", {
         params: {
-          file_name: 'send_otp',
-          u_num: mobileNumber
-        }
+          file_name: "send_otp",
+          u_num: mobileNumber,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-  
+
       return response.data;
     } catch (error) {
-      // Handle any errors here
-      console.error('Error sending OTP request:', error);
-      throw error; // Re-throw the error so it can be caught by the caller
+      console.error("Error sending OTP request:", error);
+      throw error;
     }
   };
   const changeNumber = () => {
@@ -128,17 +128,14 @@ const Register = () => {
     setIsSubmitting(true);
     try {
       const data = await sendRegRequest();
-      
+
       if (data.status === "true") {
         notifySuccess("User registration successfully.");
         setTimeout(async () => {
           navigate("/login");
         }, 1000);
       } else if (data.status === "false") {
-        notifySuccess("User registration successfully.");
-        setTimeout(async () => {
-          navigate("/login");
-        }, 1000);
+        notifyError(data.message);
       } else {
         notifyError("Something wrong in SQL server.");
       }
@@ -148,24 +145,30 @@ const Register = () => {
     }
   };
   const sendRegRequest = async () => {
-    
-    const response = await fetch(
-      "https://api.rangsmotors.com?file_name=user_registration&u_num=" +
-        mobileNumber +
-        "&u_pass=" +
-        userPassword +
-        "&u_name=" +
-        userName +
-        "&u_otp=" +
-        otpCode,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const response = await axios.get(
+        "https://api.rangsmotors.com",
+        {
+          params: {
+            file_name: "user_registration",
+            u_num: mobileNumber,
+            u_pass: userPassword,
+            u_name: userName,
+            u_otp: otpCode,
+          },
         },
-      }
-    );
-    return response.json();
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error in user registration request:", error);
+      throw error;
+    }
   };
   return (
     <div className="login-area pt-40">

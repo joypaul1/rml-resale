@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -47,30 +48,23 @@ const Login = () => {
   };
 
   const sendLoginRequest = async () => {
-    // const response = await fetch(
-    //   "http://202.40.181.98:9090/resale/web_api/version_1_0_1/user_login.php",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       mobile: mobileNumber,
-    //       password: password,
-    //     },
-    //   }
-    // );
-    const response = await fetch(
-      "https://api.rangsmotors.com?file_name=user_login&u_num=" +
-        mobileNumber +
-        "&u_pass=" +
-        password,
-      {
-        method: "GET",
+    try {
+      const response = await axios.get("https://api.rangsmotors.com", {
+        params: {
+          file_name: "user_login",
+          u_num: mobileNumber,
+          u_pass: password,
+        },
         headers: {
           "Content-Type": "application/json",
         },
-      }
-    );
-    return response.json();
+      });
+  
+      return response.data;
+    } catch (error) {
+      console.error("Error in user login request:", error);
+      throw error;
+    }
   };
 
   return (
