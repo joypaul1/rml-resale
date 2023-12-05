@@ -78,6 +78,7 @@ const Register = () => {
         setStep1(false);
         setStep3(false);
         setStep2(true);
+        setIsHandleRegSubmit(false);
       } else if (data.status === "false") {
         notifyError(data.message);
       } else {
