@@ -49,7 +49,6 @@ function CountArea(props) {
     fetchCarData();
   }, []);
 
-  console.log(dataList, "dataList");
   
   return (
     <div className="counter-area pt-30 pb-30">

@@ -1,3 +1,4 @@
+import axios from "axios";
 import "owl.carousel/dist/assets/owl.carousel.min.css";
 import React, { useEffect, useState } from "react";
 import ImageGallery from "react-image-gallery";
@@ -30,65 +31,56 @@ const Product = () => {
   useEffect(() => {
     const fetchCarData = async () => {
       try {
-        const response = await fetch(
-          "https://api.rangsmotors.com?file_name=product_details&p_id=" +
-            product_id,
+        const response = await axios.get(
+          `https://api.rangsmotors.com?file_name=product_details&p_id=${product_id}`,
           {
-            method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
           }
         );
-        if (!response.ok) {
+        if (!response.data.status === "true") {
           throw new Error("Failed to fetch car data");
         }
 
-        const data = await response.json();
-        if (data.status === "true") {
-          setCarData(data.data);
-          setCarImage(data.product_images);
-          setRelatedcarData(data.product_related);
-        } else {
-          console.error("API response status is not true:", data);
-        }
+        const data = response.data;
+        setCarData(data.data);
+        setCarImage(data.product_images);
+        setRelatedcarData(data.product_related);
       } catch (error) {
         console.error("Error fetching car data:", error);
       }
     };
     fetchCarData();
-  });
+  }, [product_id]);
 
   const bidSubmit = async (e) => {
     e.preventDefault();
     if (parseFloat(bidAmount) >= parseFloat(carData.DISPLAY_PRICE)) {
       try {
-        const response = await fetch(
+        const response = await axios.post(
           "http://202.40.181.98:9090/resale/web_api/version_1_0_1/bid_entry.php",
           {
-            method: "POST",
+            user_id: userlogData.ID,
+            product_id: product_id,
+            bid_amount: bidAmount,
+            sis_id: "1",
+          },
+          {
             headers: {
               "Content-Type": "application/json",
-              user_id: userlogData.ID,
-              product_id: product_id,
-              bid_amount: bidAmount,
-              sis_id: "1",
             },
           }
         );
-        // let res = ;
-        // const data = response.json();
-        notifySuccess("Bid Submit successfully.");
-        setBidAmount("");
-        // if (data.status === "true") {
 
-        //   // setTimeout(async () => {
-        //   //   navigate("/login");
-        //   // }, 1000);
-        // } else {
-        //   console.log(response.json());
-        //   notifyError("Something wrong in SQL server.");
-        // }
+        const data = response.data;
+
+        if (data.status === "true") {
+          notifySuccess("Bid Submit successfully.");
+          setBidAmount("");
+        } else {
+          notifyError(data.message);
+        }
       } catch (error) {
         console.error("Error submitting bid:", error);
       }
@@ -96,10 +88,6 @@ const Product = () => {
       notifyError(
         "Bid amount should be equal to or greater than Minmun Bid Amount:"
       );
-
-      // Handle case where bid amount is less than DISPLAY_PRICE
-      // console.error("Bid amount should be equal to or greater than DISPLAY_PRICE");
-      // You can display an error message or prevent the bid submission
     }
   };
 
@@ -143,22 +131,11 @@ const Product = () => {
                 <ul>
                   <li>
                     <div className="d-flex gap-2 align-items-center">
-                      <i className="flaticon-drive" style={KeyStyles}></i>
+                      <i  className="fa-solid fa-car "style={KeyStyles}></i>
                       <span>Model :</span>
                       <span>{carData.MODEL}</span>
                     </div>
                   </li>
-                  <li>
-                    <div className="d-flex gap-2 align-items-center">
-                      <i
-                        className="fa-solid fa-file-pen fa-beat"
-                        style={KeyStyles}
-                      ></i>
-                      <span>Reg :</span>
-                      <span>{carData.REG_NO}</span>
-                    </div>
-                  </li>
-
                   <li>
                     <div className="d-flex gap-2 align-items-center">
                       <i
@@ -167,6 +144,18 @@ const Product = () => {
                       ></i>
                       <span>Ref Code :</span>
                       <span>{carData.REF_CODE}</span>
+                    </div>
+                  </li>
+                 
+
+                  <li>
+                    <div className="d-flex gap-2 align-items-center">
+                      <i
+                        className="fa-brands fa-slack fa-spin"
+                        style={KeyStyles}
+                      ></i>
+                      <span> Chasis :</span>
+                      <span>{carData.CHS_NO}</span>
                     </div>
                   </li>
                   <li>
@@ -182,11 +171,21 @@ const Product = () => {
                   <li>
                     <div className="d-flex gap-2 align-items-center">
                       <i
-                        className="fa-brands fa-slack fa-spin"
+                        className="fa-solid fa-file-pen fa-beat"
                         style={KeyStyles}
                       ></i>
-                      <span> Chasis :</span>
-                      <span>{carData.CHS_NO}</span>
+                      <span>Reg :</span>
+                      <span>{carData.REG_NO}</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="d-flex gap-2 align-items-center">
+                      <i
+                        className="fa-solid fa-file-contract fa-beat"
+                        style={KeyStyles}
+                      ></i>
+                      <span>Reg Paper:</span>
+                      <span>{carData.REG_PAPER}</span>
                     </div>
                   </li>
                   <li>
@@ -202,20 +201,14 @@ const Product = () => {
                   <li>
                     <div className="d-flex gap-2 align-items-center">
                       <i
-                        className="fa-solid fa-fire-flame-simple fa-beat-fade"
+                        className="fa-solid fa-map-marked-alt fa-beat-fade"
                         style={KeyStyles}
                       ></i>
-                      <span>Color :</span>
-                      <span>{carData.COLOR}</span>
+                      <span>Depo :</span>
+                      <span>{carData.DEPO_LOCATION}</span>
                     </div>
                   </li>
-                  <li>
-                    <div className="d-flex gap-2 align-items-center">
-                      <i className="flaticon-gas-station" style={KeyStyles}></i>
-                      <span>Fuel Type :</span>
-                      <span>{carData.FUEL_TYPE}</span>
-                    </div>
-                  </li>
+                  
                 </ul>
               </div>
             </div>
@@ -282,7 +275,7 @@ const Product = () => {
                 ></i>{" "}
                 Total Bid : {carData.TOTAL_BID}
               </p>
-              <p>
+              {/* <p>
                 <i
                   className="fa-solid fa-money-bill-trend-up"
                   style={{ color: "#EF1D26" }}
@@ -297,7 +290,7 @@ const Product = () => {
                   fixedDecimalScale={true}
                   prefix={"TK "}
                 />
-              </p>
+              </p> */}
               <div className="car-single-form">
                 {carData.AUCTION_PENDING >= "0" ? (
                   <form onSubmit={bidSubmit}>
