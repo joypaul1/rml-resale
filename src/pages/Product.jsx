@@ -131,7 +131,7 @@ const Product = () => {
                 <ul>
                   <li>
                     <div className="d-flex gap-2 align-items-center">
-                      <i  className="fa-solid fa-car "style={KeyStyles}></i>
+                      <i className="fa-solid fa-car " style={KeyStyles}></i>
                       <span>Model :</span>
                       <span>{carData.MODEL}</span>
                     </div>
@@ -146,7 +146,6 @@ const Product = () => {
                       <span>{carData.REF_CODE}</span>
                     </div>
                   </li>
-                 
 
                   <li>
                     <div className="d-flex gap-2 align-items-center">
@@ -205,10 +204,14 @@ const Product = () => {
                         style={KeyStyles}
                       ></i>
                       <span>Depo :</span>
-                      <span>{carData.DEPO_LOCATION}</span>
+                      <span>
+                        {carData.DEPO_LOCATION &&
+                        typeof carData.DEPO_LOCATION === "string"
+                          ? carData.DEPO_LOCATION.split(":")[0]
+                          : " "}
+                      </span>
                     </div>
                   </li>
-                  
                 </ul>
               </div>
             </div>
