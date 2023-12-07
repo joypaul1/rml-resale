@@ -74,7 +74,7 @@ function CarArea(props) {
               <div key={index} className="col-md-6 col-lg-4 col-xl-3">
                 <div
                   className={`car-item  ${
-                    props.scrollDirection === "down"
+                  props.scrollDirection === "down"
                       ? "animate__animated animate__fadeInUp"
                       : ""
                   }`}

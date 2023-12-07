@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import FacebookMessanger from "./components/FacebookMessanger";
+import FileUploader from "./components/FileUploader";
 import ImageUpload from "./components/ImageUpload";
 import ScrollToTopOnRouteChange from "./components/ScrollToTopOnRouteChange";
 import TosterNotify from "./components/TosterNotify";
@@ -26,6 +27,7 @@ export default function App() {
       <ScrollToTopOnRouteChange /> 
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route path="/img-upload" element={<FileUploader />} />
         <Route path="/service" element={<Service />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about-us" element={<AboutUs />} />
