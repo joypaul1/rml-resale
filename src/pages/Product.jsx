@@ -278,22 +278,7 @@ const Product = () => {
                 ></i>{" "}
                 Total Bid : {carData.TOTAL_BID}
               </p>
-              {/* <p>
-                <i
-                  className="fa-solid fa-money-bill-trend-up"
-                  style={{ color: "#EF1D26" }}
-                ></i>{" "}
-                Highest Bid :
-                <NumericFormat
-                  value={carData.MAX_BID}
-                  displayType={"text"}
-                  thousandSeparator=","
-                  allowLeadingZeros
-                  // decimalScale={2}
-                  fixedDecimalScale={true}
-                  prefix={"TK "}
-                />
-              </p> */}
+              
               <div className="car-single-form">
                 {carData.AUCTION_PENDING >= "0" ? (
                   <form onSubmit={bidSubmit}>
@@ -435,6 +420,10 @@ const Product = () => {
                       <i className="far fa-check-circle"></i> Reference Code :{" "}
                       {carData.REF_CODE}
                     </li>
+                    <li>
+                      <i className="far fa-check-circle"></i> Depo Location :{" "}
+                      {carData.DEPO_LOCATION}
+                    </li>
                   </ul>
                 </div>
                 <div className="col-lg-4">
@@ -448,9 +437,10 @@ const Product = () => {
                       {carData.CHS_NO}
                     </li>
                     <li>
-                      <i className="far fa-check-circle"></i> Fuel Type :{" "}
-                      {carData.FUEL_TYPE}
+                      <i className="far fa-check-circle"></i> Chasis No.:{" "}
+                      {carData.REG_PAPER}
                     </li>
+                    
                   </ul>
                 </div>
                 <div className="col-lg-4">
@@ -462,6 +452,10 @@ const Product = () => {
                     <li>
                       <i className="far fa-check-circle"></i>Color :{" "}
                       {carData.COLOR}
+                    </li>
+                    <li>
+                      <i className="far fa-check-circle"></i> Fuel Type :{" "}
+                      {carData.FUEL_TYPE}
                     </li>
                   </ul>
                 </div>
