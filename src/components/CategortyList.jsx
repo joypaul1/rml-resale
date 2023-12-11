@@ -1,22 +1,26 @@
+import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ModelList from "./ModelList";
 
 function CategortyList({ brand_id }) {
   const [categoryList, setCategoryList] = useState([]);
+
   useEffect(() => {
-    const fetchCarData = async () => {
+    const delayedFetch = async () => {
       try {
-        const response = await fetch(
-          "https://api.rangsmotors.com?file_name=cat_list&b_id=" + brand_id,
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Delay by 1 second
+
+        const response = await axios.get(
+          `https://api.rangsmotors.com?file_name=cat_list&b_id=${brand_id}`,
           {
-            method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
           }
         );
-        const data = await response.json();
+
+        const data = response.data;
         if (data.status === "true") {
           setCategoryList(data.data);
         } else {
@@ -27,27 +31,26 @@ function CategortyList({ brand_id }) {
       }
     };
 
-    fetchCarData();
-  },[brand_id]);
+    delayedFetch();
+  }, [brand_id]);
 
-    return (
-      <div>
-        {categoryList.map((catItem, index) => {
-          return (
-            <li key={index} className="dropdown-submenu">
-              <Link className="dropdown-item dropdown-toggle" >
-                {catItem.NAME}
-              </Link>
+  return (
+    <div>
+      {categoryList.map((catItem, index) => {
+        return (
+          <li key={index} className="dropdown-submenu">
+            <Link className="dropdown-item dropdown-toggle">
+              {catItem.NAME}
+            </Link>
 
-              <ul className="dropdown-menu">
-                <ModelList  brand_id={brand_id} category={catItem.NAME} />
-              </ul>
-            </li>
-          );
-        })}
-      </div>
-    );
-  
+            <ul className="dropdown-menu">
+              <ModelList brand_id={brand_id} category={catItem.NAME} />
+            </ul>
+          </li>
+        );
+      })}
+    </div>
+  );
 }
 
 export default CategortyList;

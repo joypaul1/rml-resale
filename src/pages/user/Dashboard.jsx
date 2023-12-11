@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,16 +24,15 @@ function Dashboard(props) {
   useEffect(() => {
     const fetchCommonData = async () => {
       try {
-        const response = await fetch(
-          "https://api.rangsmotors.com?file_name=user_profile&u_id=" +
-            userlogData.ID,
+        const response = await axios.get(
+          `https://api.rangsmotors.com?file_name=user_profile&u_id=${userlogData.ID}`,
           {
-            method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
           }
         );
+        
 
         const res = await response.json();
         if (res.status === "true") {

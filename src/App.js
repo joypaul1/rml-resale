@@ -42,7 +42,7 @@ export default function App() {
         <Route path="/product/:product_id/:user_id?" element={<Product />} />
       </Routes>
       <TosterNotify />
-      {/* <FacebookMessanger /> */}
+      <FacebookMessanger />
       <Footer />
     </BrowserRouter>
   );

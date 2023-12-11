@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import OwlCarousel from "react-owl-carousel";
 import ImgSrc from "../components/ImgSrc";
@@ -8,26 +9,24 @@ function Testimonials() {
   useEffect(() => {
     const fetchCommentData = async () => {
       try {
-        // Delay the API call by 4 second
         const delayedFetch = () => {
           return new Promise((resolve) => {
             setTimeout(resolve, 4000);
           });
         };
   
-        await delayedFetch(); // Wait for 4 second
+        await delayedFetch(); // Wait for 4 seconds
   
-        const response = await fetch(
+        const response = await axios.get(
           "https://api.rangsmotors.com?file_name=client_comments",
           {
-            method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
           }
         );
   
-        const res = await response.json();
+        const res = response.data;
         if (res.status === "true") {
           setCommentList(res.data);
         } else {
@@ -40,6 +39,7 @@ function Testimonials() {
   
     fetchCommentData();
   }, []);
+  
   
 
   // Owl Carousel Settings

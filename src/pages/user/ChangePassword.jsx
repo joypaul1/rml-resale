@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -50,18 +51,15 @@ function ChangePassword(props) {
     }
   };
   const sendPassRequest = async () => {
-    const response = await fetch(
-      "https://api.rangsmotors.com?file_name=pass_change&u_id=" +
-        userlogData.ID +
-        "&u_pass=" +
-        userPassword,
+    const response = await axios.get(
+      `https://api.rangsmotors.com?file_name=pass_change&u_id=${userlogData.ID}&u_pass=${userPassword}`,
       {
-        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
+    
     return response.json();
   };
   return (

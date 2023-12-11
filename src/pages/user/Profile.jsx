@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -64,26 +65,15 @@ function Profile(props) {
   };
 
   const sendUpdateRequest = async () => {
-    const response = await fetch(
-      "https://api.rangsmotors.com?file_name=user_profile_update&u_id=" +
-        userlogData.ID +
-        "&u_name=" +
-        userName +
-        "&u_email=" +
-        userEmail +
-        "&u_address=" +
-        userAddress +
-        "&u_dis_id=" +
-        userDistrict +
-        "&u_up_id=" +
-        userUpazila,
+    const response = await axios.get(
+      `https://api.rangsmotors.com?file_name=user_profile_update&u_id=${userlogData.ID}&u_name=${userName}&u_email=${userEmail}&u_address=${userAddress}&u_dis_id=${userDistrict}&u_up_id=${userUpazila}`,
       {
-        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
+    
     return response.json();
   };
 
@@ -100,16 +90,15 @@ function Profile(props) {
   useEffect(() => {
     const fetchCommonData = async () => {
       try {
-        const response = await fetch(
-          "https://api.rangsmotors.com?file_name=user_profile&u_id=" +
-            userlogData.ID,
+        const response = await axios.get(
+          `https://api.rangsmotors.com?file_name=user_profile&u_id=${userlogData.ID}`,
           {
-            method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
           }
         );
+        
 
         const res = await response.json();
         if (res.status === "true") {
@@ -139,15 +128,15 @@ function Profile(props) {
    
     setUserDistrict(districtId);
     try {
-      const response = await fetch(
-        "https://api.rangsmotors.com?file_name=upazila&dis_id=" + districtId,
+      const response = await axios.get(
+        `https://api.rangsmotors.com?file_name=upazila&dis_id=${districtId}`,
         {
-          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
+      
       const res = await response.json();
 
       if (res.status === "true") {

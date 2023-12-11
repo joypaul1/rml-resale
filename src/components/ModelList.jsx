@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -6,17 +7,15 @@ function ModelList({brand_id, category }) {
   useEffect(() => {
     const fetchCarData = async () => {
       try {
-        const response = await fetch(
-          "https://api.rangsmotors.com?file_name=model_list&cat_name=" +
-            category,
+        const response = await axios.get(
+          `https://api.rangsmotors.com?file_name=model_list&cat_name=${category}`,
           {
-            method: "GET",
-
             headers: {
               "Content-Type": "application/json",
             },
           }
         );
+        
         const data = await response.json();
         if (data.status === "true") {
           setModelList(data.data);

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
 import { Link } from "react-router-dom";
@@ -9,17 +10,16 @@ function RelatedCarArea(props) {
   useEffect(() => {
     const fetchCarData = async () => {
       try {
-        const response = await fetch(
-          "https://api.rangsmotors.com?file_name=brand_wise_product_list&b_id="+props.brand_id,
+        const response = await axios.get(
+          `https://api.rangsmotors.com?file_name=brand_wise_product_list&b_id=${props.brand_id}`,
           {
-            method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
           }
         );
-
-        const data = await response.json();
+  
+        const data = response.data;
         if (data.status === "true") {
           setCarList(data.data);
         } else {
@@ -29,9 +29,10 @@ function RelatedCarArea(props) {
         console.error("Error fetching car data:", error);
       }
     };
-
+  
     fetchCarData();
   }, [props.brand_id]);
+  
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
   return (
     <div className="car-area bgs pb-10">

@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { CustomChat, FacebookProvider } from 'react-facebook';
-export default class FacebookMessanger extends Component {
+
+export default class FacebookMessenger extends Component {
+  componentDidMount() {
+    // Introduce a delay before executing any code
+    setTimeout(() => {
+    }, 2000); 
+  }
+
   render() {
     return (
       <FacebookProvider  appId={process.env.REACT_APP_FACEBOOK_APP_ID} chatSupport>

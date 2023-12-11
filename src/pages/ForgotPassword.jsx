@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -55,15 +56,15 @@ function ForgotPassword(props) {
   };
 
   const sendLoginRequest = async () => {
-    const response = await fetch(
-      "https://api.rangsmotors.com?file_name=forgot_password&u_num=" + mobileNumber,
+    const response = await axios.get(
+      `https://api.rangsmotors.com?file_name=forgot_password&u_num=${mobileNumber}`,
       {
-        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       }
     );
+    
     return response.json();
   };
 

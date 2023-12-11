@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select2Dp from "../components/Select2Dp";
@@ -23,15 +24,15 @@ function FindCar() {
     setCategoryList([]);
     setModelList([]);
     try {
-      const response = await fetch(
-        "https://api.rangsmotors.com?file_name=cat_list&b_id=" + brandId,
+      const response = await axios.get(
+        `https://api.rangsmotors.com?file_name=cat_list&b_id=${brandId}`,
         {
-          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
+      
       const data = await response.json();
       if (data.status === "true") {
         const transformedData = data.data.map(({ NAME }) => ({
@@ -53,15 +54,15 @@ function FindCar() {
     setModelList([]); // Clear previous model list
 
     try {
-      const response = await fetch(
-        "https://api.rangsmotors.com?file_name=model_list&cat_name=" + category,
+      const response = await axios.get(
+        `https://api.rangsmotors.com?file_name=model_list&cat_name=${category}`,
         {
-          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
+      
       const data = await response.json();
       if (data.status === "true") {
         const transformedData = data.data.map(({ NAME }) => ({

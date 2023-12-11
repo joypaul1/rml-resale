@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
 import { Link } from "react-router-dom";
@@ -8,26 +9,25 @@ function CarArea(props) {
   useEffect(() => {
     const fetchCarData = async () => {
       try {
-        // Delay the API call by 2 second
+        // Delay the API call by 2 seconds
         const delayedFetch = () => {
           return new Promise((resolve) => {
             setTimeout(resolve, 2000);
           });
         };
   
-        await delayedFetch(); // Wait for 1 second
+        await delayedFetch(); // Wait for 2 seconds
   
-        const response = await fetch(
+        const response = await axios.get(
           "https://api.rangsmotors.com?file_name=product_list",
           {
-            method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
           }
         );
   
-        const data = await response.json();
+        const data = response.data;
         if (data.status === "true") {
           setCarList(data.data);
         } else {
@@ -40,6 +40,7 @@ function CarArea(props) {
   
     fetchCarData();
   }, []);
+  
   
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
   return (

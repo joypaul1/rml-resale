@@ -3,6 +3,7 @@ import { NumericFormat } from "react-number-format";
 import { Link, useParams } from "react-router-dom";
 import ImgSrc from "../components/ImgSrc";
 import RelatedCarArea from "../partials/RelatedCarArea";
+import axios from "axios";
 
 function SearchableProduct(props) {
   const { selectedModel, selectedBrandId } = useParams();
@@ -17,15 +18,15 @@ function SearchableProduct(props) {
   useEffect(() => {
     const fetchCarData = async () => {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `https://api.rangsmotors.com?file_name=search_list&md_name=${selectedModel}&brand_id=${selectedBrand}`,
           {
-            method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
           }
         );
+        
         const data = await response.json();
         if (data.status === "true") {
           setCarList(data.data);
