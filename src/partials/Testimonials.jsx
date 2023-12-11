@@ -88,9 +88,9 @@ function Testimonials() {
                   <span className="testimonial-quote-icon">
                     <i className="flaticon-quote-hand-drawn-symbol"></i>
                   </span>
-                  <p>
-                    dangerouslySetInnerHTML={{ __html: commentItem.COMMENTS }}
-                  </p>
+                  <p dangerouslySetInnerHTML={{ __html: commentItem.COMMENTS }} />
+
+                  
                 </div>
                 <div className="testimonial-rate">
                   <i className="fas fa-star"></i>
