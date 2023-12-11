@@ -1,8 +1,6 @@
 import React from "react";
 import CountArea from "../partials/CountArea";
 import Teams from "../partials/Teams";
-import Testimonials from "../partials/Testimonials";
-
 const About = () => {
   return (
     <>
@@ -91,7 +89,7 @@ const About = () => {
         </div>
       </div>
       <CountArea />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <Teams />
     </>
   );

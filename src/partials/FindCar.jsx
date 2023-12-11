@@ -106,7 +106,7 @@ function FindCar() {
             <div className="row justify-content-end">
               <div className="col-lg-3">
                 <div className="form-group">
-                  <name>Brand Name</name>
+                  <p>Brand Name</p>
                   <Select2Dp
                     name="brand_id"
                     optionProps={BrandOptions}
@@ -118,7 +118,7 @@ function FindCar() {
               </div>
               <div className="col-lg-3">
                 <div className="form-group">
-                  <name>Category</name>
+                  <p>Category</p>
                   <Select2Dp
                     name="category"
                     optionProps={categoryList}
@@ -130,7 +130,7 @@ function FindCar() {
               </div>
               <div className="col-lg-3">
                 <div className="form-group">
-                  <name>Model</name>
+                  <p>Model</p>
                   <Select2Dp
                     name="model"
                     optionProps={modelList}

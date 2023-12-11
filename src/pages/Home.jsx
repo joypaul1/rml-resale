@@ -49,7 +49,6 @@ import Testimonials from "../partials/Testimonials";
             <CarArea scrollDirection={scrollDirection} />
             <CountArea scrollDirection={scrollDirection} />
             <ChooseUs scrollDirection={scrollDirection} />
-            {/* <AboutArea scrollDirection={scrollDirection} /> */}
             <OurDeal />
             <Testimonials />
           </main>

@@ -17,6 +17,14 @@ function CountArea(props) {
   useEffect(() => {
     const fetchCarData = async () => {
       try {
+        const delayedFetch = () => {
+          return new Promise((resolve) => {
+            setTimeout(resolve, 3000);
+          });
+        };
+  
+        await delayedFetch(); // Wait for 1 second
+  
         const response = await axios.get(
           "https://api.rangsmotors.com?file_name=home_helping_data",
           {
@@ -25,7 +33,7 @@ function CountArea(props) {
             },
           }
         );
-
+  
         const data = response.data;
         if (data.status === "true") {
           setDataList({
@@ -45,9 +53,10 @@ function CountArea(props) {
         console.error("Error fetching car data:", error);
       }
     };
-
+  
     fetchCarData();
   }, []);
+  
 
   
   return (

@@ -8,6 +8,15 @@ function CarArea(props) {
   useEffect(() => {
     const fetchCarData = async () => {
       try {
+        // Delay the API call by 2 second
+        const delayedFetch = () => {
+          return new Promise((resolve) => {
+            setTimeout(resolve, 2000);
+          });
+        };
+  
+        await delayedFetch(); // Wait for 1 second
+  
         const response = await fetch(
           "https://api.rangsmotors.com?file_name=product_list",
           {
@@ -17,7 +26,7 @@ function CarArea(props) {
             },
           }
         );
-
+  
         const data = await response.json();
         if (data.status === "true") {
           setCarList(data.data);
@@ -28,9 +37,10 @@ function CarArea(props) {
         console.error("Error fetching car data:", error);
       }
     };
-
+  
     fetchCarData();
   }, []);
+  
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
   return (
     <div className="car-area bg py-60">

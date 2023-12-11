@@ -8,6 +8,15 @@ function Testimonials() {
   useEffect(() => {
     const fetchCommentData = async () => {
       try {
+        // Delay the API call by 4 second
+        const delayedFetch = () => {
+          return new Promise((resolve) => {
+            setTimeout(resolve, 4000);
+          });
+        };
+  
+        await delayedFetch(); // Wait for 4 second
+  
         const response = await fetch(
           "https://api.rangsmotors.com?file_name=client_comments",
           {
@@ -17,7 +26,7 @@ function Testimonials() {
             },
           }
         );
-
+  
         const res = await response.json();
         if (res.status === "true") {
           setCommentList(res.data);
@@ -28,9 +37,10 @@ function Testimonials() {
         console.error("Error fetching COMMENT data:", error);
       }
     };
-
+  
     fetchCommentData();
   }, []);
+  
 
   // Owl Carousel Settings
   const options = {
