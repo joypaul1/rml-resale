@@ -29,7 +29,7 @@ export default function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/img-upload" element={<FileUploader />} />
-        <Route path="/service" element={<Service />} />
+        {/* <Route path="/service" element={<Service />} /> */}
         <Route path="/contact" element={<Contact />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/register" element={<Register />} />

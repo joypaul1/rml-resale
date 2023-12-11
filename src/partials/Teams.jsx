@@ -1,4 +1,45 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import ImgSrc from "../components/ImgSrc";
+
 export default function Team(props) {
+  const [teamList, setTeamList] = useState([]);
+
+  useEffect(() => {
+    const fetchCarData = async () => {
+      try {
+        // Delay the API call by 2 seconds
+        const delayedFetch = () => {
+          return new Promise((resolve) => {
+            setTimeout(resolve, 2000);
+          });
+        };
+
+        await delayedFetch(); // Wait for 2 seconds
+
+        const response = await axios.get(
+          "https://api.rangsmotors.com?file_name=resale_team",
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const data = response.data;
+        if (data.status === "true") {
+          setTeamList(data.data);
+        } else {
+          console.error("API response status is not true:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching car data:", error);
+      }
+    };
+
+    fetchCarData();
+  }, []);
+  console.log("objects fetched", teamList);
   return (
     <div className="team-area pt-120">
       <div className="container">
@@ -14,154 +55,43 @@ export default function Team(props) {
           </div>
         </div>
         <div className="row mt-5">
-          <div className="col-md-6 col-lg-3">
-            <div
-              className="team-item wow fadeInUp"
-              data-wow-delay=".75s"
-              style={{
-                visibility: "visible",
-                animationDelay: "0.75s",
-                animationName: "fadeInUp",
-              }}
-            >
-              <div className="team-img">
-                <img src="../assets/img/team/01.jpg" alt="thumb" />
-              </div>
-              <div className="team-social">
-                <a href="noaction">
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-youtube"></i>
-                </a>
-              </div>
-              <div className="team-content">
-                <div className="team-bio">
-                  <h5>
-                    <a href="noaction">Chad Smith</a>
-                  </h5>
-                  <span>HR Manager</span>
+          {teamList.map((data, index) => {
+            return (
+              <div key={index} className="col-md-6 col-lg-3">
+                <div className="team-item">
+                  <div className="team-img">
+                    {data.PIC_URL ? (
+                      <ImgSrc src={data.PIC_URL} />
+                    ) : (
+                      <img
+                        src="https://cdn1.iconfinder.com/data/icons/avatar-2-2/512/Salesman_1-512.png"
+                        alt="defaultLogo"
+                      />
+                    )}
+                  </div>
+
+                  <div className="team-content">
+                    <div className="team-bio">
+                      <h5>
+                        <>{data.TITLE_NAME}</>
+                      </h5>
+                      <span>
+                        <i class="fa-solid fa-universal-access"></i>{" "}
+                        {data.DESIGNATION}
+                      </span>
+                      <br />
+                      <span>
+                        {" "}
+                        <i class="fa-solid fa-mobile"></i> : {data.MOBILE}
+                      </span>{" "}
+                      <br />
+                      <span > <i class="fa-solid fa-location-dot"></i>  : {data.WORK_STATION}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-3">
-            <div
-              className="team-item wow fadeInUp"
-              data-wow-delay=".75s"
-              style={{
-                visibility: "visible",
-                animationDelay: "0.75s",
-                animationName: "fadeInUp",
-              }}
-            >
-              <div className="team-img">
-                <img src="../assets/img/team/02.jpg" alt="thumb" />
-              </div>
-              <div className="team-social">
-                <a href="noaction">
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-youtube"></i>
-                </a>
-              </div>
-              <div className="team-content">
-                <div className="team-bio">
-                  <h5>
-                    <a href="noaction">Malissa Fie</a>
-                  </h5>
-                  <span>Technician</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-3">
-            <div
-              className="team-item wow fadeInUp"
-              data-wow-delay=".75s"
-              style={{
-                visibility: "visible",
-                animationDelay: "0.75s",
-                animationName: "fadeInUp",
-              }}
-            >
-              <div className="team-img">
-                <img src="../assets/img/team/03.jpg" alt="thumb" />
-              </div>
-              <div className="team-social">
-                <a href="noaction">
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-youtube"></i>
-                </a>
-              </div>
-              <div className="team-content">
-                <div className="team-bio">
-                  <h5>
-                    <a href="noaction">Arron Rodri</a>
-                  </h5>
-                  <span>CEO &amp; Founder</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6 col-lg-3">
-            <div
-              className="team-item wow fadeInUp"
-              data-wow-delay=".75s"
-              style={{
-                visibility: "visible",
-                animationDelay: "0.75s",
-                animationName: "fadeInUp",
-              }}
-            >
-              <div className="team-img">
-                <img src="../assets/img/team/04.jpg" alt="thumb" />
-              </div>
-              <div className="team-social">
-                <a href="noaction">
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-                <a href="noaction">
-                  <i className="fab fa-youtube"></i>
-                </a>
-              </div>
-              <div className="team-content">
-                <div className="team-bio">
-                  <h5>
-                    <a href="noaction">Tony Pinto</a>
-                  </h5>
-                  <span>Mechanical Engineer</span>
-                </div>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>
