@@ -21,24 +21,36 @@ import Footer from "./partials/Footer";
 import Header from "./partials/Header";
 
 export default function App() {
+  const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
   return (
     <BrowserRouter>
       <Header />
-      <ScrollToTopOnRouteChange /> 
+      <ScrollToTopOnRouteChange />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/img-upload" element={<FileUploader />} />
         <Route path="/service" element={<Service />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+       
+        {userlogData ? (
+          <>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/imageUpload" element={<ImageUpload />} />
+          </>
+        ) : (
+          <Route path="/login" element={<Login />} />
+
+        )}
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/imageUpload" element={<ImageUpload />} />
-        <Route path="/searchable-product/:selectedModel/:selectedBrandId" element={<SearchableProduct />} />
+        <Route
+          path="/searchable-product/:selectedModel/:selectedBrandId"
+          element={<SearchableProduct />}
+        />
         <Route path="/product/:product_id/:user_id?" element={<Product />} />
       </Routes>
       <TosterNotify />

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"; // Ensure axios is properly imported
 import React, { useEffect, useState } from "react";
 import OwlCarousel from "react-owl-carousel";
 import ImgSrc from "../components/ImgSrc";
@@ -14,9 +14,9 @@ function Testimonials() {
             setTimeout(resolve, 4000);
           });
         };
-  
+
         await delayedFetch(); // Wait for 4 seconds
-  
+
         const response = await axios.get(
           "https://api.rangsmotors.com?file_name=client_comments",
           {
@@ -25,7 +25,7 @@ function Testimonials() {
             },
           }
         );
-  
+
         const res = response.data;
         if (res.status === "true") {
           setCommentList(res.data);
@@ -36,15 +36,14 @@ function Testimonials() {
         console.error("Error fetching COMMENT data:", error);
       }
     };
-  
+
     fetchCommentData();
   }, []);
-  
   
 
   // Owl Carousel Settings
   const options = {
-    loop: true,
+    loop: false,
     margin: 30,
     nav: false,
     dots: true,
