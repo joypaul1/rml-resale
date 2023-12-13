@@ -77,8 +77,8 @@ export default function Header() {
                   </div>
                 )}
                 <div class="buttons">
-                  <button>EN</button>
-                  <button>BN</button>
+                  <button className="activelang">EN</button>
+                  <button >BN</button>
                 </div>
                 <div className="header-top-social">
                   <span>Follow Us: </span>
