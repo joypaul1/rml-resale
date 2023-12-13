@@ -12,7 +12,6 @@ import DateFormatter from "../components/DateFormatter";
 import ImgSrc from "../components/ImgSrc";
 import Select2Dp from "../components/Select2Dp";
 
-
 const Product = () => {
   const { product_id } = useParams();
   const [carData, setCarData] = useState([]);
@@ -126,7 +125,6 @@ const Product = () => {
     });
   });
   const handleReferenceByChange = async (e) => {
-  
     if (e.target.value === "sale_concern") {
       setRefSaleConcern(true);
       try {
@@ -140,9 +138,9 @@ const Product = () => {
         );
         const data = response.data;
         if (data.status === "true") {
-          const transformedData = data.data.map(({ RML_ID ,MOBILE}) => ({
-            value: MOBILE,
-            label: MOBILE,
+          const transformedData = data.data.map(({ RML_ID }) => ({
+            value: RML_ID,
+            label: RML_ID,
           }));
           setConcernList(transformedData);
         } else {
@@ -151,9 +149,12 @@ const Product = () => {
       } catch (error) {
         console.error("Error fetching models:", error);
       }
+    }else{
+      setRefSaleConcern(false);
+
     }
   };
-  const handleSaleConcernChange =  (seleConcern) => {
+  const handleSaleConcernChange = (seleConcern) => {
     setSelectedConcern(seleConcern);
   };
   return (
@@ -394,7 +395,7 @@ const Product = () => {
                 />
               )}
 
-              <div className="car-single-form">
+              <div className="car-single-form mt-2">
                 {carData.AUCTION_PENDING >= "0" ? (
                   <form onSubmit={bidSubmit}>
                     <div className="input-group mb-3">
