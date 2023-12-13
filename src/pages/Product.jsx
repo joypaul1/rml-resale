@@ -138,9 +138,9 @@ const Product = () => {
         );
         const data = response.data;
         if (data.status === "true") {
-          const transformedData = data.data.map(({ RML_ID }) => ({
+          const transformedData = data.data.map(({ RML_ID, TITLE_NAME }) => ({
             value: RML_ID,
-            label: RML_ID,
+            label: `${TITLE_NAME} [${RML_ID}]`,
           }));
           setConcernList(transformedData);
         } else {
