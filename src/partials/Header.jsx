@@ -76,7 +76,7 @@ export default function Header() {
                     </Link>
                   </div>
                 )}
-                <div class="buttons">
+                <div className="buttons">
                   <button className="activelang">EN</button>
                   <button >BN</button>
                 </div>

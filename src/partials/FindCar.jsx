@@ -32,8 +32,8 @@ function FindCar() {
           },
         }
       );
-      
-      const data = await response.json();
+        
+      const data = response.data;
       if (data.status === "true") {
         const transformedData = data.data.map(({ NAME }) => ({
           value: NAME,
@@ -63,7 +63,7 @@ function FindCar() {
         }
       );
       
-      const data = await response.json();
+      const data = response.data;
       if (data.status === "true") {
         const transformedData = data.data.map(({ NAME }) => ({
           value: NAME,
@@ -113,7 +113,6 @@ function FindCar() {
                     optionProps={BrandOptions}
                     onChange={handleBrandChange}
                     selectedValue={selectedBrand}
-
                   />
                 </div>
               </div>
@@ -125,7 +124,6 @@ function FindCar() {
                     optionProps={categoryList}
                     onChange={handleCategoryChange}
                     selectedValue={selectedCategory}
-
                   />
                 </div>
               </div>

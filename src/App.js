@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import FacebookMessanger from "./components/FacebookMessanger";
+// import FacebookMessanger from "./components/FacebookMessanger";
 import FileUploader from "./components/FileUploader";
 import ImageUpload from "./components/ImageUpload";
 import ScrollToTopOnRouteChange from "./components/ScrollToTopOnRouteChange";
@@ -45,7 +45,7 @@ export default function App() {
         <Route path="/product/:product_id/:user_id?" element={<Product />} />
       </Routes>
       <TosterNotify />
-      <FacebookMessanger />
+      {/* <FacebookMessanger /> */}
       <Footer />
     </BrowserRouter>
   );

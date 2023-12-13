@@ -10,12 +10,18 @@ import { toast } from "react-toastify";
 import CountdownTimer from "../components/CountdownTimer";
 import DateFormatter from "../components/DateFormatter";
 import ImgSrc from "../components/ImgSrc";
+import Select2Dp from "../components/Select2Dp";
+
+
 const Product = () => {
   const { product_id } = useParams();
   const [carData, setCarData] = useState([]);
   const [carImage, setCarImage] = useState([]);
   const [relatedcarData, setRelatedcarData] = useState([]);
-  const [bidAmount, setBidAmount] = useState([]);
+  const [bidAmount, setBidAmount] = useState("");
+  const [refSaleConcern, setRefSaleConcern] = useState(false);
+  const [concernList, setConcernList] = useState([]);
+  const [selectedConcern, setSelectedConcern] = useState([]);
 
   const handleBidAmount = (event) => {
     setBidAmount(event.target.value);
@@ -119,7 +125,37 @@ const Product = () => {
         "https://api.rangsmotors.com?file_name=img_src&imgSr=" + element.URL,
     });
   });
-
+  const handleReferenceByChange = async (e) => {
+  
+    if (e.target.value === "sale_concern") {
+      setRefSaleConcern(true);
+      try {
+        const response = await axios.get(
+          "https://api.rangsmotors.com?file_name=resale_team",
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = response.data;
+        if (data.status === "true") {
+          const transformedData = data.data.map(({ RML_ID ,MOBILE}) => ({
+            value: MOBILE,
+            label: MOBILE,
+          }));
+          setConcernList(transformedData);
+        } else {
+          console.error("API response status is not true:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching models:", error);
+      }
+    }
+  };
+  const handleSaleConcernChange =  (seleConcern) => {
+    setSelectedConcern(seleConcern);
+  };
   return (
     <div className="shop-item-single bg pt-20">
       <div className="container">
@@ -266,7 +302,6 @@ const Product = () => {
                     displayType={"text"}
                     thousandSeparator=","
                     allowLeadingZeros
-                    // decimalScale={2}
                     fixedDecimalScale={true}
                     prefix={"TK "}
                   />
@@ -282,14 +317,13 @@ const Product = () => {
                     displayType={"text"}
                     thousandSeparator=","
                     allowLeadingZeros
-                    // decimalScale={2}
                     fixedDecimalScale={true}
                     prefix={"TK "}
                   />
                 </p>
                 <p>
                   <i
-                    class="fa-brands fa-contao"
+                    className="fa-brands fa-contao"
                     style={{ color: "rgb(239, 29, 38)" }}
                   ></i>{" "}
                   Total Bid : {carData.TOTAL_BID}
@@ -302,28 +336,28 @@ const Product = () => {
                 Bid For
               </p>
               <span className="d-flex justify-content-center">
-                <div class="form-check form-check-inline">
+                <div className="form-check form-check-inline">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="radio"
                     id="inlineCheckbox1"
                     value="cash"
                     name="bid_for"
                     checked
                   />
-                  <label class="form-check-label" for="inlineCheckbox1">
+                  <label className="form-check-label" for="inlineCheckbox1">
                     Cash
                   </label>
                 </div>
-                <div class="form-check form-check-inline">
+                <div className="form-check form-check-inline">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="radio"
                     id="inlineCheckbox2"
                     value="credit"
                     name="bid_for"
                   />
-                  <label class="form-check-label" for="inlineCheckbox2">
+                  <label className="form-check-label" for="inlineCheckbox2">
                     Credit
                   </label>
                 </div>
@@ -342,13 +376,23 @@ const Product = () => {
               <span className="d-flex justify-content-center mb-2">
                 <select
                   className="form-select"
-                  aria-label="Default select example"
+                  onChange={handleReferenceByChange}
                 >
-                  <option selected value="my_self">Myself </option>
+                  <option selected value="my_self">
+                    Myself
+                  </option>
                   <option value="sale_concern">Sale Concern</option>
                   <option value="facebook">Facebook</option>
                 </select>
               </span>
+              {refSaleConcern && (
+                <Select2Dp
+                  name="selected_concern"
+                  optionProps={concernList}
+                  onChange={handleSaleConcernChange}
+                  selectedValue={selectedConcern}
+                />
+              )}
 
               <div className="car-single-form">
                 {carData.AUCTION_PENDING >= "0" ? (

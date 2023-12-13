@@ -18,7 +18,7 @@ function Select2Dp({ name, optionProps, onChange = () => {}, selectedValue }) {
 
   return (
     <>
-      <Select
+    <Select
         className="basic-single"
         classNamePrefix="select"
         isDisabled={isDisabled}
