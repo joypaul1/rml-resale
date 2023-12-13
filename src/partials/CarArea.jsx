@@ -15,9 +15,9 @@ function CarArea(props) {
             setTimeout(resolve, 2000);
           });
         };
-  
+
         await delayedFetch(); // Wait for 2 seconds
-  
+
         const response = await axios.get(
           "https://api.rangsmotors.com?file_name=product_list",
           {
@@ -26,7 +26,7 @@ function CarArea(props) {
             },
           }
         );
-  
+
         const data = response.data;
         if (data.status === "true") {
           setCarList(data.data);
@@ -37,11 +37,10 @@ function CarArea(props) {
         console.error("Error fetching car data:", error);
       }
     };
-  
+
     fetchCarData();
   }, []);
-  
-  
+
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
   return (
     <div className="car-area bg py-60">
@@ -85,7 +84,7 @@ function CarArea(props) {
               <div key={index} className="col-md-6 col-lg-4 col-xl-3">
                 <div
                   className={`car-item  ${
-                  props.scrollDirection === "down"
+                    props.scrollDirection === "down"
                       ? "animate__animated animate__fadeInUp"
                       : ""
                   }`}
@@ -94,14 +93,17 @@ function CarArea(props) {
                     <span className={`car-status ${currentStatus.color}`}>
                       {currentStatus.text}
                     </span>
-                   
+
                     <ImgSrc src={carItem.PIC_URL} />
-                   
                   </div>
                   <div className="car-content">
                     <div className="car-top">
                       <h4>
-                        <Link  to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}>{carItem.MODEL}</Link>
+                        <Link
+                          to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}
+                        >
+                          {carItem.MODEL}
+                        </Link>
                       </h4>
                       <div className="car-rate">
                         <i className="fas fa-star"></i>
@@ -126,26 +128,44 @@ function CarArea(props) {
                         {carItem.REG_NO}
                       </li>
                     </ul>
-                    <div className="car-footer">
-                      <span className="car-price">
-                        <NumericFormat
-                          value={carItem.DISPLAY_PRICE}
-                          displayType={"text"}
-                          thousandSeparator=","
-                          allowLeadingZeros
-                          decimalScale={2}
-                          fixedDecimalScale={true}
-                          prefix={"TK "}
-                        />
+                    <div className="car-footer flex-column">
+                      <span>
+                        <strong>Cash Price : </strong>
+                        <span className="car-price">
+                          <NumericFormat
+                            value={carItem.CASH_PRICE}
+                            displayType={"text"}
+                            thousandSeparator=","
+                            allowLeadingZeros
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            suffix={"TK "}
+                          />
+                        </span>
                       </span>
-
+                      <span>
+                        <strong>Credit Price : </strong>
+                        <span className="car-price">
+                          <NumericFormat
+                            value={carItem.CREDIT_PRICE}
+                            displayType={"text"}
+                            thousandSeparator=","
+                            allowLeadingZeros
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            suffix={"TK "}
+                          />
+                        </span>
+                      </span>
+                    </div>
+                    <span className="d-flex align-items-center justify-content-center mt-2">
                       <Link
                         to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}
                         className="theme-btn"
                       >
                         <span className="far fa-eye"></span>Details
                       </Link>
-                    </div>
+                    </span>
                   </div>
                 </div>
               </div>

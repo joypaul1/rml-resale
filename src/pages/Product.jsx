@@ -21,6 +21,8 @@ const Product = () => {
   const [refSaleConcern, setRefSaleConcern] = useState(false);
   const [concernList, setConcernList] = useState([]);
   const [selectedConcern, setSelectedConcern] = useState([]);
+  const [minBidAmount, setMinBidAmount] = useState(0);
+  const [selectedBidType, setSelectedBidType] = useState("cash");
 
   const handleBidAmount = (event) => {
     setBidAmount(event.target.value);
@@ -44,12 +46,13 @@ const Product = () => {
             },
           }
         );
-        if (!response.data.status === "true") {
-          throw new Error("Failed to fetch car data");
+        if (response.data.status === "false") {
+          console.log("Failed to fetch car data : " + response.data.message);
         }
 
         const data = response.data;
         setCarData(data.data);
+        setMinBidAmount(data.data.CASH_PRICE);
         setCarImage(data.product_images);
         setRelatedcarData(data.product_related);
       } catch (error) {
@@ -61,7 +64,7 @@ const Product = () => {
 
   const bidSubmit = async (e) => {
     e.preventDefault();
-    if (parseFloat(bidAmount) >= parseFloat(carData.DISPLAY_PRICE)) {
+    if (parseFloat(bidAmount) >= parseFloat(minBidAmount)) {
       try {
         const response = await axios.post(
           "http://202.40.181.98:9090/resale/web_api/version_1_0_1/bid_entry.php",
@@ -91,7 +94,7 @@ const Product = () => {
       }
     } else {
       notifyError(
-        "Bid amount should be equal to or greater than Minmun Bid Amount:"
+        "Bid amount should be equal to or greater than Minimun Bid Pirce :"
       );
     }
   };
@@ -149,14 +152,19 @@ const Product = () => {
       } catch (error) {
         console.error("Error fetching models:", error);
       }
-    }else{
+    } else {
       setRefSaleConcern(false);
-
     }
   };
   const handleSaleConcernChange = (seleConcern) => {
     setSelectedConcern(seleConcern);
   };
+
+  const handleBidTypeChange = (e) => {
+    setSelectedBidType(e.target.value);
+  };
+
+
   return (
     <div className="shop-item-single bg pt-20">
       <div className="container">
@@ -297,9 +305,9 @@ const Product = () => {
                     className="fa-solid fa-money-bill-1"
                     style={{ color: "#EF1D26" }}
                   ></i>{" "}
-                  Cash Min Bid :{" "}
+                  Cash Price Bid :{" "}
                   <NumericFormat
-                    value={carData.DISPLAY_PRICE}
+                    value={carData.CASH_PRICE}
                     displayType={"text"}
                     thousandSeparator=","
                     allowLeadingZeros
@@ -312,9 +320,9 @@ const Product = () => {
                     className="fa-solid fa-money-bill-1"
                     style={{ color: "#EF1D26" }}
                   ></i>{" "}
-                  Credit Min Bid :{" "}
+                  Credit Price Bid :{" "}
                   <NumericFormat
-                    value={carData.DISPLAY_PRICE}
+                    value={carData.CREDIT_PRICE}
                     displayType={"text"}
                     thousandSeparator=","
                     allowLeadingZeros
