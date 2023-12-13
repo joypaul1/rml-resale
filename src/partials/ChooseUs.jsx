@@ -6,13 +6,7 @@ function ChooseUs(props) {
       <div className="container">
         <div className="row align-items-center">
           <div className="col-lg-6">
-            <div
-              className={`choose-content-wrapper ${
-                props.scrollDirection === "down" ? "wow fadeInLeft" : ""
-              }`}
-              //   className=" wow fadeInLeft"
-              data-wow-delay=".50s"
-            >
+            <div className={`choose-content-wrapper`}>
               <div className="row">
                 <div className="col-md-6 col-lg-6">
                   <div className="choose-item">
@@ -79,12 +73,7 @@ function ChooseUs(props) {
           </div>
           <div className="col-lg-6">
             <div className="choose-content">
-              <div
-                className={`site-heading ${
-                  props.scrollDirection === "down" ? "wow fadeInDown" : ""
-                }`}
-                data-wow-delay=".50s"
-              >
+              <div className={`site-heading`}>
                 <span className="site-title-tagline text-white justify-content-start">
                   <i className="flaticon-drive"></i> Why Choose Us
                 </span>
@@ -98,12 +87,7 @@ function ChooseUs(props) {
                   even slightly believable.
                 </p>
               </div>
-              <div
-                className={`choose-img ${
-                  props.scrollDirection === "down" ? "wow fadeInUp" : ""
-                }`}
-                data-wow-delay=".40s"
-              >
+              <div className={`choose-img`}>
                 <img
                   src={
                     window.location.origin +

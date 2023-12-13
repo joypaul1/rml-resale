@@ -11,11 +11,7 @@ const About = () => {
               <div
                 className="about-left wow fadeInLeft"
                 data-wow-delay=".25s"
-                style={{
-                  visibility: "visible",
-                  animationDelay: "0.25s",
-                  animationName: "fadeInLeft",
-                }}
+                
               >
                 <div className="about-img">
                   <img
@@ -40,11 +36,7 @@ const About = () => {
               <div
                 className="about-right wow fadeInRight"
                 data-wow-delay=".25s"
-                style={{
-                  visibility: "visible",
-                  animationDelay: "0.25s",
-                  animationName: "fadeInRight",
-                }}
+               
               >
                 <div className="site-heading mb-3">
                   <span className="site-title-tagline justify-content-start">

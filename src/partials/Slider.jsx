@@ -1,15 +1,19 @@
-// import "animate.css";
 import "owl.carousel/dist/assets/owl.carousel.min.css";
 import React, { useEffect, useRef } from "react";
 import OwlCarousel from "react-owl-carousel";
 import { Link } from "react-router-dom";
 import WOW from "wowjs";
 
-export default function Slider() {
+export default function Slider(props) {
   const wow = useRef(null);
+  const owl = useRef(null);
 
   useEffect(() => {
     wow.current = new WOW.WOW({
+      boxClass: "wow",
+      animateClass: "animated",
+      offset: 0,
+      mobile: false,
       live: false,
     });
     wow.current.init();
@@ -25,24 +29,35 @@ export default function Slider() {
   const handleSlideChange = () => {
     if (wow.current) {
       wow.current.sync();
+      wow.current = null;
       wow.current = new WOW.WOW({
+        mobile: false,
         live: false,
       });
       wow.current.init();
     }
   };
+
+  const options = {
+    items: 1,
+    loop: true,
+    nav: true,
+    autoplay: true,
+    autoplayHoverPause: true,
+    autoplayTimeout: 5000,
+    onChanged: handleSlideChange,
+    onInitialized: (e) => {
+      owl.current = e.target;
+      if (owl.current) {
+        owl.current.addEventListener("changed.owl.carousel", handleSlideChange);
+      }
+    },
+    className: "hero-slider owl-carousel owl-theme",
+  };
+
   return (
     <div className="hero-section">
-      <OwlCarousel
-        items={1}
-        loop
-        nav
-        autoplay
-        autoplayHoverPause={true}
-        autoplayTimeout={5000}
-        onChange={handleSlideChange}
-        className="hero-slider owl-carousel owl-theme"
-      >
+      <OwlCarousel {...options} ref={owl}>
         {/* Slide 1 */}
         <div
           className="hero-single"
@@ -56,24 +71,19 @@ export default function Slider() {
               <div className="col-md-6 col-lg-6">
                 <div className="hero-content">
                   <h4
-                    className="hero-title wow fadeInRight"
-                    data-wow-delay=".50s"
-                    style={{
-                      visibility: "visible",
-                      animationDelay: "0.50s",
-                      animationName: "fadeInRight",
-                    }}
+                    className={`hero-title ${
+                      props.scrollDirection === "down" ? "wow fadeInLeft" : ""
+                    }`}
                   >
                     Discover The Perfect Route To Your <span>Dream</span>{" "}
                     Vehicle
                   </h4>
                   <p
-                    className="text-justify wow fadeInLeft"
+                    className={`text-justify ${
+                      props.scrollDirection === "down" ? "wow fadeInLeft" : ""
+                    }`}
                     data-wow-delay=".75s"
                     style={{
-                      visibility: "visible",
-                      animationDelay: "0.75s",
-                      animationName: "fadeInLeft",
                       textAlign: "justify",
                     }}
                   >
@@ -83,7 +93,13 @@ export default function Slider() {
                     and Mahindra), we are now progressively moving towards
                     manufacturing as the core of our business.
                   </p>
-                  <div className="hero-btn wow fadeInUp" data-wow-delay="1s">
+                  <div
+                    // className="hero-btn wow fadeInUp"
+                    className={`hero-btn ${
+                      props.scrollDirection === "down" ? "wow fadeInUp" : ""
+                    }`}
+                    data-wow-delay="1s"
+                  >
                     <Link className="theme-btn">
                       About More <i className="fas fa-arrow-right-long"></i>
                     </Link>
@@ -97,14 +113,12 @@ export default function Slider() {
                 <div className="hero-right">
                   <div className="hero-img ">
                     <img
-                      className="wow fadeInRight"
+                      className={`hero-btn ${
+                        props.scrollDirection === "down"
+                          ? "wow fadeInRight"
+                          : ""
+                      }`}
                       data-wow-delay="0.50s"
-                      style={{
-                        visibility: "visible",
-                        animationDelay: "0.50s",
-                        animationName: "fadeInRight",
-                      }}
-                      // src="https://resale.rangsmotors.com/assets/img/slider/hero-4.png"
                       src={
                         window.location.origin + "/assets/img/slider/10.90L.png"
                       }
@@ -129,25 +143,18 @@ export default function Slider() {
               <div className="col-md-6 col-lg-6">
                 <div className="hero-content">
                   <h1
-                    className="hero-title wow fadeInRight"
+                    className={`hero-title ${
+                      props.scrollDirection === "down" ? "wow fadeInRight" : ""
+                    }`}
                     data-wow-delay=".50s"
-                    style={{
-                      visibility: "visible",
-                      animationDelay: "0.50s",
-                      animationName: "fadeInRight",
-                    }}
                   >
                     Drive Into <span>Savings</span> With Us.
                   </h1>
                   <p
-                    className="text-justify wow fadeInLeft"
+                    className={`text-justify ${
+                      props.scrollDirection === "down" ? "wow fadeInLeft" : ""
+                    }`}
                     data-wow-delay=".75s"
-                    style={{
-                      visibility: "visible",
-                      animationDelay: "0.75s",
-                      animationName: "fadeInLeft",
-                      textAlign: "justify",
-                    }}
                   >
                     Being the market leaders in brand new passenger and
                     commercial vehicles in Bangladesh with over 30 years of
@@ -155,11 +162,16 @@ export default function Slider() {
                     and Mahindra), we are now progressively moving towards
                     manufacturing as the core of our business.
                   </p>
-                  <div className="hero-btn wow fadeInUp" data-wow-delay="1s">
-                    <Link  className="theme-btn">
+                  <div
+                    className={`hero-btn ${
+                      props.scrollDirection === "down" ? "wow fadeInLeft" : ""
+                    }`}
+                    data-wow-delay="1s"
+                  >
+                    <Link className="theme-btn">
                       About More <i className="fas fa-arrow-right-long"></i>
                     </Link>
-                    <Link  className="theme-btn theme-btn2">
+                    <Link className="theme-btn theme-btn2">
                       Learn More <i className="fas fa-arrow-right-long"></i>
                     </Link>
                   </div>
@@ -169,14 +181,12 @@ export default function Slider() {
                 <div className="hero-right">
                   <div className="hero-img">
                     <img
-                      className="wow fadeInRight"
+                      className={`${
+                        props.scrollDirection === "down"
+                          ? "wow fadeInRight"
+                          : ""
+                      }`}
                       data-wow-delay="0.50s"
-                      style={{
-                        visibility: "visible",
-                        animationDelay: "0.50s",
-                        animationName: "fadeInRight",
-                      }}
-                      // src="../assets/img/slider/hero-5.png"
                       src={
                         window.location.origin +
                         "/assets/img/slider/Eicher_2016.png"
@@ -202,26 +212,19 @@ export default function Slider() {
               <div className="col-md-6 col-lg-6">
                 <div className="hero-content">
                   <h1
-                    className="hero-title wow fadeInRight"
+                    className={`hero-title ${
+                      props.scrollDirection === "down" ? "wow fadeInRight" : ""
+                    }`}
                     data-wow-delay=".50s"
-                    style={{
-                      visibility: "visible",
-                      animationDelay: "0.50s",
-                      animationName: "fadeInRight",
-                    }}
                   >
                     Unlock The Road To <span> Value </span> And{" "}
                     <span> Savings</span>.
                   </h1>
                   <p
-                    className="text-justify wow fadeInLeft"
+                    className={`text-justify ${
+                      props.scrollDirection === "down" ? "wow fadeInLeft" : ""
+                    }`}
                     data-wow-delay=".75s"
-                    style={{
-                      visibility: "visible",
-                      animationDelay: "0.75s",
-                      animationName: "fadeInLeft",
-                      textAlign: "justify",
-                    }}
                   >
                     Being the market leaders in brand new passenger and
                     commercial vehicles in Bangladesh with over 30 years of
@@ -229,11 +232,16 @@ export default function Slider() {
                     and Mahindra), we are now progressively moving towards
                     manufacturing as the core of our business.
                   </p>
-                  <div className="hero-btn wow fadeInUp" data-wow-delay="1s">
-                    <Link  className="theme-btn">
+                  <div
+                    className={`hero-btn ${
+                      props.scrollDirection === "down" ? "wow fadeInUp" : ""
+                    }`}
+                    data-wow-delay="1s"
+                  >
+                    <Link className="theme-btn">
                       About More <i className="fas fa-arrow-right-long"></i>
                     </Link>
-                    <Link  className="theme-btn theme-btn2">
+                    <Link className="theme-btn theme-btn2">
                       Learn More <i className="fas fa-arrow-right-long"></i>
                     </Link>
                   </div>
@@ -243,13 +251,12 @@ export default function Slider() {
                 <div className="hero-right">
                   <div className="hero-img">
                     <img
-                      className="wow fadeInRight"
+                      className={`${
+                        props.scrollDirection === "down"
+                          ? "wow fadeInRight"
+                          : ""
+                      }`}
                       data-wow-delay="0.50s"
-                      style={{
-                        visibility: "visible",
-                        animationDelay: "0.50s",
-                        animationName: "fadeInRight",
-                      }}
                       src={
                         window.location.origin +
                         "/assets/img/slider/Dongfeng_E_94.png"
@@ -275,26 +282,19 @@ export default function Slider() {
               <div className="col-md-6 col-lg-6">
                 <div className="hero-content">
                   <h1
-                    className="hero-title wow fadeInRight"
+                    className={`hero-title ${
+                      props.scrollDirection === "down" ? "wow fadeInRight" : ""
+                    }`}
                     data-wow-delay=".50s"
-                    style={{
-                      visibility: "visible",
-                      animationDelay: "0.50s",
-                      animationName: "fadeInRight",
-                    }}
                   >
                     Enhance Your Driving <span> Experience</span>, Not Your{" "}
                     <span> Budget</span>.
                   </h1>
                   <p
-                    className="text-justify wow fadeInLeft"
+                    className={`text-justify ${
+                      props.scrollDirection === "down" ? "wow fadeInLeft" : ""
+                    }`}
                     data-wow-delay=".75s"
-                    style={{
-                      visibility: "visible",
-                      animationDelay: "0.75s",
-                      animationName: "fadeInLeft",
-                      textAlign: "justify",
-                    }}
                   >
                     Being the market leaders in brand new passenger and
                     commercial vehicles in Bangladesh with over 30 years of
@@ -303,10 +303,10 @@ export default function Slider() {
                     manufacturing as the core of our business.
                   </p>
                   <div className="hero-btn wow fadeInUp" data-wow-delay="1s">
-                    <Link  className="theme-btn">
+                    <Link className="theme-btn">
                       About More <i className="fas fa-arrow-right-long"></i>
                     </Link>
-                    <Link  className="theme-btn theme-btn2">
+                    <Link className="theme-btn theme-btn2">
                       Learn More <i className="fas fa-arrow-right-long"></i>
                     </Link>
                   </div>

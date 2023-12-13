@@ -76,16 +76,16 @@ export default function Team(props) {
                         <>{data.TITLE_NAME}</>
                       </h5>
                       <span>
-                        <i class="fa-solid fa-universal-access"></i>{" "}
+                        <i className="fa-solid fa-universal-access"></i>{" "}
                         {data.DESIGNATION}
                       </span>
                       <br />
                       <span>
                         {" "}
-                        <i class="fa-solid fa-mobile"></i> : {data.MOBILE}
+                        <i className="fa-solid fa-mobile"></i> : {data.MOBILE}
                       </span>{" "}
                       <br />
-                      <span > <i class="fa-solid fa-location-dot"></i>  : {data.WORK_STATION}</span>
+                      <span > <i className="fa-solid fa-location-dot"></i>  : {data.WORK_STATION}</span>
                     </div>
                   </div>
                 </div>

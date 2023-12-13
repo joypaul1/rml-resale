@@ -109,7 +109,7 @@ export const OTPForm = ({
     } else {
       setShowOTPSuccessToast(true);
     }
-  }, [isOTPMatched, optNumber, timeLeft]);
+  }, [isOTPMatched]);
 
   return (
     <form onSubmit={handleOTPSubmit} className="mt-2">

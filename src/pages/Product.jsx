@@ -278,7 +278,7 @@ const Product = () => {
                 ></i>{" "}
                 Total Bid : {carData.TOTAL_BID}
               </p>
-              
+
               <div className="car-single-form">
                 {carData.AUCTION_PENDING >= "0" ? (
                   <form onSubmit={bidSubmit}>
@@ -422,7 +422,10 @@ const Product = () => {
                     </li>
                     <li>
                       <i className="far fa-check-circle"></i> Depo Location :{" "}
-                      {carData.DEPO_LOCATION}
+                      {carData.DEPO_LOCATION &&
+                      typeof carData.DEPO_LOCATION === "string"
+                        ? carData.DEPO_LOCATION.split(":")[0]
+                        : " "}
                     </li>
                   </ul>
                 </div>
@@ -440,7 +443,6 @@ const Product = () => {
                       <i className="far fa-check-circle"></i> Chasis No.:{" "}
                       {carData.REG_PAPER}
                     </li>
-                    
                   </ul>
                 </div>
                 <div className="col-lg-4">

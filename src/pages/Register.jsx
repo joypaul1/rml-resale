@@ -20,9 +20,7 @@ const Register = () => {
   const [otpCode, setOtpCode] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false); // State for form submission
   const [isHandleRegSubmit, setIsHandleRegSubmit] = useState(false); // State for form submission
-  useEffect(() => {
-    console.log("render object registration");
-  }, []);
+  useEffect(() => {}, []);
   // Toast notification functions
   const notifySuccess = (msg) => {
     toast.success(msg);
@@ -71,7 +69,6 @@ const Register = () => {
     try {
       const data = await sendOtpRequest();
       if (data.status === "true") {
-        // console.log(data.otp_code);
         notifySuccess("OTP sent successfully.");
         setOtpCode(data.otp_code);
         setUserName(data.customer_name);
@@ -105,7 +102,7 @@ const Register = () => {
       return response.data;
     } catch (error) {
       console.error("Error sending OTP request:", error);
-      throw error;
+      // throw error;O
     }
   };
   const changeNumber = () => {
@@ -182,7 +179,6 @@ const Register = () => {
                 alt="logo"
               />
             </div>
-            {/* Rendering components based on steps */}
             {step1 && (
               <RegistrationMobileNumber
                 mobileNumber={mobileNumber}

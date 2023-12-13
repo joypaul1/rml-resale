@@ -43,7 +43,7 @@ const RegistrationMobileNumber = ({
       <div className="d-flex align-items-center">
         <button
           type="submit"
-          disabled={!isMobileNumberValid() && isSubmitting}
+          disabled={!isMobileNumberValid()}
           className="theme-btn"
           style={{
             backgroundColor: !isMobileNumberValid()
