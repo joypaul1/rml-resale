@@ -253,31 +253,102 @@ const Product = () => {
                   />
                 </ul>
               </div>
+              <hr></hr>
+              <span className="px-2">
+                <p>
+                  <i
+                    className="fa-solid fa-money-bill-1"
+                    style={{ color: "#EF1D26" }}
+                  ></i>{" "}
+                  Cash Min Bid :{" "}
+                  <NumericFormat
+                    value={carData.DISPLAY_PRICE}
+                    displayType={"text"}
+                    thousandSeparator=","
+                    allowLeadingZeros
+                    // decimalScale={2}
+                    fixedDecimalScale={true}
+                    prefix={"TK "}
+                  />
+                </p>
+                <p>
+                  <i
+                    className="fa-solid fa-money-bill-1"
+                    style={{ color: "#EF1D26" }}
+                  ></i>{" "}
+                  Credit Min Bid :{" "}
+                  <NumericFormat
+                    value={carData.DISPLAY_PRICE}
+                    displayType={"text"}
+                    thousandSeparator=","
+                    allowLeadingZeros
+                    // decimalScale={2}
+                    fixedDecimalScale={true}
+                    prefix={"TK "}
+                  />
+                </p>
+                <p>
+                  <i
+                    class="fa-brands fa-contao"
+                    style={{ color: "rgb(239, 29, 38)" }}
+                  ></i>{" "}
+                  Total Bid : {carData.TOTAL_BID}
+                </p>
+              </span>
             </div>
             <div className="car-single-widget text-black mt-2">
-              <p>
-                <i
-                  className="fa-solid fa-money-bill-1"
-                  style={{ color: "#EF1D26" }}
-                ></i>{" "}
-                Min Bid :{" "}
-                <NumericFormat
-                  value={carData.DISPLAY_PRICE}
-                  displayType={"text"}
-                  thousandSeparator=","
-                  allowLeadingZeros
-                  // decimalScale={2}
-                  fixedDecimalScale={true}
-                  prefix={"TK "}
-                />
+              <p className="d-flex justify-content-center border-bottom">
+                <i className="fas fa-gavel" style={{ color: "#EF1D26" }}></i>{" "}
+                Bid For
               </p>
-              <p>
+              <span className="d-flex justify-content-center">
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    id="inlineCheckbox1"
+                    value="cash"
+                    name="bid_for"
+                    checked
+                  />
+                  <label class="form-check-label" for="inlineCheckbox1">
+                    Cash
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    id="inlineCheckbox2"
+                    value="credit"
+                    name="bid_for"
+                  />
+                  <label class="form-check-label" for="inlineCheckbox2">
+                    Credit
+                  </label>
+                </div>
+              </span>
+              <span className="d-flex justify-content-center border-bottom mb-2">
+                Reference By
                 <i
-                  className="fa-brands fa-contao"
-                  style={{ color: "#EF1D26" }}
+                  className="fa-brands fa-searchengin"
+                  style={{
+                    color: "#EF1D26",
+                    marginTop: "3%",
+                    fontSize: "20px",
+                  }}
                 ></i>{" "}
-                Total Bid : {carData.TOTAL_BID}
-              </p>
+              </span>
+              <span className="d-flex justify-content-center mb-2">
+                <select
+                  className="form-select"
+                  aria-label="Default select example"
+                >
+                  <option selected value="my_self">Myself </option>
+                  <option value="sale_concern">Sale Concern</option>
+                  <option value="facebook">Facebook</option>
+                </select>
+              </span>
 
               <div className="car-single-form">
                 {carData.AUCTION_PENDING >= "0" ? (
