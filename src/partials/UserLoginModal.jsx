@@ -86,7 +86,7 @@ const UserLoginModal = ({previousLink}) => {
         animation={true}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Login</Modal.Title>
+          <Modal.Title >Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div>
@@ -163,7 +163,7 @@ const UserLoginModal = ({previousLink}) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="danger" onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>
