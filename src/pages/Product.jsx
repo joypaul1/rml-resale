@@ -20,9 +20,10 @@ const Product = () => {
   const [bidAmount, setBidAmount] = useState("");
   const [refSaleConcern, setRefSaleConcern] = useState(false);
   const [concernList, setConcernList] = useState([]);
-  const [selectedConcern, setSelectedConcern] = useState([]);
+  const [selectedConcern, setSelectedConcern] = useState("");
   const [minBidAmount, setMinBidAmount] = useState(0);
   const [selectedBidType, setSelectedBidType] = useState("cash");
+  const [selectedReferenceType, setSelectedReferenceType] = useState("my_self");
 
   const handleBidAmount = (event) => {
     setBidAmount(event.target.value);
@@ -63,17 +64,21 @@ const Product = () => {
   }, [product_id]);
 
   const bidSubmit = async (e) => {
+    console.log(minBidAmount);
+    // return false;
+
     e.preventDefault();
     if (parseFloat(bidAmount) >= parseFloat(minBidAmount)) {
       try {
-        const response = await axios.post(
-          "http://202.40.181.98:9090/resale/web_api/version_1_0_1/bid_entry.php",
-          {
-            user_id: userlogData.ID,
-            product_id: product_id,
-            bid_amount: bidAmount,
-            sis_id: "1",
-          },
+        const response = await axios.get(
+          "https://api.rangsmotors.com?file_name=bid_entry" +
+            `&u_id=${userlogData.ID}` +
+            `&p_id=${product_id}` +
+            `&bid_amount=${bidAmount}` +
+            `&bid_type=${selectedBidType}` +
+            `&bidf_type=${selectedReferenceType}` +
+            `&bid_rs_team_id=${selectedConcern}` +
+            `&sis_id=1`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -86,6 +91,10 @@ const Product = () => {
         if (data.status === "true") {
           notifySuccess("Bid Submit successfully.");
           setBidAmount("");
+          setSelectedConcern("");
+          setSelectedBidType("cash");
+          setSelectedReferenceType("my_self");
+          setRefSaleConcern(false);
         } else {
           notifyError(data.message);
         }
@@ -128,6 +137,8 @@ const Product = () => {
     });
   });
   const handleReferenceByChange = async (e) => {
+    setSelectedConcern("");
+    setSelectedReferenceType(e.target.value);
     if (e.target.value === "sale_concern") {
       setRefSaleConcern(true);
       try {
@@ -141,10 +152,12 @@ const Product = () => {
         );
         const data = response.data;
         if (data.status === "true") {
-          const transformedData = data.data.map(({ RML_ID, TITLE_NAME }) => ({
-            value: RML_ID,
-            label: `${TITLE_NAME} [${RML_ID}]`,
-          }));
+          const transformedData = data.data.map(
+            ({ RML_ID, TITLE_NAME, ID }) => ({
+              value: ID,
+              label: `${TITLE_NAME} [${RML_ID}]`,
+            })
+          );
           setConcernList(transformedData);
         } else {
           console.error("API response status is not true:", data);
@@ -162,8 +175,13 @@ const Product = () => {
 
   const handleBidTypeChange = (e) => {
     setSelectedBidType(e.target.value);
-  };
 
+    if (e.target.value === "cash") {
+      setMinBidAmount(carData.CASH_PRICE);
+    } else {
+      setMinBidAmount(carData.CREDIT_PRICE);
+    }
+  };
 
   return (
     <div className="shop-item-single bg pt-20">
@@ -352,9 +370,11 @@ const Product = () => {
                     id="inlineCheckbox1"
                     value="cash"
                     name="bid_for"
-                    checked
+                    // defaultChecked
+                    onChange={handleBidTypeChange}
+                    checked={selectedBidType === "cash"}
                   />
-                  <label className="form-check-label" for="inlineCheckbox1">
+                  <label className="form-check-label" htmlFor="inlineCheckbox1">
                     Cash
                   </label>
                 </div>
@@ -365,8 +385,10 @@ const Product = () => {
                     id="inlineCheckbox2"
                     value="credit"
                     name="bid_for"
+                    onChange={handleBidTypeChange}
+                    checked={selectedBidType === "credit"}
                   />
-                  <label className="form-check-label" for="inlineCheckbox2">
+                  <label className="form-check-label" htmlFor="inlineCheckbox2">
                     Credit
                   </label>
                 </div>
@@ -386,10 +408,9 @@ const Product = () => {
                 <select
                   className="form-select"
                   onChange={handleReferenceByChange}
+                  value={selectedReferenceType}
                 >
-                  <option selected value="my_self">
-                    Myself
-                  </option>
+                  <option value="my_self">Myself</option>
                   <option value="sale_concern">Sale Concern</option>
                   <option value="facebook">Facebook</option>
                 </select>
