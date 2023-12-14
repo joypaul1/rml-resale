@@ -32,9 +32,8 @@ function Dashboard(props) {
             },
           }
         );
-        
 
-        const res = await response.json();
+        const res = response.data;
         if (res.status === "true") {
           setUserProfile(res.user_information);
           setBiddingList(res.bid_information);
@@ -47,7 +46,7 @@ function Dashboard(props) {
     };
 
     fetchCommonData();
-  },[]);
+  }, []);
 
   return (
     <div className="user-profile py-50">
@@ -149,7 +148,7 @@ function Dashboard(props) {
                             <th>SL.</th>
                             <th>Vehicle Info</th>
                             <th>Bidding Amount</th>
-                            <th>Bidding Info</th>
+                            {/* <th>Bidding Info</th> */}
                             <th>Bidding Date</th>
                             <th>Bidding Status</th>
                           </tr>
@@ -181,9 +180,20 @@ function Dashboard(props) {
                                           Category: {biddingItem.CATEGORY}
                                         </span>{" "}
                                         <br />
-                                        Price:{" "}
+                                        CASH Price:{" "}
                                         <NumericFormat
-                                          value={biddingItem.DISPLAY_PRICE}
+                                          value={biddingItem.CASH_PRICE}
+                                          displayType={"text"}
+                                          thousandSeparator=","
+                                          allowLeadingZeros
+                                          decimalScale={2}
+                                          fixedDecimalScale={true}
+                                          prefix={"TK "}
+                                        />
+                                        <br />
+                                        CREDIT Price:{" "}
+                                        <NumericFormat
+                                          value={biddingItem.CREDIT_PRICE}
                                           displayType={"text"}
                                           thousandSeparator=","
                                           allowLeadingZeros
@@ -206,11 +216,14 @@ function Dashboard(props) {
                                     fixedDecimalScale={true}
                                     prefix={"TK "}
                                   />
+                                  <br />
+                                  <small>
+                                    {" "}
+                                    BID FOR{""}: {biddingItem.BID_PRICE_TYPE}
+                                  </small> <br />
+                                  
                                 </td>
-                                <td>
-                                  <strong> BID FOR{''}: {biddingItem.BID_PRICE_TYPE}</strong>
-                                  <strong> BID REF.: {biddingItem.REFERENCE_TYPE}</strong>
-                                </td>
+                                
                                 <td>{biddingItem.BID_ENTRY_DATE}</td>
                                 <td className="text-center">
                                   {biddingItem.AUCTION_PENDING_DAY >= "0" ? (

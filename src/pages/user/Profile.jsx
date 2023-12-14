@@ -100,7 +100,7 @@ function Profile(props) {
         );
         
 
-        const res = await response.json();
+        const res = await response.data;
         if (res.status === "true") {
           const transDisdData = res.district_list.map(({ NAME_ENG, ID }) => ({
             value: ID,
@@ -137,7 +137,7 @@ function Profile(props) {
         }
       );
       
-      const res = await response.json();
+      const res = await response.data;
 
       if (res.status === "true") {
         const transDisdData = res.data.map(({ NAME_ENG, ID }) => ({

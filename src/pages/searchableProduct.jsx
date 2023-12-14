@@ -63,7 +63,7 @@ function SearchableProduct(props) {
                         type="radio"
                         id="brand1"
                       />
-                      <label className="form-check-label" for="brand1">
+                      <label className="form-check-label" htmlFor="brand1">
                         Eicher{" "}
                       </label>
                     </div>
@@ -79,7 +79,7 @@ function SearchableProduct(props) {
                         type="radio"
                         id="brand2"
                       />
-                      <label className="form-check-label" for="brand2">
+                      <label className="form-check-label" htmlFor="brand2">
                         {" "}
                         Mahindra
                       </label>
@@ -96,7 +96,7 @@ function SearchableProduct(props) {
                         type="radio"
                         id="brand3"
                       />
-                      <label className="form-check-label" for="brand3">
+                      <label className="form-check-label" htmlFor="brand3">
                         {" "}
                         DongFeng
                       </label>
