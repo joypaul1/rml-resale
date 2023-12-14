@@ -163,7 +163,7 @@ function CarArea(props) {
                         to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}
                         className="theme-btn"
                       >
-                        <span className="far fa-eye"></span>Details
+                        <span className="far fa-eye fa-beat"></span>Details
                       </Link>
                     </span>
                   </div>
@@ -173,11 +173,7 @@ function CarArea(props) {
           })}
           {/* Repeat this block for each car item */}
         </div>
-        {/* <div className="text-center mt-4">
-          <Link to="#" className="theme-btn">
-            View More <i className="far fa-arrow-rotate-right"></i>
-          </Link>
-        </div> */}
+      
       </div>
     </div>
   );

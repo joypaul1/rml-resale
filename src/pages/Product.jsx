@@ -698,26 +698,44 @@ const Product = () => {
                             {relatedcar.REG_NO}
                           </li>
                         </ul>
-                        <div className="car-footer">
-                          <span className="car-price">
-                            <NumericFormat
-                              value={relatedcar.DISPLAY_PRICE}
-                              displayType={"text"}
-                              thousandSeparator=","
-                              allowLeadingZeros
-                              decimalScale={2}
-                              fixedDecimalScale={true}
-                              prefix={"TK "}
-                            />
-                          </span>
-                          {/* <Link to="/product/" className="theme-btn"> */}
-                          <Link
-                            to={`/product/${relatedcar.ID}`}
-                            className="theme-btn"
-                          >
-                            <span className="far fa-eye"></span>Details
-                          </Link>
-                        </div>
+                        <div className="car-footer flex-column">
+                      <span>
+                        <strong>Cash Price : </strong>
+                        <span className="car-price">
+                          <NumericFormat
+                            value={relatedcar.CASH_PRICE}
+                            displayType={"text"}
+                            thousandSeparator=","
+                            allowLeadingZeros
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            suffix={"TK "}
+                          />
+                        </span>
+                      </span>
+                      <span>
+                        <strong>Credit Price : </strong>
+                        <span className="car-price">
+                          <NumericFormat
+                            value={relatedcar.CREDIT_PRICE}
+                            displayType={"text"}
+                            thousandSeparator=","
+                            allowLeadingZeros
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            suffix={"TK "}
+                          />
+                        </span>
+                      </span>
+                    </div>
+                    <span className="d-flex align-items-center justify-content-center mt-2">
+                      <Link
+                        to={`/product/${relatedcar.ID}/${userlogData?.ID || 0}`}
+                        className="theme-btn"
+                      >
+                        <span className="far fa-eye fa-beat"></span>Details
+                      </Link>
+                    </span>
                       </div>
                     </div>
                   </div>
