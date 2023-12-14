@@ -6,7 +6,7 @@ import ImgSrc from "../components/ImgSrc";
 
 function RelatedCarArea(props) {
   const [carList, setCarList] = useState([]);
-  
+
   useEffect(() => {
     const fetchCarData = async () => {
       try {
@@ -18,7 +18,7 @@ function RelatedCarArea(props) {
             },
           }
         );
-  
+
         const data = response.data;
         if (data.status === "true") {
           setCarList(data.data);
@@ -29,10 +29,10 @@ function RelatedCarArea(props) {
         console.error("Error fetching car data:", error);
       }
     };
-  
+
     fetchCarData();
   }, [props.brand_id]);
-  
+
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
   return (
     <div className="car-area bgs pb-10">
@@ -99,26 +99,44 @@ function RelatedCarArea(props) {
                         {carItem.REG_NO}
                       </li>
                     </ul>
-                    <div className="car-footer">
-                      <span className="car-price">
-                        <NumericFormat
-                          value={carItem.DISPLAY_PRICE}
-                          displayType={"text"}
-                          thousandSeparator=","
-                          allowLeadingZeros
-                          decimalScale={2}
-                          fixedDecimalScale={true}
-                          prefix={"TK "}
-                        />
+                    <div className="car-footer flex-column">
+                      <span>
+                        <strong>Cash Price : </strong>
+                        <span className="car-price">
+                          <NumericFormat
+                            value={carItem.CASH_PRICE}
+                            displayType={"text"}
+                            thousandSeparator=","
+                            allowLeadingZeros
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            suffix={"TK "}
+                          />
+                        </span>
                       </span>
-
+                      <span>
+                        <strong>Credit Price : </strong>
+                        <span className="car-price">
+                          <NumericFormat
+                            value={carItem.CREDIT_PRICE}
+                            displayType={"text"}
+                            thousandSeparator=","
+                            allowLeadingZeros
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            suffix={"TK "}
+                          />
+                        </span>
+                      </span>
+                    </div>
+                    <span className="d-flex align-items-center justify-content-center mt-2">
                       <Link
                         to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}
                         className="theme-btn"
                       >
-                        <span className="far fa-eye"></span>Details
+                        <span className="far fa-eye fa-beat"></span>Details
                       </Link>
-                    </div>
+                    </span>
                   </div>
                 </div>
               </div>

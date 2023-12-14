@@ -1,15 +1,15 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
 import { Link, useParams } from "react-router-dom";
 import ImgSrc from "../components/ImgSrc";
 import RelatedCarArea from "../partials/RelatedCarArea";
-import axios from "axios";
 
 function SearchableProduct(props) {
   const { selectedModel, selectedBrandId } = useParams();
   const [carList, setCarList] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
-  
+
   const handleBrandChange = (event) => {
     const brandId = event.target.value;
     setSelectedBrand(brandId);
@@ -26,7 +26,7 @@ function SearchableProduct(props) {
             },
           }
         );
-        
+
         const data = await response.json();
         if (data.status === "true") {
           setCarList(data.data);
@@ -187,28 +187,47 @@ function SearchableProduct(props) {
                                 {carItem.REG_NO}
                               </li>
                             </ul>
-                            <div className="car-footer">
-                              <span className="car-price">
-                                <NumericFormat
-                                  value={carItem.DISPLAY_PRICE}
-                                  displayType={"text"}
-                                  thousandSeparator=","
-                                  allowLeadingZeros
-                                  decimalScale={2}
-                                  fixedDecimalScale={true}
-                                  prefix={"TK "}
-                                />
+                            <div className="car-footer flex-column">
+                              <span>
+                                <strong>Cash Price : </strong>
+                                <span className="car-price">
+                                  <NumericFormat
+                                    value={carItem.CASH_PRICE}
+                                    displayType={"text"}
+                                    thousandSeparator=","
+                                    allowLeadingZeros
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}
+                                    suffix={"TK "}
+                                  />
+                                </span>
                               </span>
-
+                              <span>
+                                <strong>Credit Price : </strong>
+                                <span className="car-price">
+                                  <NumericFormat
+                                    value={carItem.CREDIT_PRICE}
+                                    displayType={"text"}
+                                    thousandSeparator=","
+                                    allowLeadingZeros
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}
+                                    suffix={"TK "}
+                                  />
+                                </span>
+                              </span>
+                            </div>
+                            <span className="d-flex align-items-center justify-content-center mt-2">
                               <Link
                                 to={`/product/${carItem.ID}/${
                                   userlogData?.ID || 0
                                 }`}
                                 className="theme-btn"
                               >
-                                <span className="far fa-eye"></span>Details
+                                <span className="far fa-eye fa-beat"></span>
+                                Details
                               </Link>
-                            </div>
+                            </span>
                           </div>
                         </div>
                       </div>
