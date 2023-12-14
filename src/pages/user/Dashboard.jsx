@@ -149,6 +149,7 @@ function Dashboard(props) {
                             <th>SL.</th>
                             <th>Vehicle Info</th>
                             <th>Bidding Amount</th>
+                            <th>Bidding Info</th>
                             <th>Bidding Date</th>
                             <th>Bidding Status</th>
                           </tr>
@@ -206,7 +207,10 @@ function Dashboard(props) {
                                     prefix={"TK "}
                                   />
                                 </td>
-
+                                <td>
+                                  <strong> BID FOR{''}: {biddingItem.BID_PRICE_TYPE}</strong>
+                                  <strong> BID REF.: {biddingItem.REFERENCE_TYPE}</strong>
+                                </td>
                                 <td>{biddingItem.BID_ENTRY_DATE}</td>
                                 <td className="text-center">
                                   {biddingItem.AUCTION_PENDING_DAY >= "0" ? (
