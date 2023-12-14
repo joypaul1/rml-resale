@@ -12,7 +12,7 @@ function CarArea(props) {
         // Delay the API call by 2 seconds
         const delayedFetch = () => {
           return new Promise((resolve) => {
-            setTimeout(resolve, 2000);
+            setTimeout(resolve, 1000);
           });
         };
 

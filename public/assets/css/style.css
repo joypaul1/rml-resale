@@ -5486,7 +5486,7 @@ body.rtl-mode .price-wrapper {
 ======================*/
 
 .login-form {
-  padding: 40px;
+  padding: 5%;
   background: var(--color-white);
   border-radius: 10px;
   box-shadow: var(--box-shadow);

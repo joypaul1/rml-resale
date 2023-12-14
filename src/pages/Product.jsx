@@ -11,6 +11,7 @@ import CountdownTimer from "../components/CountdownTimer";
 import DateFormatter from "../components/DateFormatter";
 import ImgSrc from "../components/ImgSrc";
 import Select2Dp from "../components/Select2Dp";
+import UserLoginModal from "../partials/UserLoginModal";
 
 const Product = () => {
   const { product_id } = useParams();
@@ -37,6 +38,7 @@ const Product = () => {
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
   useEffect(() => {
+    // console.log( window.location.pathname);
     const fetchCarData = async () => {
       try {
         const response = await axios.get(
@@ -454,10 +456,12 @@ const Product = () => {
                           <i className="fas fa-arrow-right-long"></i>
                         </button>
                       ) : (
-                        <Link to="/login" style={{ color: "#EF1D26" }}>
-                          <strong>[Please Login First]</strong>{" "}
-                        </Link>
+                        <UserLoginModal previousLink={window.location.pathname} />
+                        
                       )}
+                      {/* <Link to="/login" style={{ color: "#EF1D26" }}>
+                          <strong>[Please Login First]</strong>{" "}
+                        </Link> */}
                     </div>
                   </form>
                 ) : (
