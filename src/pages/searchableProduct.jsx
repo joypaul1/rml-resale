@@ -6,36 +6,39 @@ import ImgSrc from "../components/ImgSrc";
 import RelatedCarArea from "../partials/RelatedCarArea";
 
 function SearchableProduct(props) {
-  const { selectedModel, selectedBrandId, selectedCategory } = useParams();
+  const { selectedModel: initialSelectedModel, selectedBrandId, selectedCategory } = useParams();
+  const [selectedModel, setSelectedModel] = useState(initialSelectedModel || "");
   const [carList, setCarList] = useState([]);
   const [modelList, setModelList] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
-  const [selectedFTModel, setSelectedFTModel] = useState(selectedModel);
-
+  
+  console.log(selectedModel, 'selectedModel_1');
   const handleBrandChange = (event) => {
-    const brandId = event.target.value;
-    setSelectedBrand(brandId);
+    setSelectedBrand(event.target.value);
   };
-  const handleModelChange = (event) => {
-    setSelectedFTModel(event.target.value);
+
+   const handleModelChange = (event) => {
+    setSelectedModel(event.target.value);
+    console.log(selectedModel, 'selectedModel_2');
   };
 
   useEffect(() => {
+
     const fetchCarData = async () => {
       try {
-        const response = await axios.get(
-          `https://api.rangsmotors.com?file_name=search_list&md_name=${selectedFTModel}&brand_id=${selectedBrand}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        
+        const encodedModel = encodeURIComponent(selectedModel);
+        const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&brand_id=${selectedBrand}`;
 
-        const data = await response.data;
+        const response = await axios.get(url, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = response.data;
         if (data.status === "true") {
           setCarList(data.data);
-          // console.log(carList.length);
         } else {
           console.error("API response status is not true:", data);
         }
@@ -43,11 +46,9 @@ function SearchableProduct(props) {
         console.error("Error fetching car data:", error);
       }
     };
+
     const fetchModelData = async () => {
       try {
-        // Simulate a 2-second delay before making the API call
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-
         const response = await axios.get(
           `https://api.rangsmotors.com?file_name=model_list&cat_name=${selectedCategory}`,
           {
@@ -68,10 +69,9 @@ function SearchableProduct(props) {
       }
     };
 
-    fetchModelData();
-
     fetchCarData();
-  }, [selectedFTModel, selectedBrand, selectedCategory]);
+    fetchModelData();
+  }, [ selectedBrand, selectedCategory, selectedModel]);
 
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
@@ -91,7 +91,7 @@ function SearchableProduct(props) {
                           <input
                             name="model"
                             value={modelData.NAME}
-                            checked={selectedFTModel === modelData.NAME}
+                            checked={selectedModel === modelData.NAME}
                             onChange={handleModelChange}
                             className="form-check-input"
                             type="radio"
