@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 
 import HeaderManuList from "../components/CategortyList";
 import Sidebar from "./Sidebar";
+import UserLoginModal from "./UserLoginModal";
 export default function Header() {
   // const router = useLocation();
   const navigate = useNavigate();
@@ -243,9 +244,12 @@ export default function Header() {
                 <div className="nav-right">
                   {!userlogData && (
                     <div className="nav-right-btn mt-2">
-                      <Link to="/login" className="theme-btn">
-                        <span className="far fa-user-vneck"></span> Login
-                      </Link>
+                    <UserLoginModal
+                          previousLink={window.location.pathname}
+                        />
+                      {/* <Link to="/login" className="theme-btn">
+                        <span className="far fa-user-vneck"></span> Loginaa
+                      </Link> */}
                     </div>
                   )}
                   {userlogData && (

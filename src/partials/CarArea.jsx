@@ -9,14 +9,14 @@ function CarArea(props) {
   useEffect(() => {
     const fetchCarData = async () => {
       try {
-        // Delay the API call by 2 seconds
-        const delayedFetch = () => {
-          return new Promise((resolve) => {
-            setTimeout(resolve, 1000);
-          });
-        };
+        // const delayedFetch = () => {
+        //   return new Promise((resolve) => {
+        //     setTimeout(resolve, 1000);
+        //   });
+        // };
 
-        await delayedFetch(); // Wait for 2 seconds
+        // await delayedFetch();
+         // Wait for 2 seconds
 
         const response = await axios.get(
           "https://api.rangsmotors.com?file_name=product_list",

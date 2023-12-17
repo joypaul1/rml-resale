@@ -27,9 +27,10 @@ function SearchableProduct(props) {
           }
         );
 
-        const data = await response.json();
+        const data = await response.data;
         if (data.status === "true") {
           setCarList(data.data);
+          // console.log(carList.length);
         } else {
           console.error("API response status is not true:", data);
         }
@@ -142,7 +143,7 @@ function SearchableProduct(props) {
 
                   return (
                     <>
-                      <div key={index} className="col-md-6 col-lg-4">
+                      <div key={index} className="col-md-4 col-lg-4">
                         <div
                           className={`car-item  ${
                             props.scrollDirection === "down"
@@ -231,9 +232,7 @@ function SearchableProduct(props) {
                           </div>
                         </div>
                       </div>
-                      <div className="site-heading">
-                        <h2 className="site-title">Brand Wise Items</h2>
-                      </div>
+                      
                     </>
                   );
                 })

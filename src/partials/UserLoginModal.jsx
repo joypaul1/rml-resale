@@ -4,7 +4,7 @@ import { Button, Modal } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const UserLoginModal = ({previousLink}) => {
+const UserLoginModal = ({ previousLink }) => {
   const [show, setShow] = useState(false);
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +42,7 @@ const UserLoginModal = ({previousLink}) => {
         localStorage.setItem("lg_us_data", JSON.stringify(data.user_data));
         setShow(false);
         setTimeout(() => {
-          navigate(previousLink)
+          navigate(previousLink);
         }, 1000);
       } else if (data.status === "false") {
         notifyError(data.message);
@@ -74,8 +74,8 @@ const UserLoginModal = ({previousLink}) => {
 
   return (
     <>
-      <button type="button" class="theme-btn" onClick={handleShow}>
-      <span class="far fa-user-vneck"></span>  Login First
+      <button type="button" className="theme-btn" onClick={handleShow}>
+        <span className="far fa-sign-in"></span> Login 
       </button>
 
       <Modal
@@ -85,14 +85,26 @@ const UserLoginModal = ({previousLink}) => {
         onHide={handleClose}
         animation={true}
       >
-        <Modal.Header closeButton>
-          <Modal.Title >Login</Modal.Title>
-        </Modal.Header>
+        {/* <Modal.Header closeButton>
+       
+          <Modal.Title className="mx-auto">
+            
+          </Modal.Title>
+        </Modal.Header> */}
         <Modal.Body>
           <div>
             <div className="row">
-              <div className="col-12 mx-auto">
-                <div className="login-form">
+              <div className="col-12">
+                <div className="login-form ">
+                  <span className="d-block text-center">
+                    <img
+                      src={window.location.origin + "/assets/img/logo/logo.png"}
+                      alt="logo"
+                      width={"130px"}
+                      height={"100px"}
+                    />
+                  </span>
+
                   <form>
                     <div className="form-group">
                       <label>Mobile</label>
@@ -163,7 +175,7 @@ const UserLoginModal = ({previousLink}) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleClose}>
+          <Button variant="danger" className="theme-btn" onClick={handleClose}>
             Close
           </Button>
         </Modal.Footer>

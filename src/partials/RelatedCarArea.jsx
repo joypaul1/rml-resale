@@ -38,6 +38,9 @@ function RelatedCarArea(props) {
     <div className="car-area bgs pb-10">
       <div className="containers">
         <div className="row">
+          <div className="site-heading">
+            <h2 className="site-title">Brand Wise Items</h2>
+          </div>
           {/* Repeat the following block for each car item */}
           {carList.map((carItem, index) => {
             let currentStatus;

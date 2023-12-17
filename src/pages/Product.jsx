@@ -456,12 +456,10 @@ const Product = () => {
                           <i className="fas fa-arrow-right-long"></i>
                         </button>
                       ) : (
-                        <UserLoginModal previousLink={window.location.pathname} />
-                        
+                        <UserLoginModal
+                          previousLink={window.location.pathname}
+                        />
                       )}
-                      {/* <Link to="/login" style={{ color: "#EF1D26" }}>
-                          <strong>[Please Login First]</strong>{" "}
-                        </Link> */}
                     </div>
                   </form>
                 ) : (
@@ -703,43 +701,45 @@ const Product = () => {
                           </li>
                         </ul>
                         <div className="car-footer flex-column">
-                      <span>
-                        <strong>Cash Price : </strong>
-                        <span className="car-price">
-                          <NumericFormat
-                            value={relatedcar.CASH_PRICE}
-                            displayType={"text"}
-                            thousandSeparator=","
-                            allowLeadingZeros
-                            decimalScale={2}
-                            fixedDecimalScale={true}
-                            suffix={"TK "}
-                          />
+                          <span>
+                            <strong>Cash Price : </strong>
+                            <span className="car-price">
+                              <NumericFormat
+                                value={relatedcar.CASH_PRICE}
+                                displayType={"text"}
+                                thousandSeparator=","
+                                allowLeadingZeros
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                suffix={"TK "}
+                              />
+                            </span>
+                          </span>
+                          <span>
+                            <strong>Credit Price : </strong>
+                            <span className="car-price">
+                              <NumericFormat
+                                value={relatedcar.CREDIT_PRICE}
+                                displayType={"text"}
+                                thousandSeparator=","
+                                allowLeadingZeros
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                suffix={"TK "}
+                              />
+                            </span>
+                          </span>
+                        </div>
+                        <span className="d-flex align-items-center justify-content-center mt-2">
+                          <Link
+                            to={`/product/${relatedcar.ID}/${
+                              userlogData?.ID || 0
+                            }`}
+                            className="theme-btn"
+                          >
+                            <span className="far fa-eye fa-beat"></span>Details
+                          </Link>
                         </span>
-                      </span>
-                      <span>
-                        <strong>Credit Price : </strong>
-                        <span className="car-price">
-                          <NumericFormat
-                            value={relatedcar.CREDIT_PRICE}
-                            displayType={"text"}
-                            thousandSeparator=","
-                            allowLeadingZeros
-                            decimalScale={2}
-                            fixedDecimalScale={true}
-                            suffix={"TK "}
-                          />
-                        </span>
-                      </span>
-                    </div>
-                    <span className="d-flex align-items-center justify-content-center mt-2">
-                      <Link
-                        to={`/product/${relatedcar.ID}/${userlogData?.ID || 0}`}
-                        className="theme-btn"
-                      >
-                        <span className="far fa-eye fa-beat"></span>Details
-                      </Link>
-                    </span>
                       </div>
                     </div>
                   </div>
