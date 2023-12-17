@@ -39,7 +39,6 @@ export default function Team(props) {
 
     fetchCarData();
   }, []);
-  console.log("objects fetched", teamList);
   return (
     <div className="team-area pt-120">
       <div className="container">

@@ -66,7 +66,6 @@ const Product = () => {
   }, [product_id]);
 
   const bidSubmit = async (e) => {
-    console.log(minBidAmount);
     // return false;
 
     e.preventDefault();

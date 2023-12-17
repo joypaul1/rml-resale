@@ -1,32 +1,31 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ImgSrc from "../components/ImgSrc";
 import RelatedCarArea from "../partials/RelatedCarArea";
 
 function SearchableProduct(props) {
-  const { selectedModel: initialSelectedModel, selectedBrandId, selectedCategory } = useParams();
-  const [selectedModel, setSelectedModel] = useState(initialSelectedModel || "");
+  const { selectedModel, selectedBrandId, selectedCategory } = useParams();
   const [carList, setCarList] = useState([]);
   const [modelList, setModelList] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
+  const navigate = useNavigate();
+
   
-  console.log(selectedModel, 'selectedModel_1');
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
   };
 
-   const handleModelChange = (event) => {
-    setSelectedModel(event.target.value);
-    console.log(selectedModel, 'selectedModel_2');
+  const handleModelChange = (event) => {
+    navigate(
+      `/searchable-product/${event.target.value}/${selectedBrand}/${selectedCategory}`
+    );
   };
 
   useEffect(() => {
-
     const fetchCarData = async () => {
       try {
-        
         const encodedModel = encodeURIComponent(selectedModel);
         const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&brand_id=${selectedBrand}`;
 
@@ -71,7 +70,7 @@ function SearchableProduct(props) {
 
     fetchCarData();
     fetchModelData();
-  }, [ selectedBrand, selectedCategory, selectedModel]);
+  }, [selectedBrand, selectedCategory, selectedModel]);
 
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
