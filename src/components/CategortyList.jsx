@@ -19,7 +19,6 @@ function CategortyList({ brand_id }) {
             },
           }
         );
-
         const data = response.data;
         if (data.status === "true") {
           setCategoryList(data.data);

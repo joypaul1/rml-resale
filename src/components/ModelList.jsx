@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function ModelList({ brand_id, category }) {
   const [modelList, setModelList] = useState([]);
   useEffect(() => {
-    const fetchCarData = async () => {
+    const fetchModelData = async () => {
       try {
         // Simulate a 2-second delay before making the API call
         await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -30,7 +30,7 @@ function ModelList({ brand_id, category }) {
       }
     };
 
-    fetchCarData();
+    fetchModelData();
   }, [category]);
 
   return (
@@ -40,7 +40,7 @@ function ModelList({ brand_id, category }) {
           <li key={index}>
             <Link
               className="dropdown-item"
-              to={`/searchable-product/${modelList.NAME}/${brand_id}`}
+              to={`/searchable-product/${modelList.NAME}/${brand_id}/${category}`}
             >
               {modelList.NAME}
             </Link>

@@ -6,20 +6,25 @@ import ImgSrc from "../components/ImgSrc";
 import RelatedCarArea from "../partials/RelatedCarArea";
 
 function SearchableProduct(props) {
-  const { selectedModel, selectedBrandId } = useParams();
+  const { selectedModel, selectedBrandId, selectedCategory } = useParams();
   const [carList, setCarList] = useState([]);
+  const [modelList, setModelList] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
+  const [selectedFTModel, setSelectedFTModel] = useState(selectedModel);
 
   const handleBrandChange = (event) => {
     const brandId = event.target.value;
     setSelectedBrand(brandId);
+  };
+  const handleModelChange = (event) => {
+    setSelectedFTModel(event.target.value);
   };
 
   useEffect(() => {
     const fetchCarData = async () => {
       try {
         const response = await axios.get(
-          `https://api.rangsmotors.com?file_name=search_list&md_name=${selectedModel}&brand_id=${selectedBrand}`,
+          `https://api.rangsmotors.com?file_name=search_list&md_name=${selectedFTModel}&brand_id=${selectedBrand}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -38,9 +43,35 @@ function SearchableProduct(props) {
         console.error("Error fetching car data:", error);
       }
     };
+    const fetchModelData = async () => {
+      try {
+        // Simulate a 2-second delay before making the API call
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        const response = await axios.get(
+          `https://api.rangsmotors.com?file_name=model_list&cat_name=${selectedCategory}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const data = response.data;
+        if (data.status === "true") {
+          setModelList(data.data);
+        } else {
+          console.error("API response status is not true:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching car model data:", error);
+      }
+    };
+
+    fetchModelData();
 
     fetchCarData();
-  }, [selectedModel, selectedBrand]);
+  }, [selectedFTModel, selectedBrand, selectedCategory]);
 
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
@@ -51,7 +82,35 @@ function SearchableProduct(props) {
           <div className="col-3">
             <div className="car-sidebar">
               <div className="car-widget">
-                <h4 className="car-widget-title">Brands</h4>
+                <h4 className="car-widget-title">{selectedCategory} MODEL </h4>
+                <ul>
+                  {modelList.map((modelData, indexkey) => {
+                    return (
+                      <li key={indexkey}>
+                        <div className="form-check" key={indexkey}>
+                          <input
+                            name="model"
+                            value={modelData.NAME}
+                            checked={selectedFTModel === modelData.NAME}
+                            onChange={handleModelChange}
+                            className="form-check-input"
+                            type="radio"
+                            id={"model_" + indexkey}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor={"model_" + indexkey}
+                          >
+                            {modelData.NAME}
+                          </label>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+              <div className="car-widget">
+                <h4 className="car-widget-title">BRANDS</h4>
                 <ul>
                   <li>
                     <div className="form-check">
@@ -232,7 +291,6 @@ function SearchableProduct(props) {
                           </div>
                         </div>
                       </div>
-                      
                     </>
                   );
                 })

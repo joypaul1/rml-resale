@@ -39,7 +39,7 @@ export default function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/imageUpload" element={<ImageUpload />} />
         <Route
-          path="/searchable-product/:selectedModel/:selectedBrandId"
+          path="/searchable-product/:selectedModel/:selectedBrandId/:selectedCategory"
           element={<SearchableProduct />}
         />
         <Route path="/product/:product_id/:user_id?" element={<Product />} />

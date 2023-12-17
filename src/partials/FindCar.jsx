@@ -87,7 +87,7 @@ function FindCar() {
     event.preventDefault();
     try {
       // Navigate to the desired route
-      navigate("/searchable-product/" + selectedModel+ "/" + selectedBrand);
+      navigate("/searchable-product/" + selectedModel+ "/" + selectedBrand+ "/" + selectedCategory);
     } catch (error) {
       console.error("Error while navigating:", error);
       // Handle any navigation errors or fallback logic

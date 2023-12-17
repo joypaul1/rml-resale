@@ -173,11 +173,11 @@ function CarArea(props) {
           })}
           {/* Repeat this block for each car item */}
 
-          {/* <div className="text-center mt-4">
-            <Link href="#" className="theme-btn">
-              View More <i className="far fa-arrow-rotate-right"></i>{" "}
+          <div className="text-center mt-4">
+            <Link to="/" className="theme-btn">
+              View All <i className="far fa-arrow-rotate-right"></i>{" "}
             </Link>
-          </div> */}
+          </div> 
         </div>
       </div>
     </div>
