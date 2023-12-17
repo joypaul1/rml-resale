@@ -12,7 +12,6 @@ function SearchableProduct(props) {
   const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
   const navigate = useNavigate();
 
-  
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
   };
@@ -106,6 +105,49 @@ function SearchableProduct(props) {
                       </li>
                     );
                   })}
+                </ul>
+              </div>
+              <div className="car-widget">
+                <h4 className="car-widget-title">PRICE RANGE </h4>
+                <ul>
+                  <li>
+                    <div className="form-check">
+                      <input
+                        name="pc_range"
+                        // value={modelData.NAME}
+                        // checked={selectedModel === modelData.NAME}
+                        // onChange={handleModelChange}
+                        className="form-check-input"
+                        type="radio"
+                        id={"pc_lo_hg" }
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor={"pc_lo_hg"}
+                      >
+                        Low to High
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="form-check">
+                      <input
+                        name="pc_range"
+                        // value={modelData.NAME}
+                        // checked={selectedModel === modelData.NAME}
+                        // onChange={handleModelChange}
+                        className="form-check-input"
+                        type="radio"
+                        id={"pc_hg_lo" }
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor={"pc_hg_lo"}
+                      >
+                        Low to High
+                      </label>
+                    </div>
+                  </li>
                 </ul>
               </div>
               <div className="car-widget">
