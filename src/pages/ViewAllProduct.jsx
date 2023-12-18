@@ -1,25 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ImgSrc from "../components/ImgSrc";
 
 function ViewAllProduct(props) {
-  // const { selectedBrandId } = useParams();
   const [carList, setCarList] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [cashOrder, setCashOrder] = useState("");
   const [creditOrder, setCreditOrder] = useState("");
-  const [pageNumber, setPageNumber] = useState(1);
-
-  const navigate = useNavigate();
+  const [pageNumber, setPageNumber] = useState(0);
 
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
   };
-  // const handlePageChange = (event) => {
-  // setPageNumber(event.target.value);
-  // };
+
   const handleCashOrderChange = (event) => {
     setCreditOrder("");
     setCashOrder(event.target.value);
@@ -29,32 +24,33 @@ function ViewAllProduct(props) {
     setCreditOrder(event.target.value);
   };
 
-  useEffect(() => {
-    // console.log(cashOrder, 'cashOrder');
-    // console.log(creditOrder, 'creditOrder');
-    const fetchCarData = async () => {
-      try {
-        const url = `https://api.rangsmotors.com?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
-        const response = await axios.get(url, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        // console.log(response);
-        setCarList([]);
-        const data = response.data;
-        if (data.status === "true") {
-          setCarList(data.data);
-        } else {
-          console.error("API response status is not true:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching car data:", error);
-      }
-    };
+  const fetchCarData = async () => {
+    try {
+      const url = `https://api.rangsmotors.com?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
+      const response = await axios.get(url, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
+      const data = response.data;
+      if (data.status === "true") {
+        setCarList((prevCarList) => [...prevCarList, ...data.data]); // Append new data to existing carList
+      } else {
+        console.error("API response status is not true:", data);
+      }
+    } catch (error) {
+      console.error("Error fetching car data:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchCarData();
-  }, [selectedBrand, cashOrder, creditOrder]);
+  }, [selectedBrand, cashOrder, creditOrder, pageNumber]);
+
+  const loadMore = (event) => {
+    setPageNumber((prevPageNumber) => prevPageNumber + 1);
+  };
 
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
@@ -309,6 +305,11 @@ function ViewAllProduct(props) {
                   </>
                 );
               })}
+              <div className="text-center mt-4">
+                <button onClick={loadMore} className="theme-btn">
+                  Load More <i className="far fa-arrow-down"></i>{" "}
+                </button>
+              </div>
             </div>
           </div>
         </div>
