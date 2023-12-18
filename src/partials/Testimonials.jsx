@@ -14,9 +14,9 @@ function Testimonials() {
             setTimeout(resolve, 4000);
           });
         };
-  
+
         await delayedFetch(); // Wait for 4 seconds
-  
+
         const response = await axios.get(
           "https://api.rangsmotors.com?file_name=client_comments",
           {
@@ -25,7 +25,7 @@ function Testimonials() {
             },
           }
         );
-  
+
         const res = response.data;
         if (res.status === "true") {
           setCommentList(res.data);
@@ -36,11 +36,9 @@ function Testimonials() {
         console.error("Error fetching COMMENT data:", error);
       }
     };
-  
+
     fetchCommentData();
   }, []);
-  
-  
 
   // Owl Carousel Settings
   const options = {
@@ -87,7 +85,15 @@ function Testimonials() {
               <div key={index} className="testimonial-single">
                 <div className="testimonial-content">
                   <div className="testimonial-author-img">
-                    <ImgSrc src={commentItem.PIC_URL} />
+                    {commentItem.PIC_URL ? (
+                      <ImgSrc src={commentItem.PIC_URL} />
+                    ) : (
+                      <img
+                        src="https://cdn1.iconfinder.com/data/icons/avatar-2-2/512/Salesman_1-512.png"
+                        alt="defaultLogo"
+                      />
+                    )}
+                    
                   </div>
                   <div className="testimonial-author-info">
                     <h4>{commentItem.NAME}</h4>
@@ -95,12 +101,9 @@ function Testimonials() {
                   </div>
                 </div>
                 <div className="testimonial-quote">
-                  <span className="testimonial-quote-icon">
-                    <i className="flaticon-quote-hand-drawn-symbol"></i>
-                  </span>
-                  <p dangerouslySetInnerHTML={{ __html: commentItem.COMMENTS }} />
-
-                  
+                  <p
+                    dangerouslySetInnerHTML={{ __html: commentItem.COMMENTS }}
+                  />
                 </div>
                 <div className="testimonial-rate">
                   <i className="fas fa-star"></i>

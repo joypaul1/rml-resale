@@ -17,9 +17,10 @@ function ChooseUs(props) {
                     <div className="choose-item-info">
                       <h3>Best Quality Vehicle</h3>
                       <p>
-                        There are many variations of the passages available but
-                        the majo have suffered fact that reader will be dist
-                        alteration.
+                        Timeless quality, trusted journeys. Explore our
+                        selection of best-quality old vehicles – where
+                        reliability meets nostalgia. Your dream ride awaits.
+                        🚗✨
                       </p>
                     </div>
                   </div>
@@ -31,9 +32,9 @@ function ChooseUs(props) {
                     <div className="choose-item-info">
                       <h3>Popular Brands</h3>
                       <p>
-                        There are many variations of the passages available but
-                        the majo have suffered fact that reader will be dist
-                        alteration.
+                        Discover excellence with the world popular brand Eicher,
+                        Mahindra & dongfeng. Popular brands speak volumes in
+                        performance, reliability, and style. 🚗🌟
                       </p>
                     </div>
                   </div>
@@ -47,9 +48,9 @@ function ChooseUs(props) {
                     <div className="choose-item-info">
                       <h3>Certified Mechanics</h3>
                       <p>
-                        There are many variations of the passages available but
-                        the majo have suffered fact that reader will be dist
-                        alteration.
+                        Peace of mind on the road begins with certified
+                        expertise. Our certified mechanics ensure your vehicle
+                        is in top-notch condition. Drive with confidence! 🛠️
                       </p>
                     </div>
                   </div>
@@ -61,9 +62,8 @@ function ChooseUs(props) {
                     <div className="choose-item-info">
                       <h3>Reasonable Price</h3>
                       <p>
-                        There are many variations of the passages available but
-                        the majo have suffered fact that reader will be dist
-                        alteration.
+                        Unbelievable deals on old vehicles! 🚗💸 Don't miss out
+                        on your perfect ride at a great value !!
                       </p>
                     </div>
                   </div>
@@ -81,10 +81,9 @@ function ChooseUs(props) {
                   We are dedicated <span>to provide</span> quality service
                 </h2>
                 <p className="text-white">
-                  There are many variations of passages available but the
-                  majority have suffered alteration in some form going to use a
-                  passage by injected humour randomised words which don't look
-                  even slightly believable.
+                  Committed to top-tier service in car resale. Our dedication
+                  ensures quality interactions, facilitating smooth transactions
+                  for an exceptional and satisfying selling experience.
                 </p>
               </div>
               <div className={`choose-img`}>
