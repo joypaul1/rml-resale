@@ -1,39 +1,47 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ImgSrc from "../components/ImgSrc";
-import RelatedCarArea from "../partials/RelatedCarArea";
 
 function ViewAllProduct(props) {
-  const { selectedModel, selectedBrandId, selectedCategory } = useParams();
+  // const { selectedBrandId } = useParams();
   const [carList, setCarList] = useState([]);
-  const [modelList, setModelList] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [cashOrder, setCashOrder] = useState("");
+  const [creditOrder, setCreditOrder] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+
   const navigate = useNavigate();
 
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
   };
-
-  const handleModelChange = (event) => {
-    navigate(
-      `/searchable-product/${event.target.value}/${selectedBrand}/${selectedCategory}`
-    );
+  // const handlePageChange = (event) => {
+  // setPageNumber(event.target.value);
+  // };
+  const handleCashOrderChange = (event) => {
+    setCreditOrder("");
+    setCashOrder(event.target.value);
+  };
+  const handleCreditOrderChange = (event) => {
+    setCashOrder("");
+    setCreditOrder(event.target.value);
   };
 
   useEffect(() => {
+    // console.log(cashOrder, 'cashOrder');
+    // console.log(creditOrder, 'creditOrder');
     const fetchCarData = async () => {
       try {
-        const encodedModel = encodeURIComponent(selectedModel);
-        const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&brand_id=${selectedBrand}`;
-
+        const url = `https://api.rangsmotors.com?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
         const response = await axios.get(url, {
           headers: {
             "Content-Type": "application/json",
           },
         });
-
+        // console.log(response);
+        setCarList([]);
         const data = response.data;
         if (data.status === "true") {
           setCarList(data.data);
@@ -45,31 +53,8 @@ function ViewAllProduct(props) {
       }
     };
 
-    const fetchModelData = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.rangsmotors.com?file_name=model_list&cat_name=${selectedCategory}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        const data = response.data;
-        if (data.status === "true") {
-          setModelList(data.data);
-        } else {
-          console.error("API response status is not true:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching car model data:", error);
-      }
-    };
-
     fetchCarData();
-    fetchModelData();
-  }, [selectedBrand, selectedCategory, selectedModel]);
+  }, [selectedBrand, cashOrder, creditOrder]);
 
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
@@ -80,51 +65,20 @@ function ViewAllProduct(props) {
           <div className="col-3">
             <div className="car-sidebar">
               <div className="car-widget">
-                <h4 className="car-widget-title">{selectedCategory} MODEL </h4>
-                <ul>
-                  {modelList.map((modelData, indexkey) => {
-                    return (
-                      <li key={indexkey}>
-                        <div className="form-check" key={indexkey}>
-                          <input
-                            name="model"
-                            value={modelData.NAME}
-                            checked={selectedModel === modelData.NAME}
-                            onChange={handleModelChange}
-                            className="form-check-input"
-                            type="radio"
-                            id={"model_" + indexkey}
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor={"model_" + indexkey}
-                          >
-                            {modelData.NAME}
-                          </label>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div className="car-widget">
-                <h4 className="car-widget-title">PRICE RANGE </h4>
+                <h4 className="car-widget-title">CREDIT PRICE RANGE </h4>
                 <ul>
                   <li>
                     <div className="form-check">
                       <input
                         name="pc_range"
-                        // value={modelData.NAME}
-                        // checked={selectedModel === modelData.NAME}
-                        // onChange={handleModelChange}
+                        value={"ASC"}
+                        checked={creditOrder === "ASC"}
+                        onChange={handleCreditOrderChange}
                         className="form-check-input"
                         type="radio"
-                        id={"pc_lo_hg" }
+                        id={"pc_lo_hg"}
                       />
-                      <label
-                        className="form-check-label"
-                        htmlFor={"pc_lo_hg"}
-                      >
+                      <label className="form-check-label" htmlFor={"pc_lo_hg"}>
                         Low to High
                       </label>
                     </div>
@@ -133,18 +87,52 @@ function ViewAllProduct(props) {
                     <div className="form-check">
                       <input
                         name="pc_range"
-                        // value={modelData.NAME}
-                        // checked={selectedModel === modelData.NAME}
-                        // onChange={handleModelChange}
+                        value={"DESC"}
+                        checked={creditOrder === "DESC"}
+                        onChange={handleCreditOrderChange}
                         className="form-check-input"
                         type="radio"
-                        id={"pc_hg_lo" }
+                        id={"pc_hg_lo"}
                       />
-                      <label
-                        className="form-check-label"
-                        htmlFor={"pc_hg_lo"}
-                      >
+                      <label className="form-check-label" htmlFor={"pc_hg_lo"}>
+                        High to Low
+                      </label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div className="car-widget">
+                <h4 className="car-widget-title">CASH PRICE RANGE </h4>
+                <ul>
+                  <li>
+                    <div className="form-check">
+                      <input
+                        name="ca_range"
+                        value={"ASC"}
+                        checked={cashOrder === "ASC"}
+                        onChange={handleCashOrderChange}
+                        className="form-check-input"
+                        type="radio"
+                        id={"ca_lo_hg"}
+                      />
+                      <label className="form-check-label" htmlFor={"ca_lo_hg"}>
                         Low to High
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="form-check">
+                      <input
+                        name="ca_range"
+                        value={"DESC"}
+                        checked={cashOrder === "DESC"}
+                        onChange={handleCashOrderChange}
+                        className="form-check-input"
+                        type="radio"
+                        id={"ca_hg_lo"}
+                      />
+                      <label className="form-check-label" htmlFor={"ca_hg_lo"}>
+                        High to Low
                       </label>
                     </div>
                   </li>
@@ -209,135 +197,118 @@ function ViewAllProduct(props) {
           </div>
           <div className="col-9">
             <div className="row">
-              {carList.length === 0 ? (
-                <>
-                  <strong
-                    style={{ color: "rgb(239, 29, 38)" }}
-                    className="shadow p-3 mb-5 bg-body rounded"
-                  >
-                    We appreciate your interest ! Unfortunately, the requested
-                    product is currently unavailable. Please explore our current
-                    product list as referred below :-
-                  </strong>
-                </>
-              ) : (
-                carList.map((carItem, index) => {
-                  let currentStatus;
+              {carList.map((carItem, index) => {
+                let currentStatus;
 
-                  if (carItem.INVOICE_STATUS === "Y") {
-                    currentStatus = {
-                      text: "Sold",
-                      color: "status-1", // red color
-                    };
-                  } else if (carItem.BOOKED_STATUS === "Y") {
-                    currentStatus = {
-                      text: "Booked",
-                      color: "status-3", // yellow color
-                    };
-                  } else {
-                    currentStatus = {
-                      text: "Available",
-                      color: "status-2", // green color
-                    };
-                  }
+                if (carItem.INVOICE_STATUS === "Y") {
+                  currentStatus = {
+                    text: "Sold",
+                    color: "status-1", // red color
+                  };
+                } else if (carItem.BOOKED_STATUS === "Y") {
+                  currentStatus = {
+                    text: "Booked",
+                    color: "status-3", // yellow color
+                  };
+                } else {
+                  currentStatus = {
+                    text: "Available",
+                    color: "status-2", // green color
+                  };
+                }
 
-                  return (
-                    <>
-                      <div key={index} className="col-md-4 col-lg-4">
-                        <div
-                          className={`car-item  ${
-                            props.scrollDirection === "down"
-                              ? "animate__animated animate__fadeInUp"
-                              : ""
-                          }`}
-                        >
-                          <div className="car-img">
-                            <span
-                              className={`car-status ${currentStatus.color}`}
+                return (
+                  <>
+                    <div key={index} className="col-md-4 col-lg-4">
+                      <div
+                        className={`car-item  ${
+                          props.scrollDirection === "down"
+                            ? "animate__animated animate__fadeInUp"
+                            : ""
+                        }`}
+                      >
+                        <div className="car-img">
+                          <span className={`car-status ${currentStatus.color}`}>
+                            {currentStatus.text}
+                          </span>
+
+                          <ImgSrc src={carItem.PIC_URL} />
+                        </div>
+                        <div className="car-content">
+                          <div className="car-top">
+                            <h4>
+                              <Link to="/Product">{carItem.MODEL}</Link>
+                            </h4>
+                            <div className="car-rate">
+                              <i className="fas fa-star"></i>
+                              <i className="fas fa-star"></i>
+                              <i className="fas fa-star"></i>
+                              <i className="fas fa-star"></i>
+                              <i className="fas fa-star"></i>
+                              <span>5.0 (Review)</span>
+                            </div>
+                          </div>
+                          <ul className="car-list">
+                            <li>
+                              <i className="fa-solid fa-engine"></i>Engine :{" "}
+                              {carItem.ENG_NO}
+                            </li>
+                            <li>
+                              <i className="fa-brands fa-slack"></i> Chass :{" "}
+                              {carItem.CHS_NO}
+                            </li>
+                            <li>
+                              <i className="far fa-file-pen"></i>Reg :{" "}
+                              {carItem.REG_NO}
+                            </li>
+                          </ul>
+                          <div className="car-footer flex-column">
+                            <span>
+                              <strong>Cash Price : </strong>
+                              <span className="car-price">
+                                <NumericFormat
+                                  value={carItem.CASH_PRICE}
+                                  displayType={"text"}
+                                  thousandSeparator=","
+                                  allowLeadingZeros
+                                  decimalScale={2}
+                                  fixedDecimalScale={true}
+                                  suffix={"TK "}
+                                />
+                              </span>
+                            </span>
+                            <span>
+                              <strong>Credit Price : </strong>
+                              <span className="car-price">
+                                <NumericFormat
+                                  value={carItem.CREDIT_PRICE}
+                                  displayType={"text"}
+                                  thousandSeparator=","
+                                  allowLeadingZeros
+                                  decimalScale={2}
+                                  fixedDecimalScale={true}
+                                  suffix={"TK "}
+                                />
+                              </span>
+                            </span>
+                          </div>
+                          <span className="d-flex align-items-center justify-content-center mt-2">
+                            <Link
+                              to={`/product/${carItem.ID}/${
+                                userlogData?.ID || 0
+                              }`}
+                              className="theme-btn"
                             >
-                              {currentStatus.text}
-                            </span>
-
-                            <ImgSrc src={carItem.PIC_URL} />
-                          </div>
-                          <div className="car-content">
-                            <div className="car-top">
-                              <h4>
-                                <Link to="/Product">{carItem.MODEL}</Link>
-                              </h4>
-                              <div className="car-rate">
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <span>5.0 (Review)</span>
-                              </div>
-                            </div>
-                            <ul className="car-list">
-                              <li>
-                                <i className="fa-solid fa-engine"></i>Engine :{" "}
-                                {carItem.ENG_NO}
-                              </li>
-                              <li>
-                                <i className="fa-brands fa-slack"></i> Chass :{" "}
-                                {carItem.CHS_NO}
-                              </li>
-                              <li>
-                                <i className="far fa-file-pen"></i>Reg :{" "}
-                                {carItem.REG_NO}
-                              </li>
-                            </ul>
-                            <div className="car-footer flex-column">
-                              <span>
-                                <strong>Cash Price : </strong>
-                                <span className="car-price">
-                                  <NumericFormat
-                                    value={carItem.CASH_PRICE}
-                                    displayType={"text"}
-                                    thousandSeparator=","
-                                    allowLeadingZeros
-                                    decimalScale={2}
-                                    fixedDecimalScale={true}
-                                    suffix={"TK "}
-                                  />
-                                </span>
-                              </span>
-                              <span>
-                                <strong>Credit Price : </strong>
-                                <span className="car-price">
-                                  <NumericFormat
-                                    value={carItem.CREDIT_PRICE}
-                                    displayType={"text"}
-                                    thousandSeparator=","
-                                    allowLeadingZeros
-                                    decimalScale={2}
-                                    fixedDecimalScale={true}
-                                    suffix={"TK "}
-                                  />
-                                </span>
-                              </span>
-                            </div>
-                            <span className="d-flex align-items-center justify-content-center mt-2">
-                              <Link
-                                to={`/product/${carItem.ID}/${
-                                  userlogData?.ID || 0
-                                }`}
-                                className="theme-btn"
-                              >
-                                <span className="far fa-eye fa-beat"></span>
-                                Details
-                              </Link>
-                            </span>
-                          </div>
+                              <span className="far fa-eye fa-beat"></span>
+                              Details
+                            </Link>
+                          </span>
                         </div>
                       </div>
-                    </>
-                  );
-                })
-              )}
-
-              <RelatedCarArea brand_id={selectedBrand} />
+                    </div>
+                  </>
+                );
+              })}
             </div>
           </div>
         </div>

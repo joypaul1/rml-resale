@@ -9,15 +9,6 @@ function CarArea(props) {
   useEffect(() => {
     const fetchCarData = async () => {
       try {
-        // const delayedFetch = () => {
-        //   return new Promise((resolve) => {
-        //     setTimeout(resolve, 1000);
-        //   });
-        // };
-
-        // await delayedFetch();
-         // Wait for 2 seconds
-
         const response = await axios.get(
           "https://api.rangsmotors.com?file_name=product_list",
           {
@@ -174,7 +165,7 @@ function CarArea(props) {
           {/* Repeat this block for each car item */}
 
           <div className="text-center mt-4">
-            <Link to="/" className="theme-btn">
+            <Link to="/view-all-product" className="theme-btn">
               View All <i className="far fa-arrow-rotate-right"></i>{" "}
             </Link>
           </div> 

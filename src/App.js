@@ -14,6 +14,7 @@ import Product from "./pages/Product";
 import Register from "./pages/Register";
 import SearchableProduct from "./pages/SearchableProduct";
 import Service from "./pages/Service";
+import ViewAllProduct from "./pages/ViewAllProduct";
 import ChangePassword from "./pages/user/ChangePassword";
 import Dashboard from "./pages/user/Dashboard";
 import Profile from "./pages/user/Profile";
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/imageUpload" element={<ImageUpload />} />
+        <Route path="/view-all-product" element={<ViewAllProduct />} />
         <Route
           path="/searchable-product/:selectedModel/:selectedBrandId/:selectedCategory"
           element={<SearchableProduct />}
