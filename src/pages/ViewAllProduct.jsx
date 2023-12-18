@@ -13,18 +13,29 @@ function ViewAllProduct(props) {
 
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
+    setPageNumber(0); // Reset pageNumber when brand changes
   };
 
   const handleCashOrderChange = (event) => {
     setCreditOrder("");
     setCashOrder(event.target.value);
+    setPageNumber(0); // Reset pageNumber when cash order changes
   };
+
   const handleCreditOrderChange = (event) => {
     setCashOrder("");
     setCreditOrder(event.target.value);
+    setPageNumber(0); // Reset pageNumber when credit order changes
   };
 
   const fetchCarData = async () => {
+    console.log(
+      "event data",
+      selectedBrand,
+      cashOrder,
+      creditOrder,
+      pageNumber
+    );
     try {
       const url = `https://api.rangsmotors.com?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
       const response = await axios.get(url, {
@@ -35,7 +46,9 @@ function ViewAllProduct(props) {
 
       const data = response.data;
       if (data.status === "true") {
-        setCarList((prevCarList) => [...prevCarList, ...data.data]); // Append new data to existing carList
+        setCarList((prevCarList) => {
+          return pageNumber > 0 ? [...prevCarList, ...data.data] : data.data;
+        });
       } else {
         console.error("API response status is not true:", data);
       }
