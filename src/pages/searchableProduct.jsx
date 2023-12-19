@@ -9,13 +9,15 @@ function SearchableProduct(props) {
   const { selectedModel, selectedBrandId, selectedCategory } = useParams();
   const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
   const [pageNumber, setPageNumber] = useState(0);
+  const [selectedGrade, setSelectedGrade] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
   const [carList, setCarList] = useState([]);
+  const [gradeList, setGradeList] = useState([]);
+
   const [modelList, setModelList] = useState([]);
   const [cashOrder, setCashOrder] = useState("");
   const [creditOrder, setCreditOrder] = useState("");
-
   const navigate = useNavigate();
 
   const handleBrandChange = (event) => {
@@ -33,6 +35,11 @@ function SearchableProduct(props) {
     setCreditOrder(event.target.value);
     setPageNumber(0); // Reset pageNumber when credit order changes
   };
+
+  const handleGradeChange = (event) => {
+    setSelectedGrade(event.target.value);
+  };
+
   const handleModelChange = (event) => {
     navigate(
       `/searchable-product/${event.target.value}/${selectedBrand}/${selectedCategory}`
@@ -41,7 +48,7 @@ function SearchableProduct(props) {
   const fetchCarData = async () => {
     try {
       const encodedModel = encodeURIComponent(selectedModel);
-      const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&brand_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
+      const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&brand_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&grade=${selectedGrade}`;
 
       const response = await axios.get(url, {
         headers: {
@@ -63,6 +70,20 @@ function SearchableProduct(props) {
       }
     } catch (error) {
       console.error("Error fetching car data:", error);
+    }
+  };
+  const gradingProduct = async () => {
+    const url = `https://api.rangsmotors.com?file_name=product_grade`;
+    const response = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = response.data;
+    if (data.status === "true") {
+      setGradeList(data.data);
+    } else {
+      console.error("API response status is not true:", data);
     }
   };
   useEffect(() => {
@@ -87,9 +108,9 @@ function SearchableProduct(props) {
         console.error("Error fetching car model data:", error);
       }
     };
-
     fetchCarData();
     fetchModelData();
+    // gradingProduct();
   }, [
     selectedBrand,
     selectedCategory,
@@ -97,7 +118,9 @@ function SearchableProduct(props) {
     cashOrder,
     creditOrder,
     pageNumber,
+    selectedGrade,
   ]);
+
   const loadMore = (event) => {
     setIsLoading(true);
     setTimeout(() => {
@@ -145,6 +168,36 @@ function SearchableProduct(props) {
                   })}
                 </ul>
               </div>
+              {/* <div className="car-widget">
+                <h4 className="car-widget-title">PRODUCT GRADING </h4>
+                <ul
+                  style={{ display: "flex", flexDirection: "row", gap: "5%" }}
+                >
+                  {gradeList.map((gradeItem, index) => {
+                    return (
+                      <li>
+                        <div className="form-check">
+                          <input
+                            name="grade_range"
+                            value={gradeItem.NAME}
+                            checked={selectedGrade === gradeItem.NAME}
+                            onChange={handleGradeChange}
+                            className="form-check-input"
+                            type="radio"
+                            id={index + "_GRA"}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor={index + "_GRA"}
+                          >
+                            {gradeItem.NAME}
+                          </label>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div> */}
               <div className="car-widget">
                 <h4 className="car-widget-title">CREDIT PRICE RANGE </h4>
                 <ul>

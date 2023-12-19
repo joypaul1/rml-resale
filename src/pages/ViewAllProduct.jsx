@@ -6,7 +6,9 @@ import ImgSrc from "../components/ImgSrc";
 
 function ViewAllProduct(props) {
   const [carList, setCarList] = useState([]);
+  const [gradeList, setGradeList] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedGrade, setSelectedGrade] = useState("");
   const [cashOrder, setCashOrder] = useState("");
   const [creditOrder, setCreditOrder] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
@@ -29,10 +31,13 @@ function ViewAllProduct(props) {
     setCreditOrder(event.target.value);
     setPageNumber(0); // Reset pageNumber when credit order changes
   };
+  const handleGradeChange = (event) => {
+    setSelectedGrade(event.target.value);
+  };
 
   const fetchCarData = async () => {
     try {
-      const url = `https://api.rangsmotors.com?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
+      const url = `https://api.rangsmotors.com?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&grade=${selectedGrade}`;
       const response = await axios.get(url, {
         headers: {
           "Content-Type": "application/json",
@@ -56,9 +61,24 @@ function ViewAllProduct(props) {
     }
   };
 
+  const gradingProduct = async () => {
+    const url = `https://api.rangsmotors.com?file_name=product_grade`;
+    const response = await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = response.data;
+    if (data.status === "true") {
+      setGradeList(data.data);
+    } else {
+      console.error("API response status is not true:", data);
+    }
+  };
   useEffect(() => {
+    // gradingProduct();
     fetchCarData();
-  }, [selectedBrand, cashOrder, creditOrder, pageNumber]);
+  }, [selectedBrand, cashOrder, creditOrder, pageNumber, selectedGrade]);
 
   const loadMore = (event) => {
     setIsLoading(true);
@@ -80,6 +100,34 @@ function ViewAllProduct(props) {
         <div className="row">
           <div className="col-3">
             <div className="car-sidebar">
+              {/* <div className="car-widget">
+                <h4 className="car-widget-title">PRODUCT GRADING </h4>
+                <ul style={{  display: 'flex',flexDirection:'row',gap:'5%' }}>
+                  {gradeList.map((gradeItem, index) => {
+                    return (
+                      <li>
+                        <div className="form-check">
+                          <input
+                            name="grade_range"
+                            value={gradeItem.NAME}
+                            checked={selectedGrade === gradeItem.NAME}
+                            onChange={handleGradeChange}
+                            className="form-check-input"
+                            type="radio"
+                            id={index + "_GRA"}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor={index + "_GRA"}
+                          >
+                            {gradeItem.NAME}
+                          </label>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div> */}
               <div className="car-widget">
                 <h4 className="car-widget-title">CREDIT PRICE RANGE </h4>
                 <ul>
@@ -154,61 +202,61 @@ function ViewAllProduct(props) {
                   </li>
                 </ul>
               </div>
-            <div className="car-widget">
-              <h4 className="car-widget-title">BRANDS</h4>
-              <ul>
-                <li>
-                  <div className="form-check">
-                    <input
-                      name="brand"
-                      value={1}
-                      checked={selectedBrand === "1"}
-                      onChange={handleBrandChange}
-                      className="form-check-input"
-                      type="radio"
-                      id="brand1"
-                    />
-                    <label className="form-check-label" htmlFor="brand1">
-                      Eicher{" "}
-                    </label>
-                  </div>
-                </li>
-                <li>
-                  <div className="form-check">
-                    <input
-                      name="brand"
-                      value={2}
-                      checked={selectedBrand === "2"}
-                      onChange={handleBrandChange}
-                      className="form-check-input"
-                      type="radio"
-                      id="brand2"
-                    />
-                    <label className="form-check-label" htmlFor="brand2">
-                      {" "}
-                      Mahindra
-                    </label>
-                  </div>
-                </li>
-                <li>
-                  <div className="form-check">
-                    <input
-                      name="brand"
-                      value={3}
-                      checked={selectedBrand === "3"}
-                      onChange={handleBrandChange}
-                      className="form-check-input"
-                      type="radio"
-                      id="brand3"
-                    />
-                    <label className="form-check-label" htmlFor="brand3">
-                      {" "}
-                      DongFeng
-                    </label>
-                  </div>
-                </li>
-              </ul>
-            </div>
+              <div className="car-widget">
+                <h4 className="car-widget-title">BRANDS</h4>
+                <ul>
+                  <li>
+                    <div className="form-check">
+                      <input
+                        name="brand"
+                        value={1}
+                        checked={selectedBrand === "1"}
+                        onChange={handleBrandChange}
+                        className="form-check-input"
+                        type="radio"
+                        id="brand1"
+                      />
+                      <label className="form-check-label" htmlFor="brand1">
+                        Eicher{" "}
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="form-check">
+                      <input
+                        name="brand"
+                        value={2}
+                        checked={selectedBrand === "2"}
+                        onChange={handleBrandChange}
+                        className="form-check-input"
+                        type="radio"
+                        id="brand2"
+                      />
+                      <label className="form-check-label" htmlFor="brand2">
+                        {" "}
+                        Mahindra
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="form-check">
+                      <input
+                        name="brand"
+                        value={3}
+                        checked={selectedBrand === "3"}
+                        onChange={handleBrandChange}
+                        className="form-check-input"
+                        type="radio"
+                        id="brand3"
+                      />
+                      <label className="form-check-label" htmlFor="brand3">
+                        {" "}
+                        DongFeng
+                      </label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <div className="col-9">
@@ -236,13 +284,7 @@ function ViewAllProduct(props) {
                 return (
                   <>
                     <div key={index} className="col-md-4 col-lg-4">
-                      <div
-                        className={`car-item  ${
-                          props.scrollDirection === "down"
-                            ? "animate__animated animate__fadeInUp"
-                            : ""
-                        }`}
-                      >
+                      <div className={`car-item`}>
                         <div className="car-img">
                           <span className={`car-status ${currentStatus.color}`}>
                             {currentStatus.text}
@@ -331,6 +373,18 @@ function ViewAllProduct(props) {
                   </>
                 );
               })}
+              {carList.length === 0 && (
+                <>
+                  <strong
+                    style={{ color: "rgb(239, 29, 38)" }}
+                    className="shadow p-3 mb-5 bg-body rounded"
+                  >
+                    We appreciate your interest ! Unfortunately, the requested
+                    product is currently unavailable. Please explore our current
+                    product list as referred or filtering below :-
+                  </strong>
+                </>
+              )}
               {hasMoreData && (
                 <div className="text-center mt-4">
                   {isLoading ? (
