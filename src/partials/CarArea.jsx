@@ -10,7 +10,7 @@ function CarArea(props) {
     const fetchCarData = async () => {
       try {
         const response = await axios.get(
-          "https://api.rangsmotors.com?file_name=product_list",
+          "https://api.rangsmotors.com?file_name=product_list&limit=12",
           {
             headers: {
               "Content-Type": "application/json",

@@ -37,30 +37,31 @@ function SearchableProduct(props) {
       `/searchable-product/${event.target.value}/${selectedBrand}/${selectedCategory}`
     );
   };
+  const fetchCarData = async () => {
+    try {
+      const encodedModel = encodeURIComponent(selectedModel);
+      const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&brand_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
 
-  useEffect(() => {
-    const fetchCarData = async () => {
-      try {
-        const encodedModel = encodeURIComponent(selectedModel);
-        const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&brand_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
+      const response = await axios.get(url, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-        const response = await axios.get(url, {
-          headers: {
-            "Content-Type": "application/json",
-          },
+      const data = response.data;
+      if (data.status === "true") {
+        setCarList((prevCarList) => {
+          return pageNumber > 0 ? [...prevCarList, ...data.data] : data.data;
         });
-
-        const data = response.data;
-        if (data.status === "true") {
-          setCarList(data.data);
-        } else {
-          console.error("API response status is not true:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching car data:", error);
+      } else {
+        console.error("API response status is not true:", data);
       }
-    };
-
+    } catch (error) {
+      console.error("Error fetching car data:", error);
+    }
+  };
+  useEffect(() => {
+   
     const fetchModelData = async () => {
       try {
         const response = await axios.get(
@@ -96,7 +97,11 @@ function SearchableProduct(props) {
   const loadMore = (event) => {
     setIsLoading(true);
     setTimeout(() => {
-      setPageNumber((prevPageNumber) => prevPageNumber + 1);
+      if (pageNumber === 0) {
+        setPageNumber(pageNumber + 2);
+      } else {
+        setPageNumber((prevPageNumber) => prevPageNumber + 1);
+      }
       setIsLoading(false);
     }, 1000); // 1000 milliseconds = 1 second
   };

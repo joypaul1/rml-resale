@@ -30,6 +30,7 @@ function ViewAllProduct(props) {
   };
 
   const fetchCarData = async () => {
+    console.log(pageNumber, "pageNumber");
     try {
       const url = `https://api.rangsmotors.com?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
       const response = await axios.get(url, {
@@ -41,7 +42,7 @@ function ViewAllProduct(props) {
       const data = response.data;
       if (data.status === "true") {
         setCarList((prevCarList) => {
-          return pageNumber > 0 ? [...prevCarList, ...data.data] : data.data;
+          return pageNumber >= 1 ? [...prevCarList, ...data.data] : data.data;
         });
       } else {
         console.error("API response status is not true:", data);
@@ -52,14 +53,17 @@ function ViewAllProduct(props) {
   };
 
   useEffect(() => {
-     fetchCarData();
-  
+    fetchCarData();
   }, [selectedBrand, cashOrder, creditOrder, pageNumber]);
 
   const loadMore = (event) => {
     setIsLoading(true);
     setTimeout(() => {
-      setPageNumber((prevPageNumber) => prevPageNumber + 1);
+      if (pageNumber === 0) {
+        setPageNumber(pageNumber + 2);
+      } else {
+        setPageNumber((prevPageNumber) => prevPageNumber + 1);
+      }
       setIsLoading(false);
     }, 1000); // 1000 milliseconds = 1 second
   };
@@ -245,7 +249,13 @@ function ViewAllProduct(props) {
                         <div className="car-content">
                           <div className="car-top">
                             <h4>
-                              <Link  to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}>{carItem.MODEL}</Link>
+                              <Link
+                                to={`/product/${carItem.ID}/${
+                                  userlogData?.ID || 0
+                                }`}
+                              >
+                                {carItem.MODEL}
+                              </Link>
                             </h4>
                             <div className="car-rate">
                               <i className="fas fa-star"></i>
@@ -317,7 +327,7 @@ function ViewAllProduct(props) {
                   </>
                 );
               })}
-              <div class="text-center mt-4">
+              <div className="text-center mt-4">
                 {isLoading ? (
                   <img
                     src={
