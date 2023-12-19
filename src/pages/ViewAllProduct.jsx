@@ -11,6 +11,7 @@ function ViewAllProduct(props) {
   const [creditOrder, setCreditOrder] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasMoreData, setHasMoreData] = useState(true);
 
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
@@ -30,7 +31,6 @@ function ViewAllProduct(props) {
   };
 
   const fetchCarData = async () => {
-    console.log(pageNumber, "pageNumber");
     try {
       const url = `https://api.rangsmotors.com?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
       const response = await axios.get(url, {
@@ -44,6 +44,10 @@ function ViewAllProduct(props) {
         setCarList((prevCarList) => {
           return pageNumber >= 1 ? [...prevCarList, ...data.data] : data.data;
         });
+        // Check if there's more data available in the response
+        if (data.data.length === 0) {
+          setHasMoreData(false); // No more data available
+        }
       } else {
         console.error("API response status is not true:", data);
       }
@@ -150,61 +154,61 @@ function ViewAllProduct(props) {
                   </li>
                 </ul>
               </div>
-              <div className="car-widget">
-                <h4 className="car-widget-title">BRANDS</h4>
-                <ul>
-                  <li>
-                    <div className="form-check">
-                      <input
-                        name="brand"
-                        value={1}
-                        checked={selectedBrand === "1"}
-                        onChange={handleBrandChange}
-                        className="form-check-input"
-                        type="radio"
-                        id="brand1"
-                      />
-                      <label className="form-check-label" htmlFor="brand1">
-                        Eicher{" "}
-                      </label>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="form-check">
-                      <input
-                        name="brand"
-                        value={2}
-                        checked={selectedBrand === "2"}
-                        onChange={handleBrandChange}
-                        className="form-check-input"
-                        type="radio"
-                        id="brand2"
-                      />
-                      <label className="form-check-label" htmlFor="brand2">
-                        {" "}
-                        Mahindra
-                      </label>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="form-check">
-                      <input
-                        name="brand"
-                        value={3}
-                        checked={selectedBrand === "3"}
-                        onChange={handleBrandChange}
-                        className="form-check-input"
-                        type="radio"
-                        id="brand3"
-                      />
-                      <label className="form-check-label" htmlFor="brand3">
-                        {" "}
-                        DongFeng
-                      </label>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+            <div className="car-widget">
+              <h4 className="car-widget-title">BRANDS</h4>
+              <ul>
+                <li>
+                  <div className="form-check">
+                    <input
+                      name="brand"
+                      value={1}
+                      checked={selectedBrand === "1"}
+                      onChange={handleBrandChange}
+                      className="form-check-input"
+                      type="radio"
+                      id="brand1"
+                    />
+                    <label className="form-check-label" htmlFor="brand1">
+                      Eicher{" "}
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  <div className="form-check">
+                    <input
+                      name="brand"
+                      value={2}
+                      checked={selectedBrand === "2"}
+                      onChange={handleBrandChange}
+                      className="form-check-input"
+                      type="radio"
+                      id="brand2"
+                    />
+                    <label className="form-check-label" htmlFor="brand2">
+                      {" "}
+                      Mahindra
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  <div className="form-check">
+                    <input
+                      name="brand"
+                      value={3}
+                      checked={selectedBrand === "3"}
+                      onChange={handleBrandChange}
+                      className="form-check-input"
+                      type="radio"
+                      id="brand3"
+                    />
+                    <label className="form-check-label" htmlFor="brand3">
+                      {" "}
+                      DongFeng
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
             </div>
           </div>
           <div className="col-9">
@@ -327,21 +331,24 @@ function ViewAllProduct(props) {
                   </>
                 );
               })}
-              <div className="text-center mt-4">
-                {isLoading ? (
-                  <img
-                    src={
-                      window.location.origin + "/assets/img/logo/loader_gif.gif"
-                    }
-                    alt="Loading..."
-                    style={{ width: "100px" }}
-                  />
-                ) : (
-                  <button onClick={loadMore} className="theme-btn">
-                    Load More <i className="far fa-arrow-down"></i>
-                  </button>
-                )}
-              </div>
+              {hasMoreData && (
+                <div className="text-center mt-4">
+                  {isLoading ? (
+                    <img
+                      src={
+                        window.location.origin +
+                        "/assets/img/logo/loader_gif.gif"
+                      }
+                      alt="Loading..."
+                      style={{ width: "100px" }}
+                    />
+                  ) : (
+                    <button onClick={loadMore} className="theme-btn">
+                      Load More <i className="far fa-arrow-down"></i>
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

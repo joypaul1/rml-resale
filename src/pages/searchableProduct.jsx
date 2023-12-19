@@ -10,6 +10,7 @@ function SearchableProduct(props) {
   const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
   const [pageNumber, setPageNumber] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasMoreData, setHasMoreData] = useState(true);
   const [carList, setCarList] = useState([]);
   const [modelList, setModelList] = useState([]);
   const [cashOrder, setCashOrder] = useState("");
@@ -53,6 +54,10 @@ function SearchableProduct(props) {
         setCarList((prevCarList) => {
           return pageNumber > 0 ? [...prevCarList, ...data.data] : data.data;
         });
+        // Check if there's more data available in the response
+        if (data.data.length === 0) {
+          setHasMoreData(false); // No more data available
+        }
       } else {
         console.error("API response status is not true:", data);
       }
@@ -61,7 +66,6 @@ function SearchableProduct(props) {
     }
   };
   useEffect(() => {
-   
     const fetchModelData = async () => {
       try {
         const response = await axios.get(
@@ -215,61 +219,61 @@ function SearchableProduct(props) {
                   </li>
                 </ul>
               </div>
-              <div className="car-widget">
-                <h4 className="car-widget-title">BRANDS</h4>
-                <ul>
-                  <li>
-                    <div className="form-check">
-                      <input
-                        name="brand"
-                        value={1}
-                        checked={selectedBrand === "1"}
-                        onChange={handleBrandChange}
-                        className="form-check-input"
-                        type="radio"
-                        id="brand1"
-                      />
-                      <label className="form-check-label" htmlFor="brand1">
-                        Eicher{" "}
-                      </label>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="form-check">
-                      <input
-                        name="brand"
-                        value={2}
-                        checked={selectedBrand === "2"}
-                        onChange={handleBrandChange}
-                        className="form-check-input"
-                        type="radio"
-                        id="brand2"
-                      />
-                      <label className="form-check-label" htmlFor="brand2">
-                        {" "}
-                        Mahindra
-                      </label>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="form-check">
-                      <input
-                        name="brand"
-                        value={3}
-                        checked={selectedBrand === "3"}
-                        onChange={handleBrandChange}
-                        className="form-check-input"
-                        type="radio"
-                        id="brand3"
-                      />
-                      <label className="form-check-label" htmlFor="brand3">
-                        {" "}
-                        DongFeng
-                      </label>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              {carList.length === 0 && (
+                <div className="car-widget">
+                  <h4 className="car-widget-title">BRANDS</h4>
+                  <ul>
+                    <li>
+                      <div className="form-check">
+                        <input
+                          name="brand"
+                          value={1}
+                          checked={selectedBrand === "1"}
+                          onChange={handleBrandChange}
+                          className="form-check-input"
+                          type="radio"
+                          id="brand1"
+                        />
+                        <label className="form-check-label" htmlFor="brand1">
+                          Eicher
+                        </label>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="form-check">
+                        <input
+                          name="brand"
+                          value={2}
+                          checked={selectedBrand === "2"}
+                          onChange={handleBrandChange}
+                          className="form-check-input"
+                          type="radio"
+                          id="brand2"
+                        />
+                        <label className="form-check-label" htmlFor="brand2">
+                          Mahindra
+                        </label>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="form-check">
+                        <input
+                          name="brand"
+                          value={3}
+                          checked={selectedBrand === "3"}
+                          onChange={handleBrandChange}
+                          className="form-check-input"
+                          type="radio"
+                          id="brand3"
+                        />
+                        <label className="form-check-label" htmlFor="brand3">
+                          DongFeng
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
           <div className="col-9">
@@ -320,7 +324,13 @@ function SearchableProduct(props) {
                         <div className="car-content">
                           <div className="car-top">
                             <h4>
-                              <Link  to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}>{carItem.MODEL}</Link>
+                              <Link
+                                to={`/product/${carItem.ID}/${
+                                  userlogData?.ID || 0
+                                }`}
+                              >
+                                {carItem.MODEL}
+                              </Link>
                             </h4>
                             <div className="car-rate">
                               <i className="fas fa-star"></i>
@@ -392,7 +402,7 @@ function SearchableProduct(props) {
                   );
                 })
               )}
-              {carList.length > 0 && (
+              {hasMoreData && (
                 <div className="text-center mt-4">
                   {isLoading ? (
                     <img
@@ -410,7 +420,6 @@ function SearchableProduct(props) {
                   )}
                 </div>
               )}
-              {/*  */}
             </div>
           </div>
         </div>

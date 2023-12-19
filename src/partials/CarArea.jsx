@@ -166,7 +166,7 @@ function CarArea(props) {
 
           <div className="text-center mt-4">
             <Link to="/view-all-product" className="theme-btn">
-              View All <i className="far fa-arrow-rotate-right"></i>{" "}
+              View All <i class="fa-regular fa-folder-open"></i>
             </Link>
           </div> 
         </div>
