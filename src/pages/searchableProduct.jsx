@@ -7,12 +7,13 @@ import RelatedCarArea from "../partials/RelatedCarArea";
 
 function SearchableProduct(props) {
   const { selectedModel, selectedBrandId, selectedCategory } = useParams();
+  const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const [carList, setCarList] = useState([]);
   const [modelList, setModelList] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
   const [cashOrder, setCashOrder] = useState("");
   const [creditOrder, setCreditOrder] = useState("");
-  const [pageNumber, setPageNumber] = useState(0);
 
   const navigate = useNavigate();
 
@@ -84,8 +85,21 @@ function SearchableProduct(props) {
 
     fetchCarData();
     fetchModelData();
-  }, [selectedBrand, selectedCategory, selectedModel,cashOrder, creditOrder, pageNumber]);
-
+  }, [
+    selectedBrand,
+    selectedCategory,
+    selectedModel,
+    cashOrder,
+    creditOrder,
+    pageNumber,
+  ]);
+  const loadMore = (event) => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setPageNumber((prevPageNumber) => prevPageNumber + 1);
+      setIsLoading(false);
+    }, 1000); // 1000 milliseconds = 1 second
+  };
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
   return (
@@ -265,6 +279,7 @@ function SearchableProduct(props) {
                     product is currently unavailable. Please explore our current
                     product list as referred below :-
                   </strong>
+                  <RelatedCarArea brand_id={selectedBrand} />
                 </>
               ) : (
                 carList.map((carItem, index) => {
@@ -288,102 +303,109 @@ function SearchableProduct(props) {
                   }
 
                   return (
-                    <>
-                      <div key={index} className="col-md-4 col-lg-4">
-                        <div
-                          className={`car-item  ${
-                            props.scrollDirection === "down"
-                              ? "animate__animated animate__fadeInUp"
-                              : ""
-                          }`}
-                        >
-                          <div className="car-img">
-                            <span
-                              className={`car-status ${currentStatus.color}`}
-                            >
-                              {currentStatus.text}
-                            </span>
+                    <div key={index} className="col-md-4 col-lg-4">
+                      <div className={`car-item`}>
+                        <div className="car-img">
+                          <span className={`car-status ${currentStatus.color}`}>
+                            {currentStatus.text}
+                          </span>
 
-                            <ImgSrc src={carItem.PIC_URL} />
+                          <ImgSrc src={carItem.PIC_URL} />
+                        </div>
+                        <div className="car-content">
+                          <div className="car-top">
+                            <h4>
+                              <Link  to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}>{carItem.MODEL}</Link>
+                            </h4>
+                            <div className="car-rate">
+                              <i className="fas fa-star"></i>
+                              <i className="fas fa-star"></i>
+                              <i className="fas fa-star"></i>
+                              <i className="fas fa-star"></i>
+                              <i className="fas fa-star"></i>
+                              <span>5.0 (Review)</span>
+                            </div>
                           </div>
-                          <div className="car-content">
-                            <div className="car-top">
-                              <h4>
-                                <Link to="/Product">{carItem.MODEL}</Link>
-                              </h4>
-                              <div className="car-rate">
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <span>5.0 (Review)</span>
-                              </div>
-                            </div>
-                            <ul className="car-list">
-                              <li>
-                                <i className="fa-solid fa-engine"></i>Engine :{" "}
-                                {carItem.ENG_NO}
-                              </li>
-                              <li>
-                                <i className="fa-brands fa-slack"></i> Chass :{" "}
-                                {carItem.CHS_NO}
-                              </li>
-                              <li>
-                                <i className="far fa-file-pen"></i>Reg :{" "}
-                                {carItem.REG_NO}
-                              </li>
-                            </ul>
-                            <div className="car-footer flex-column">
-                              <span>
-                                <strong>Cash Price : </strong>
-                                <span className="car-price">
-                                  <NumericFormat
-                                    value={carItem.CASH_PRICE}
-                                    displayType={"text"}
-                                    thousandSeparator=","
-                                    allowLeadingZeros
-                                    decimalScale={2}
-                                    fixedDecimalScale={true}
-                                    suffix={"TK "}
-                                  />
-                                </span>
+                          <ul className="car-list">
+                            <li>
+                              <i className="fa-solid fa-engine"></i>Engine :{" "}
+                              {carItem.ENG_NO}
+                            </li>
+                            <li>
+                              <i className="fa-brands fa-slack"></i> Chass :{" "}
+                              {carItem.CHS_NO}
+                            </li>
+                            <li>
+                              <i className="far fa-file-pen"></i>Reg :{" "}
+                              {carItem.REG_NO}
+                            </li>
+                          </ul>
+                          <div className="car-footer flex-column">
+                            <span>
+                              <strong>Cash Price : </strong>
+                              <span className="car-price">
+                                <NumericFormat
+                                  value={carItem.CASH_PRICE}
+                                  displayType={"text"}
+                                  thousandSeparator=","
+                                  allowLeadingZeros
+                                  decimalScale={2}
+                                  fixedDecimalScale={true}
+                                  suffix={"TK "}
+                                />
                               </span>
-                              <span>
-                                <strong>Credit Price : </strong>
-                                <span className="car-price">
-                                  <NumericFormat
-                                    value={carItem.CREDIT_PRICE}
-                                    displayType={"text"}
-                                    thousandSeparator=","
-                                    allowLeadingZeros
-                                    decimalScale={2}
-                                    fixedDecimalScale={true}
-                                    suffix={"TK "}
-                                  />
-                                </span>
+                            </span>
+                            <span>
+                              <strong>Credit Price : </strong>
+                              <span className="car-price">
+                                <NumericFormat
+                                  value={carItem.CREDIT_PRICE}
+                                  displayType={"text"}
+                                  thousandSeparator=","
+                                  allowLeadingZeros
+                                  decimalScale={2}
+                                  fixedDecimalScale={true}
+                                  suffix={"TK "}
+                                />
                               </span>
-                            </div>
-                            <span className="d-flex align-items-center justify-content-center mt-2">
-                              <Link
-                                to={`/product/${carItem.ID}/${
-                                  userlogData?.ID || 0
-                                }`}
-                                className="theme-btn"
-                              >
-                                <span className="far fa-eye fa-beat"></span>
-                                Details
-                              </Link>
                             </span>
                           </div>
+                          <span className="d-flex align-items-center justify-content-center mt-2">
+                            <Link
+                              to={`/product/${carItem.ID}/${
+                                userlogData?.ID || 0
+                              }`}
+                              className="theme-btn"
+                            >
+                              <span className="far fa-eye fa-beat"></span>
+                              Details
+                            </Link>
+                          </span>
                         </div>
                       </div>
-                    </>
+                    </div>
                   );
                 })
               )}
-
-              <RelatedCarArea brand_id={selectedBrand} />
+              {carList.length > 0 && (
+                <div className="text-center mt-4">
+                  {isLoading ? (
+                    <img
+                      src={
+                        window.location.origin +
+                        "/assets/img/logo/loader_gif.gif"
+                      }
+                      alt="Loading..."
+                      style={{ width: "100px" }}
+                    />
+                  ) : (
+                    <button onClick={loadMore} className="theme-btn">
+                      Load More <i className="far fa-arrow-down"></i>
+                    </button>
+                  )}
+                </div>
+              )}
+              {/*  */}
             </div>
           </div>
         </div>

@@ -674,6 +674,7 @@ const Product = () => {
                       <div className="car-content">
                         <div className="car-top">
                           <h4>
+                          <Link to="/Product">{relatedcar.MODEL}</Link>
                             <Link to="/Product">{relatedcar.MODEL}</Link>
                           </h4>
                           <div className="car-rate">

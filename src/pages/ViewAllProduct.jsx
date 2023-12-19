@@ -245,7 +245,7 @@ function ViewAllProduct(props) {
                         <div className="car-content">
                           <div className="car-top">
                             <h4>
-                              <Link to="/Product">{carItem.MODEL}</Link>
+                              <Link  to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}>{carItem.MODEL}</Link>
                             </h4>
                             <div className="car-rate">
                               <i className="fas fa-star"></i>
