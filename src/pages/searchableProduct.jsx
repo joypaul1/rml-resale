@@ -10,12 +10,27 @@ function SearchableProduct(props) {
   const [carList, setCarList] = useState([]);
   const [modelList, setModelList] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
+  const [cashOrder, setCashOrder] = useState("");
+  const [creditOrder, setCreditOrder] = useState("");
+  const [pageNumber, setPageNumber] = useState(0);
+
   const navigate = useNavigate();
 
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
   };
 
+  const handleCashOrderChange = (event) => {
+    setCreditOrder("");
+    setCashOrder(event.target.value);
+    setPageNumber(0); // Reset pageNumber when cash order changes
+  };
+
+  const handleCreditOrderChange = (event) => {
+    setCashOrder("");
+    setCreditOrder(event.target.value);
+    setPageNumber(0); // Reset pageNumber when credit order changes
+  };
   const handleModelChange = (event) => {
     navigate(
       `/searchable-product/${event.target.value}/${selectedBrand}/${selectedCategory}`
@@ -26,7 +41,7 @@ function SearchableProduct(props) {
     const fetchCarData = async () => {
       try {
         const encodedModel = encodeURIComponent(selectedModel);
-        const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&brand_id=${selectedBrand}`;
+        const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&brand_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
 
         const response = await axios.get(url, {
           headers: {
@@ -69,7 +84,7 @@ function SearchableProduct(props) {
 
     fetchCarData();
     fetchModelData();
-  }, [selectedBrand, selectedCategory, selectedModel]);
+  }, [selectedBrand, selectedCategory, selectedModel,cashOrder, creditOrder, pageNumber]);
 
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
@@ -108,23 +123,20 @@ function SearchableProduct(props) {
                 </ul>
               </div>
               <div className="car-widget">
-                <h4 className="car-widget-title">PRICE RANGE </h4>
+                <h4 className="car-widget-title">CREDIT PRICE RANGE </h4>
                 <ul>
                   <li>
                     <div className="form-check">
                       <input
                         name="pc_range"
-                        // value={modelData.NAME}
-                        // checked={selectedModel === modelData.NAME}
-                        // onChange={handleModelChange}
+                        value={"ASC"}
+                        checked={creditOrder === "ASC"}
+                        onChange={handleCreditOrderChange}
                         className="form-check-input"
                         type="radio"
-                        id={"pc_lo_hg" }
+                        id={"pc_lo_hg"}
                       />
-                      <label
-                        className="form-check-label"
-                        htmlFor={"pc_lo_hg"}
-                      >
+                      <label className="form-check-label" htmlFor={"pc_lo_hg"}>
                         Low to High
                       </label>
                     </div>
@@ -133,18 +145,52 @@ function SearchableProduct(props) {
                     <div className="form-check">
                       <input
                         name="pc_range"
-                        // value={modelData.NAME}
-                        // checked={selectedModel === modelData.NAME}
-                        // onChange={handleModelChange}
+                        value={"DESC"}
+                        checked={creditOrder === "DESC"}
+                        onChange={handleCreditOrderChange}
                         className="form-check-input"
                         type="radio"
-                        id={"pc_hg_lo" }
+                        id={"pc_hg_lo"}
                       />
-                      <label
-                        className="form-check-label"
-                        htmlFor={"pc_hg_lo"}
-                      >
+                      <label className="form-check-label" htmlFor={"pc_hg_lo"}>
+                        High to Low
+                      </label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div className="car-widget">
+                <h4 className="car-widget-title">CASH PRICE RANGE </h4>
+                <ul>
+                  <li>
+                    <div className="form-check">
+                      <input
+                        name="ca_range"
+                        value={"ASC"}
+                        checked={cashOrder === "ASC"}
+                        onChange={handleCashOrderChange}
+                        className="form-check-input"
+                        type="radio"
+                        id={"ca_lo_hg"}
+                      />
+                      <label className="form-check-label" htmlFor={"ca_lo_hg"}>
                         Low to High
+                      </label>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="form-check">
+                      <input
+                        name="ca_range"
+                        value={"DESC"}
+                        checked={cashOrder === "DESC"}
+                        onChange={handleCashOrderChange}
+                        className="form-check-input"
+                        type="radio"
+                        id={"ca_hg_lo"}
+                      />
+                      <label className="form-check-label" htmlFor={"ca_hg_lo"}>
+                        High to Low
                       </label>
                     </div>
                   </li>

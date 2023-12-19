@@ -10,6 +10,7 @@ function ViewAllProduct(props) {
   const [cashOrder, setCashOrder] = useState("");
   const [creditOrder, setCreditOrder] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleBrandChange = (event) => {
     setSelectedBrand(event.target.value);
@@ -29,13 +30,6 @@ function ViewAllProduct(props) {
   };
 
   const fetchCarData = async () => {
-    console.log(
-      "event data",
-      selectedBrand,
-      cashOrder,
-      creditOrder,
-      pageNumber
-    );
     try {
       const url = `https://api.rangsmotors.com?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}`;
       const response = await axios.get(url, {
@@ -58,11 +52,16 @@ function ViewAllProduct(props) {
   };
 
   useEffect(() => {
-    fetchCarData();
+     fetchCarData();
+  
   }, [selectedBrand, cashOrder, creditOrder, pageNumber]);
 
   const loadMore = (event) => {
-    setPageNumber((prevPageNumber) => prevPageNumber + 1);
+    setIsLoading(true);
+    setTimeout(() => {
+      setPageNumber((prevPageNumber) => prevPageNumber + 1);
+      setIsLoading(false);
+    }, 1000); // 1000 milliseconds = 1 second
   };
 
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
@@ -318,10 +317,20 @@ function ViewAllProduct(props) {
                   </>
                 );
               })}
-              <div className="text-center mt-4">
-                <button onClick={loadMore} className="theme-btn">
-                  Load More <i className="far fa-arrow-down"></i>{" "}
-                </button>
+              <div class="text-center mt-4">
+                {isLoading ? (
+                  <img
+                    src={
+                      window.location.origin + "/assets/img/logo/loader_gif.gif"
+                    }
+                    alt="Loading..."
+                    style={{ width: "100px" }}
+                  />
+                ) : (
+                  <button onClick={loadMore} className="theme-btn">
+                    Load More <i className="far fa-arrow-down"></i>
+                  </button>
+                )}
               </div>
             </div>
           </div>
