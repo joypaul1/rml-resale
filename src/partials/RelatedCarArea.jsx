@@ -149,11 +149,11 @@ function RelatedCarArea(props) {
           })}
           {/* Repeat this block for each car item */}
         </div>
-        {/* <div className="text-center mt-4">
-          <Link to="#" className="theme-btn">
+        <div className="text-center mt-4">
+          <Link to={'/view-all-product/'+props.brand_id} className="theme-btn">
             View More <i className="far fa-arrow-rotate-right"></i>
           </Link>
-        </div> */}
+        </div>
       </div>
     </div>
   );
