@@ -7,21 +7,22 @@ import RelatedCarArea from "../partials/RelatedCarArea";
 
 function SearchableProduct(props) {
   const { selectedModel, selectedBrandId, selectedCategory } = useParams();
-  const [selectedBrand, setSelectedBrand] = useState(selectedBrandId);
+  const [selectedBrand, setSelectedBrand] = useState(selectedBrandId ?? "");
   const [pageNumber, setPageNumber] = useState(0);
   const [selectedGrade, setSelectedGrade] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
   const [carList, setCarList] = useState([]);
   const [gradeList, setGradeList] = useState([]);
-
   const [modelList, setModelList] = useState([]);
   const [cashOrder, setCashOrder] = useState("");
   const [creditOrder, setCreditOrder] = useState("");
   const navigate = useNavigate();
 
   const handleBrandChange = (event) => {
-    setSelectedBrand(event.target.value);
+    navigate(
+      `/view-all-product/${event.target.value}`
+    );
   };
 
   const handleCashOrderChange = (event) => {
@@ -43,7 +44,9 @@ function SearchableProduct(props) {
 
   const handleModelChange = (event) => {
     setPageNumber(0); // Reset pageNumber when credit order changes
-    navigate(`/searchable-product/${event.target.value}/${selectedBrand}/${selectedCategory}`);
+    navigate(
+      `/searchable-product/${event.target.value}/${selectedBrand}/${selectedCategory}`
+    );
   };
   const fetchCarData = async () => {
     try {
@@ -72,20 +75,7 @@ function SearchableProduct(props) {
       console.error("Error fetching car data:", error);
     }
   };
-  const gradingProduct = async () => {
-    const url = `https://api.rangsmotors.com?file_name=product_grade`;
-    const response = await axios.get(url, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = response.data;
-    if (data.status === "true") {
-      setGradeList(data.data);
-    } else {
-      console.error("API response status is not true:", data);
-    }
-  };
+
   useEffect(() => {
     const fetchModelData = async () => {
       try {
@@ -110,7 +100,6 @@ function SearchableProduct(props) {
     };
     fetchCarData();
     fetchModelData();
-    // gradingProduct();
   }, [
     selectedBrand,
     selectedCategory,

@@ -1,29 +1,24 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ImgSrc from "../components/ImgSrc";
 
-function ViewAllProduct(props) {
-  const { selectedBrandId } = useParams();
+function BrandWiseProduct(props) {
   const [carList, setCarList] = useState([]);
   const [gradeList, setGradeList] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState(selectedBrandId??'');
+  const [selectedBrand, setSelectedBrand] = useState(props.brand_id);
   const [selectedGrade, setSelectedGrade] = useState("");
   const [cashOrder, setCashOrder] = useState("");
   const [creditOrder, setCreditOrder] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
-  const navigate = useNavigate();
 
   const handleBrandChange = (event) => {
     setPageNumber(0); // Reset pageNumber when brand changes
     setHasMoreData(true);
     setSelectedBrand(event.target.value);
-    navigate(
-      `/view-all-product/${event.target.value}`
-    );
   };
 
   const handleCashOrderChange = (event) => {
@@ -67,22 +62,8 @@ function ViewAllProduct(props) {
     }
   };
 
-  const gradingProduct = async () => {
-    const url = `https://api.rangsmotors.com?file_name=product_grade`;
-    const response = await axios.get(url, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = response.data;
-    if (data.status === "true") {
-      setGradeList(data.data);
-    } else {
-      console.error("API response status is not true:", data);
-    }
-  };
+
   useEffect(() => {
-    // gradingProduct();
     fetchCarData();
   }, [selectedBrand, cashOrder, creditOrder, pageNumber, selectedGrade]);
 
@@ -417,4 +398,4 @@ function ViewAllProduct(props) {
   );
 }
 
-export default ViewAllProduct;
+export default BrandWiseProduct;

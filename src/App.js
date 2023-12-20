@@ -6,6 +6,7 @@ import ImageUpload from "./components/ImageUpload";
 import ScrollToTopOnRouteChange from "./components/ScrollToTopOnRouteChange";
 import TosterNotify from "./components/TosterNotify";
 import AboutUs from "./pages/About";
+import BrandWiseProduct from "./pages/BrandWiseProduct";
 import Contact from "./pages/Contact";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
@@ -39,7 +40,8 @@ export default function App() {
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/imageUpload" element={<ImageUpload />} />
-        <Route path="/view-all-product" element={<ViewAllProduct />} />
+        <Route path="/view-all-product/:selectedBrandId?" element={<ViewAllProduct />} />
+        <Route path="/brand-wise-product/:selectedBrandId?" element={<BrandWiseProduct />} />
         <Route
           path="/searchable-product/:selectedModel/:selectedBrandId/:selectedCategory"
           element={<SearchableProduct />}
