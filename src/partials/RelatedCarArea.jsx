@@ -11,7 +11,7 @@ function RelatedCarArea(props) {
     const fetchCarData = async () => {
       try {
         const response = await axios.get(
-          `https://api.rangsmotors.com?file_name=brand_wise_product_list&b_id=${props.brand_id}`,
+          `https://api.rangsmotors.com?file_name=brand_wise_product_list&b_id=${props.brand_id}&ca_order=${props.cashOrder}&cre_order=${props.creditOrder}&pageNumber=${12}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -31,7 +31,7 @@ function RelatedCarArea(props) {
     };
 
     fetchCarData();
-  }, [props.brand_id]);
+  }, [props.brand_id,props.creditOrder, props.cashOrder]);
 
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
   return (
@@ -65,7 +65,7 @@ function RelatedCarArea(props) {
             return (
               <div key={index} className="col-md-6 col-lg-4">
                 <div
-                  className={`car-item animate__animated animate__fadeInUp"`}
+                  className={`car-item`}
                 >
                   <div className="car-img">
                     <span className={`car-status ${currentStatus.color}`}>
@@ -77,9 +77,7 @@ function RelatedCarArea(props) {
                   <div className="car-content">
                     <div className="car-top">
                       <h4>
-                        <Link
-                          to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}
-                        >
+                        <Link to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}>
                           {carItem.MODEL}
                         </Link>
                       </h4>
