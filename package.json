@@ -9,16 +9,12 @@
     "@testing-library/user-event": "^13.5.0",
     "aos": "^3.0.0-beta.6",
     "axios": "^1.6.2",
-    "babel-eslint": "^10.1.0",
     "body-parser": "^1.20.2",
     "bootstrap": "^5.3.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.1",
     "express": "^4.18.2",
     "nodemailer": "^6.9.7",
-    "prettier": "^3.0.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
@@ -41,7 +37,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "yarn add -D prettier && yarn add -D babel-eslint && npx install-peerdeps --dev eslint-config-airbnb && yarn add -D eslint-config-prettier eslint-plugin-prettier"
+    "lint": "npm add -D prettier && npm add -D babel-eslint && npx install-peerdeps --dev eslint-config-airbnb && npm add -D eslint-config-prettier eslint-plugin-prettier"
   },
   "eslintConfig": {
     "extends": [
@@ -63,11 +59,15 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "babel-eslint": "^10.1.0",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^5.1.0",
     "eslint-plugin-react": "^7.28.0",
-    "eslint-plugin-react-hooks": "^5.0.0-canary-c17a27ef4-20231127"
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "prettier": "^3.1.1"
   }
 }
