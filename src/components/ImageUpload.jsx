@@ -16,12 +16,12 @@ function ImageUpload(props) {
       formData.append("file", selectedFile);
 
       try {
-        const response = await fetch("http://localhost:8000/imgUpload", {
-          method: "POST",
-          body: formData, // Pass formData directly as the body
-        });
+        // const response = await fetch("http://localhost:8000/imgUpload", {
+        //   method: "POST",
+        //   body: formData, // Pass formData directly as the body
+        // });
 
-        const data = await response.json();
+        // const data = await response.json();
       // Handle success or error messages from the server
       } catch (error) {
         console.error("Error uploading file:", error);

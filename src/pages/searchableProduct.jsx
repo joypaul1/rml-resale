@@ -37,13 +37,13 @@ function SearchableProduct(props) {
   };
 
   const handleGradeChange = (event) => {
+    setHasMoreData(true);
     setSelectedGrade(event.target.value);
   };
 
   const handleModelChange = (event) => {
-    navigate(
-      `/searchable-product/${event.target.value}/${selectedBrand}/${selectedCategory}`
-    );
+    setPageNumber(0); // Reset pageNumber when credit order changes
+    navigate(`/searchable-product/${event.target.value}/${selectedBrand}/${selectedCategory}`);
   };
   const fetchCarData = async () => {
     try {

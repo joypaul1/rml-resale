@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import OwlCarousel from "react-owl-carousel";
+import Carousel from 'react-elastic-carousel';
+
+
 import ImgSrc from "../components/ImgSrc";
 
 function Testimonials() {
@@ -11,7 +13,7 @@ function Testimonials() {
       try {
         const delayedFetch = () => {
           return new Promise((resolve) => {
-            setTimeout(resolve, 4000);
+            setTimeout(resolve, 2000);
           });
         };
 
@@ -40,29 +42,11 @@ function Testimonials() {
     fetchCommentData();
   }, []);
 
-  // Owl Carousel Settings
-  const options = {
-    loop: true,
-    margin: 30,
-    nav: false,
-    dots: true,
-    autoplay: true,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      600: {
-        items: 2,
-      },
-      1000: {
-        items: 4,
-      },
-    },
-  };
+  
 
   return (
     <div className="testimonial-area bg py-60">
-      <div className="container">
+      <div className="containers">
         <div className="row">
           <div className="col-lg-6 mx-auto">
             <div className="site-heading text-center">
@@ -76,13 +60,11 @@ function Testimonials() {
             </div>
           </div>
         </div>
-        <OwlCarousel
-          className="testimonial-slider owl-carousel owl-theme"
-          {...options}
-        >
+        <Carousel enableAutoPlay autoPlaySpeed={1500} itemPosition={2} itemsToShow={2}  
+          disableArrowsOnEnd={true} className="d-flex align-self-center">
           {commentList.map((commentItem, index) => {
             return (
-              <div key={index} className="testimonial-single">
+              <div key={index} className=" testimonial-single">
                 <div className="testimonial-content">
                   <div className="testimonial-author-img">
                     {commentItem.PIC_URL ? (
@@ -115,7 +97,7 @@ function Testimonials() {
               </div>
             );
           })}
-        </OwlCarousel>
+        </Carousel>
       </div>
     </div>
   );
