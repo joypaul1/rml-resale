@@ -31,7 +31,7 @@ function RelatedCarArea(props) {
     };
 
     fetchCarData();
-  }, [props.brand_id,props.creditOrder, props.cashOrder]);
+  }, [props.brand_id, props.creditOrder, props.cashOrder]);
 
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
   return (
@@ -64,9 +64,7 @@ function RelatedCarArea(props) {
 
             return (
               <div key={index} className="col-md-6 col-lg-4">
-                <div
-                  className={`car-item`}
-                >
+                <div className={`car-item`}>
                   <div className="car-img">
                     <span className={`car-status ${currentStatus.color}`}>
                       {currentStatus.text}
@@ -77,7 +75,9 @@ function RelatedCarArea(props) {
                   <div className="car-content">
                     <div className="car-top">
                       <h4>
-                        <Link to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}>
+                        <Link
+                          to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}
+                        >
                           {carItem.MODEL}
                         </Link>
                       </h4>
@@ -108,29 +108,57 @@ function RelatedCarArea(props) {
                       <span>
                         <strong>Cash Price : </strong>
                         <span className="car-price">
-                          <NumericFormat
-                            value={carItem.CASH_PRICE}
-                            displayType={"text"}
-                            thousandSeparator=","
-                            allowLeadingZeros
-                            decimalScale={2}
-                            fixedDecimalScale={true}
-                            suffix={"TK "}
-                          />
+                          {carItem.CASH_PRICE <= 0 ? (
+                            <del>
+                              <NumericFormat
+                                value={carItem.CASH_PRICE}
+                                displayType={"text"}
+                                thousandSeparator=","
+                                allowLeadingZeros
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                suffix={"TK "}
+                              />
+                            </del>
+                          ) : (
+                            <NumericFormat
+                              value={carItem.CASH_PRICE}
+                              displayType={"text"}
+                              thousandSeparator=","
+                              allowLeadingZeros
+                              decimalScale={2}
+                              fixedDecimalScale={true}
+                              suffix={"TK "}
+                            />
+                          )}
                         </span>
                       </span>
                       <span>
                         <strong>Credit Price : </strong>
                         <span className="car-price">
-                          <NumericFormat
-                            value={carItem.CREDIT_PRICE}
-                            displayType={"text"}
-                            thousandSeparator=","
-                            allowLeadingZeros
-                            decimalScale={2}
-                            fixedDecimalScale={true}
-                            suffix={"TK "}
-                          />
+                          {carItem.CREDIT_PRICE <= 0 ? (
+                            <del>
+                              <NumericFormat
+                                value={carItem.CREDIT_PRICE}
+                                displayType={"text"}
+                                thousandSeparator=","
+                                allowLeadingZeros
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                suffix={"TK "}
+                              />
+                            </del>
+                          ) : (
+                            <NumericFormat
+                              value={carItem.CREDIT_PRICE}
+                              displayType={"text"}
+                              thousandSeparator=","
+                              allowLeadingZeros
+                              decimalScale={2}
+                              fixedDecimalScale={true}
+                              suffix={"TK "}
+                            />
+                          )}
                         </span>
                       </span>
                     </div>
@@ -150,7 +178,10 @@ function RelatedCarArea(props) {
           {/* Repeat this block for each car item */}
         </div>
         <div className="text-center mt-4">
-          <Link to={'/view-all-product/'+props.brand_id} className="theme-btn">
+          <Link
+            to={"/view-all-product/" + props.brand_id}
+            className="theme-btn"
+          >
             View More <i className="far fa-arrow-rotate-right"></i>
           </Link>
         </div>

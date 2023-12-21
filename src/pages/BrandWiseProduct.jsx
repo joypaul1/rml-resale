@@ -62,7 +62,6 @@ function BrandWiseProduct(props) {
     }
   };
 
-
   useEffect(() => {
     fetchCarData();
   }, [selectedBrand, cashOrder, creditOrder, pageNumber, selectedGrade]);
@@ -317,29 +316,57 @@ function BrandWiseProduct(props) {
                             <span>
                               <strong>Cash Price : </strong>
                               <span className="car-price">
-                                <NumericFormat
-                                  value={carItem.CASH_PRICE}
-                                  displayType={"text"}
-                                  thousandSeparator=","
-                                  allowLeadingZeros
-                                  decimalScale={2}
-                                  fixedDecimalScale={true}
-                                  suffix={"TK "}
-                                />
+                                {carItem.CASH_PRICE <= 0 ? (
+                                  <del>
+                                    <NumericFormat
+                                      value={carItem.CASH_PRICE}
+                                      displayType={"text"}
+                                      thousandSeparator=","
+                                      allowLeadingZeros
+                                      decimalScale={2}
+                                      fixedDecimalScale={true}
+                                      suffix={"TK "}
+                                    />
+                                  </del>
+                                ) : (
+                                  <NumericFormat
+                                    value={carItem.CASH_PRICE}
+                                    displayType={"text"}
+                                    thousandSeparator=","
+                                    allowLeadingZeros
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}
+                                    suffix={"TK "}
+                                  />
+                                )}
                               </span>
                             </span>
                             <span>
                               <strong>Credit Price : </strong>
                               <span className="car-price">
-                                <NumericFormat
-                                  value={carItem.CREDIT_PRICE}
-                                  displayType={"text"}
-                                  thousandSeparator=","
-                                  allowLeadingZeros
-                                  decimalScale={2}
-                                  fixedDecimalScale={true}
-                                  suffix={"TK "}
-                                />
+                                {carItem.CREDIT_PRICE <= 0 ? (
+                                  <del>
+                                    <NumericFormat
+                                      value={carItem.CREDIT_PRICE}
+                                      displayType={"text"}
+                                      thousandSeparator=","
+                                      allowLeadingZeros
+                                      decimalScale={2}
+                                      fixedDecimalScale={true}
+                                      suffix={"TK "}
+                                    />
+                                  </del>
+                                ) : (
+                                  <NumericFormat
+                                    value={carItem.CREDIT_PRICE}
+                                    displayType={"text"}
+                                    thousandSeparator=","
+                                    allowLeadingZeros
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}
+                                    suffix={"TK "}
+                                  />
+                                )}
                               </span>
                             </span>
                           </div>

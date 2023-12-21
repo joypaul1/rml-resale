@@ -20,9 +20,7 @@ function SearchableProduct(props) {
   const navigate = useNavigate();
 
   const handleBrandChange = (event) => {
-    navigate(
-      `/view-all-product/${event.target.value}`
-    );
+    navigate(`/view-all-product/${event.target.value}`);
   };
 
   const handleCashOrderChange = (event) => {
@@ -401,29 +399,57 @@ function SearchableProduct(props) {
                             <span>
                               <strong>Cash Price : </strong>
                               <span className="car-price">
-                                <NumericFormat
-                                  value={carItem.CASH_PRICE}
-                                  displayType={"text"}
-                                  thousandSeparator=","
-                                  allowLeadingZeros
-                                  decimalScale={2}
-                                  fixedDecimalScale={true}
-                                  suffix={"TK "}
-                                />
+                                {carItem.CASH_PRICE <= 0 ? (
+                                  <del>
+                                    <NumericFormat
+                                      value={carItem.CASH_PRICE}
+                                      displayType={"text"}
+                                      thousandSeparator=","
+                                      allowLeadingZeros
+                                      decimalScale={2}
+                                      fixedDecimalScale={true}
+                                      suffix={"TK "}
+                                    />
+                                  </del>
+                                ) : (
+                                  <NumericFormat
+                                    value={carItem.CASH_PRICE}
+                                    displayType={"text"}
+                                    thousandSeparator=","
+                                    allowLeadingZeros
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}
+                                    suffix={"TK "}
+                                  />
+                                )}
                               </span>
                             </span>
                             <span>
                               <strong>Credit Price : </strong>
                               <span className="car-price">
-                                <NumericFormat
-                                  value={carItem.CREDIT_PRICE}
-                                  displayType={"text"}
-                                  thousandSeparator=","
-                                  allowLeadingZeros
-                                  decimalScale={2}
-                                  fixedDecimalScale={true}
-                                  suffix={"TK "}
-                                />
+                                {carItem.CREDIT_PRICE <= 0 ? (
+                                  <del>
+                                    <NumericFormat
+                                      value={carItem.CREDIT_PRICE}
+                                      displayType={"text"}
+                                      thousandSeparator=","
+                                      allowLeadingZeros
+                                      decimalScale={2}
+                                      fixedDecimalScale={true}
+                                      suffix={"TK "}
+                                    />
+                                  </del>
+                                ) : (
+                                  <NumericFormat
+                                    value={carItem.CREDIT_PRICE}
+                                    displayType={"text"}
+                                    thousandSeparator=","
+                                    allowLeadingZeros
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}
+                                    suffix={"TK "}
+                                  />
+                                )}
                               </span>
                             </span>
                           </div>

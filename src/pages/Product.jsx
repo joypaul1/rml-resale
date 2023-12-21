@@ -709,29 +709,57 @@ const Product = () => {
                           <span>
                             <strong>Cash Price : </strong>
                             <span className="car-price">
-                              <NumericFormat
-                                value={relatedcar.CASH_PRICE}
-                                displayType={"text"}
-                                thousandSeparator=","
-                                allowLeadingZeros
-                                decimalScale={2}
-                                fixedDecimalScale={true}
-                                suffix={"TK "}
-                              />
+                              {relatedcar.CASH_PRICE <= 0 ? (
+                                <del>
+                                  <NumericFormat
+                                    value={relatedcar.CASH_PRICE}
+                                    displayType={"text"}
+                                    thousandSeparator=","
+                                    allowLeadingZeros
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}
+                                    suffix={"TK "}
+                                  />
+                                </del>
+                              ) : (
+                                <NumericFormat
+                                  value={relatedcar.CASH_PRICE}
+                                  displayType={"text"}
+                                  thousandSeparator=","
+                                  allowLeadingZeros
+                                  decimalScale={2}
+                                  fixedDecimalScale={true}
+                                  suffix={"TK "}
+                                />
+                              )}
                             </span>
                           </span>
                           <span>
                             <strong>Credit Price : </strong>
                             <span className="car-price">
-                              <NumericFormat
-                                value={relatedcar.CREDIT_PRICE}
-                                displayType={"text"}
-                                thousandSeparator=","
-                                allowLeadingZeros
-                                decimalScale={2}
-                                fixedDecimalScale={true}
-                                suffix={"TK "}
-                              />
+                              {relatedcar.CREDIT_PRICE <= 0 ? (
+                                <del>
+                                  <NumericFormat
+                                    value={relatedcar.CREDIT_PRICE}
+                                    displayType={"text"}
+                                    thousandSeparator=","
+                                    allowLeadingZeros
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}
+                                    suffix={"TK "}
+                                  />
+                                </del>
+                              ) : (
+                                <NumericFormat
+                                  value={relatedcar.CREDIT_PRICE}
+                                  displayType={"text"}
+                                  thousandSeparator=","
+                                  allowLeadingZeros
+                                  decimalScale={2}
+                                  fixedDecimalScale={true}
+                                  suffix={"TK "}
+                                />
+                              )}
                             </span>
                           </span>
                         </div>

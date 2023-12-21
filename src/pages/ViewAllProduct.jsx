@@ -8,7 +8,7 @@ function ViewAllProduct(props) {
   const { selectedBrandId } = useParams();
   const [carList, setCarList] = useState([]);
   const [gradeList, setGradeList] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState(selectedBrandId??'');
+  const [selectedBrand, setSelectedBrand] = useState(selectedBrandId ?? "");
   const [selectedGrade, setSelectedGrade] = useState("");
   const [cashOrder, setCashOrder] = useState("");
   const [creditOrder, setCreditOrder] = useState("");
@@ -21,9 +21,7 @@ function ViewAllProduct(props) {
     setPageNumber(0); // Reset pageNumber when brand changes
     setHasMoreData(true);
     setSelectedBrand(event.target.value);
-    navigate(
-      `/view-all-product/${event.target.value}`
-    );
+    navigate(`/view-all-product/${event.target.value}`);
   };
 
   const handleCashOrderChange = (event) => {
@@ -336,29 +334,57 @@ function ViewAllProduct(props) {
                             <span>
                               <strong>Cash Price : </strong>
                               <span className="car-price">
-                                <NumericFormat
-                                  value={carItem.CASH_PRICE}
-                                  displayType={"text"}
-                                  thousandSeparator=","
-                                  allowLeadingZeros
-                                  decimalScale={2}
-                                  fixedDecimalScale={true}
-                                  suffix={"TK "}
-                                />
+                              {carItem.CASH_PRICE <= 0 ? (
+                                  <del>
+                                    <NumericFormat
+                                      value={carItem.CASH_PRICE}
+                                      displayType={"text"}
+                                      thousandSeparator=","
+                                      allowLeadingZeros
+                                      decimalScale={2}
+                                      fixedDecimalScale={true}
+                                      suffix={"TK "}
+                                    />
+                                  </del>
+                                ):(
+                                  <NumericFormat
+                                      value={carItem.CASH_PRICE}
+                                      displayType={"text"}
+                                      thousandSeparator=","
+                                      allowLeadingZeros
+                                      decimalScale={2}
+                                      fixedDecimalScale={true}
+                                      suffix={"TK "}
+                                    />
+                                )}
                               </span>
                             </span>
                             <span>
                               <strong>Credit Price : </strong>
                               <span className="car-price">
-                                <NumericFormat
-                                  value={carItem.CREDIT_PRICE}
-                                  displayType={"text"}
-                                  thousandSeparator=","
-                                  allowLeadingZeros
-                                  decimalScale={2}
-                                  fixedDecimalScale={true}
-                                  suffix={"TK "}
-                                />
+                                {carItem.CREDIT_PRICE <= 0 ? (
+                                  <del>
+                                    <NumericFormat
+                                      value={carItem.CREDIT_PRICE}
+                                      displayType={"text"}
+                                      thousandSeparator=","
+                                      allowLeadingZeros
+                                      decimalScale={2}
+                                      fixedDecimalScale={true}
+                                      suffix={"TK "}
+                                    />
+                                  </del>
+                                ):(
+                                  <NumericFormat
+                                      value={carItem.CREDIT_PRICE}
+                                      displayType={"text"}
+                                      thousandSeparator=","
+                                      allowLeadingZeros
+                                      decimalScale={2}
+                                      fixedDecimalScale={true}
+                                      suffix={"TK "}
+                                    />
+                                )}
                               </span>
                             </span>
                           </div>
