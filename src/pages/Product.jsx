@@ -52,10 +52,19 @@ const Product = () => {
         if (response.data.status === "false") {
           console.log("Failed to fetch car data : " + response.data.message);
         }
-
+        // console.log(response.data.status);
         const data = response.data;
         setCarData(data.data);
-        setMinBidAmount(data.data.CASH_PRICE);
+        if (data.data.CASH_PRICE > 0 && data.data.CREDIT_PRICE > 0) {
+          setSelectedBidType("cash");
+          setMinBidAmount(data.data.CASH_PRICE);
+        } else if (data.data.CASH_PRICE > 0) {
+          setSelectedBidType("cash");
+          setMinBidAmount(data.data.CASH_PRICE);
+        } else if (data.data.CREDIT_PRICE > 0) {
+          setSelectedBidType("credit");
+          setMinBidAmount(data.data.CREDIT_PRICE);
+        }
         setCarImage(data.product_images);
         setRelatedcarData(data.product_related);
       } catch (error) {
@@ -66,8 +75,6 @@ const Product = () => {
   }, [product_id]);
 
   const bidSubmit = async (e) => {
-    // return false;
-
     e.preventDefault();
     if (parseFloat(bidAmount) >= parseFloat(minBidAmount)) {
       try {
@@ -325,14 +332,29 @@ const Product = () => {
                     style={{ color: "#EF1D26" }}
                   ></i>{" "}
                   Cash Price Bid :{" "}
-                  <NumericFormat
-                    value={carData.CASH_PRICE}
-                    displayType={"text"}
-                    thousandSeparator=","
-                    allowLeadingZeros
-                    fixedDecimalScale={true}
-                    prefix={"TK "}
-                  />
+                  {carData.CASH_PRICE <= 0 ? (
+                    <del>
+                      <NumericFormat
+                        value={carData.CASH_PRICE}
+                        displayType={"text"}
+                        thousandSeparator=","
+                        allowLeadingZeros
+                        decimalScale={2}
+                        fixedDecimalScale={true}
+                        suffix={"TK "}
+                      />
+                    </del>
+                  ) : (
+                    <NumericFormat
+                      value={carData.CASH_PRICE}
+                      displayType={"text"}
+                      thousandSeparator=","
+                      allowLeadingZeros
+                      decimalScale={2}
+                      fixedDecimalScale={true}
+                      suffix={"TK "}
+                    />
+                  )}
                 </p>
                 <p>
                   <i
@@ -340,14 +362,29 @@ const Product = () => {
                     style={{ color: "#EF1D26" }}
                   ></i>{" "}
                   Credit Price Bid :{" "}
-                  <NumericFormat
-                    value={carData.CREDIT_PRICE}
-                    displayType={"text"}
-                    thousandSeparator=","
-                    allowLeadingZeros
-                    fixedDecimalScale={true}
-                    prefix={"TK "}
-                  />
+                  {carData.CREDIT_PRICE <= 0 ? (
+                    <del>
+                      <NumericFormat
+                        value={carData.CREDIT_PRICE}
+                        displayType={"text"}
+                        thousandSeparator=","
+                        allowLeadingZeros
+                        decimalScale={2}
+                        fixedDecimalScale={true}
+                        suffix={"TK "}
+                      />
+                    </del>
+                  ) : (
+                    <NumericFormat
+                      value={carData.CREDIT_PRICE}
+                      displayType={"text"}
+                      thousandSeparator=","
+                      allowLeadingZeros
+                      decimalScale={2}
+                      fixedDecimalScale={true}
+                      suffix={"TK "}
+                    />
+                  )}
                 </p>
                 <p>
                   <i
@@ -365,30 +402,34 @@ const Product = () => {
               </p>
               <span className="d-flex justify-content-center">
                 <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    id="inlineCheckbox1"
-                    value="cash"
-                    name="bid_for"
-                    // defaultChecked
-                    onChange={handleBidTypeChange}
-                    checked={selectedBidType === "cash"}
-                  />
+                  {carData.CASH_PRICE > 0 && (
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      id="inlineCheckbox1"
+                      value="cash"
+                      name="bid_for"
+                      onChange={handleBidTypeChange}
+                      checked={selectedBidType === "cash"}
+                    />
+                  )}
                   <label className="form-check-label" htmlFor="inlineCheckbox1">
                     Cash
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    id="inlineCheckbox2"
-                    value="credit"
-                    name="bid_for"
-                    onChange={handleBidTypeChange}
-                    checked={selectedBidType === "credit"}
-                  />
+                  {carData.CREDIT_PRICE >= 0 && (
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      id="inlineCheckbox2"
+                      value="credit"
+                      name="bid_for"
+                      onChange={handleBidTypeChange}
+                      checked={selectedBidType === "credit"}
+                    />
+                  )}
+
                   <label className="form-check-label" htmlFor="inlineCheckbox2">
                     Credit
                   </label>
