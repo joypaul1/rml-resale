@@ -44,23 +44,23 @@ export default function Header() {
                 <div className="header-top-contact">
                   <ul>
                     <li>
-                      <a href="noreferrer">
+                      <Link>
                         <i className="far fa-envelopes"></i>{" "}
                         <span className="__cf_email__">
                           info@rangsgroup.com
                         </span>
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="noreferrer">
+                      <Link>
                         <i className="far fa-fax"></i> +88 02 9130895{" "}
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="noreferrer">
+                      <Link>
                         <i className="far fa-alarm-clock"></i> Sun - Thu (09AM -
                         06PM)
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -84,23 +84,12 @@ export default function Header() {
                 <div className="header-top-social">
                   <span>Follow Us: </span>
                   <a
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                     href="https://www.facebook.com/rangsmotorsbd"
                     target="_blank"
                   >
                     <i className="fab fa-facebook"></i>
                   </a>
-                  {/* <a rel="noopener" href="noreferrer">
-                    <i className="fab fa-youtube"></i>
-                  </a>  <a
-                    rel="noopener noreferrer"
-                   
-                  >
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                  <a rel="noopener " href="noreferrer">
-                    <i className="fab fa-instagram"></i>
-                  </a> */}
                   <a
                     href="https://www.linkedin.com/company/rangsmotorslimited "
                     target="_blank"
@@ -186,37 +175,35 @@ export default function Header() {
                     </Link>
                   </li>
                   <li className="nav-item dropdown">
-                    <a
+                    <Link
                       className="nav-link dropdown-toggle"
-                      href="noreferrer"
                       data-bs-toggle="dropdown"
                     >
                       Eicher
-                    </a>
+                    </Link>
                     <ul className="dropdown-menu fade-down">
                       <HeaderManuList brand_id={1} />
                     </ul>
                   </li>
                   <li className="nav-item dropdown">
-                    <a
+                    <Link
                       className="nav-link dropdown-toggle"
-                      href="noreferrer"
                       data-bs-toggle="dropdown"
                     >
                       Mahindra
-                    </a>
+                    </Link>
                     <ul className="dropdown-menu fade-down">
                       <HeaderManuList brand_id={2} />
                     </ul>
                   </li>
                   <li className="nav-item dropdown">
-                    <a
+                    <Link
                       className="nav-link dropdown-toggle"
                       href="noreferrer"
                       data-bs-toggle="dropdown"
                     >
                       Dongfeng
-                    </a>
+                    </Link>
                     <ul className="dropdown-menu fade-down">
                       <HeaderManuList brand_id={3} />
                     </ul>

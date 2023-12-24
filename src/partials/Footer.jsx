@@ -112,7 +112,7 @@ export default function Footer() {
             <div className="col-md-6 align-self-center">
               <p className="copyright-text">
                 &copy; Copyright <span id="date"></span>{" "}
-                <a href="noreferrer"> RML </a> All Rights Reserved.
+                <Link > RML </Link> All Rights Reserved.
               </p>
             </div>
             <div className="col-md-6 align-self-center">
@@ -120,8 +120,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="https://www.facebook.com/rangsmotorsbd"
-                    target="_blank"
-                    rel="noreferrer"
+                    target="_blank" rel="noreferrer"
                   >
                     <i className="fab fa-facebook-f"></i>
                   </a>
@@ -129,8 +128,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="https://www.linkedin.com/company/rangsmotorslimited"
-                    target="_blank"
-                    rel="noreferrer"
+                    target="_blank" rel="noreferrer"
                   >
                     <i className="fab fa-twitter"></i>
                   </a>

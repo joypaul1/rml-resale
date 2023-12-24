@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
   return (
     <div className={`sidebar-popup ${isSidebarOpen ? "open" : ""}`}>
@@ -44,10 +46,10 @@ export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
             <ul>
               <li>
                 <h6>Email</h6>
-                <a rel="noopener" href="noreferrer">
+                <Link>
                   <i className="far fa-envelope"></i>
                   <span className="__cf_email__">info@rangsgroup.com</span>
-                </a>
+                </Link>
               </li>
               <li>
                 <h6>Phone</h6>
@@ -57,10 +59,10 @@ export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
               </li>
               <li>
                 <h6>Address</h6>
-                <a rel="noopener" href="noreferrer">
+                <Link rel="noopener">
                   <i className="far fa-location-dot"></i> 117/A, Level-04, Old
                   Air Port Road Bijoy Sarani, Tejgaon, Dhaka-1212.
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -73,15 +75,6 @@ export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
             >
               <i className="fab fa-facebook"></i>
             </a>
-            {/* <a
-             
-              rel="noreferrer"
-            >
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a rel="noopener" href="noreferrer">
-              <i className="fab fa-instagram"></i>
-            </a> */}
             <a  href="https://www.linkedin.com/company/rangsmotorslimited "
               target="_blank" rel="noreferrer">
               <i className="fab fa-linkedin"></i>
