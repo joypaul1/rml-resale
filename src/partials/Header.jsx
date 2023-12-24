@@ -6,12 +6,7 @@ import HeaderManuList from "../components/CategortyList";
 import Sidebar from "./Sidebar";
 import UserLoginModal from "./UserLoginModal";
 export default function Header() {
-  // const router = useLocation();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [router.pathname]);
 
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const handleSidebarToggle = () => {
@@ -79,7 +74,7 @@ export default function Header() {
                 )}
                 <div className="buttons">
                   <button className="activelang">EN</button>
-                  <button >BN</button>
+                  <button>BN</button>
                 </div>
                 <div className="header-top-social">
                   <span>Follow Us: </span>
@@ -113,16 +108,7 @@ export default function Header() {
               </Link>
               <div className="mobile-menu-right">
                 {!userlogData && (
-                  <div className="">
-                    <Link
-                      to="/login"
-                      type="button"
-                      className="nav-right-link"
-                      style={{ color: "white", backgroundColor: "red" }}
-                    >
-                      <i className="far fa-user-vneck"></i> Login
-                    </Link>
-                  </div>
+                  <UserLoginModal previousLink={window.location.pathname} />
                 )}
                 {userlogData && (
                   <div className="nav-right-account">
@@ -231,9 +217,7 @@ export default function Header() {
                 <div className="nav-right">
                   {!userlogData && (
                     <div className="nav-right-btn mt-2">
-                    <UserLoginModal
-                          previousLink={window.location.pathname}
-                        />
+                      <UserLoginModal previousLink={window.location.pathname} />
                       {/* <Link to="/login" className="theme-btn">
                         <span className="far fa-user-vneck"></span> Loginaa
                       </Link> */}

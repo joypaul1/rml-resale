@@ -13,7 +13,6 @@ function SearchableProduct(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
   const [carList, setCarList] = useState([]);
-  const [gradeList, setGradeList] = useState([]);
   const [modelList, setModelList] = useState([]);
   const [cashOrder, setCashOrder] = useState("");
   const [creditOrder, setCreditOrder] = useState("");
@@ -33,11 +32,6 @@ function SearchableProduct(props) {
     setCashOrder("");
     setCreditOrder(event.target.value);
     setPageNumber(0); // Reset pageNumber when credit order changes
-  };
-
-  const handleGradeChange = (event) => {
-    setHasMoreData(true);
-    setSelectedGrade(event.target.value);
   };
 
   const handleModelChange = (event) => {
@@ -119,7 +113,6 @@ function SearchableProduct(props) {
       setIsLoading(false);
     }, 1000); // 1000 milliseconds = 1 second
   };
-  const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
   return (
     <div className="car-area bg py-50">
@@ -155,36 +148,7 @@ function SearchableProduct(props) {
                   })}
                 </ul>
               </div>
-              {/* <div className="car-widget">
-                <h4 className="car-widget-title">PRODUCT GRADING </h4>
-                <ul
-                  style={{ display: "flex", flexDirection: "row", gap: "5%" }}
-                >
-                  {gradeList.map((gradeItem, index) => {
-                    return (
-                      <li>
-                        <div className="form-check">
-                          <input
-                            name="grade_range"
-                            value={gradeItem.NAME}
-                            checked={selectedGrade === gradeItem.NAME}
-                            onChange={handleGradeChange}
-                            className="form-check-input"
-                            type="radio"
-                            id={index + "_GRA"}
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor={index + "_GRA"}
-                          >
-                            {gradeItem.NAME}
-                          </label>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div> */}
+
               <div className="car-widget">
                 <h4 className="car-widget-title">CREDIT PRICE RANGE </h4>
                 <ul>
@@ -364,11 +328,7 @@ function SearchableProduct(props) {
                         <div className="car-content">
                           <div className="car-top">
                             <h4>
-                              <Link
-                                to={`/product/${carItem.ID}/${
-                                  userlogData?.ID || 0
-                                }`}
-                              >
+                              <Link to={`/product/${carItem.ID}`}>
                                 {carItem.MODEL}
                               </Link>
                             </h4>
@@ -455,9 +415,7 @@ function SearchableProduct(props) {
                           </div>
                           <span className="d-flex align-items-center justify-content-center mt-2">
                             <Link
-                              to={`/product/${carItem.ID}/${
-                                userlogData?.ID || 0
-                              }`}
+                              to={`/product/${carItem.ID}`}
                               className="theme-btn"
                             >
                               <span className="far fa-eye fa-beat"></span>

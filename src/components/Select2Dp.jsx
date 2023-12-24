@@ -1,7 +1,7 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import Select from "react-select";
 
-function Select2Dp({ name, optionProps, onChange = () => {}, selectedValue }) {
+const Select2Dp = forwardRef(({ name, optionProps, onChange = () => {}, selectedValue }, ref) => {
   const handleOnChange = (selectedOption) => {
     if (onChange && typeof onChange === "function") {
       onChange(selectedOption.value);
@@ -15,6 +15,7 @@ function Select2Dp({ name, optionProps, onChange = () => {}, selectedValue }) {
   return (
     <>
       <Select
+        ref={ref} // Pass the forwarded ref here
         className="basic-single"
         classNamePrefix="select"
         isDisabled={false}
@@ -31,6 +32,6 @@ function Select2Dp({ name, optionProps, onChange = () => {}, selectedValue }) {
       />
     </>
   );
-}
+});
 
 export default Select2Dp;

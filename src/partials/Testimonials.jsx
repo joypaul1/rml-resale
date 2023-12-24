@@ -1,12 +1,60 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Carousel from 'react-elastic-carousel';
-
+import Slider from "react-slick";
+// import Carousel from 'react-elastic-carousel';
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
 import ImgSrc from "../components/ImgSrc";
 
 function Testimonials() {
+  const [sliderRef, setSliderRef] = useState(null);
   const [commentList, setCommentList] = useState([]);
+
+  const settings = {
+    // dots: true,
+    // speed: 5000,
+    // slidesToShow: 3,
+    // slidesToScroll: 3,
+    // infinite: true,
+    // autoplay: true,
+    // autoplaySpeed: 5000,
+    // dots: true,
+    // infinite: true,
+    // autoplay: true,
+    dots: true,
+    speed: 5000,
+    autoplaySpeed: 3000,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    initialSlide: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+    ],
+  };
 
   useEffect(() => {
     const fetchCommentData = async () => {
@@ -42,8 +90,6 @@ function Testimonials() {
     fetchCommentData();
   }, []);
 
-  
-
   return (
     <div className="testimonial-area bg py-60">
       <div className="containers">
@@ -60,11 +106,10 @@ function Testimonials() {
             </div>
           </div>
         </div>
-        <Carousel enableAutoPlay autoPlaySpeed={1500} itemPosition={2} itemsToShow={2}  
-          disableArrowsOnEnd={true} className="d-flex align-self-center">
+        <Slider ref={setSliderRef} {...settings} className="">
           {commentList.map((commentItem, index) => {
             return (
-              <div key={index} className=" testimonial-single">
+              <div key={index} className="testimonial-single">
                 <div className="testimonial-content">
                   <div className="testimonial-author-img">
                     {commentItem.PIC_URL ? (
@@ -75,7 +120,6 @@ function Testimonials() {
                         alt="defaultLogo"
                       />
                     )}
-                    
                   </div>
                   <div className="testimonial-author-info">
                     <h4>{commentItem.NAME}</h4>
@@ -97,7 +141,7 @@ function Testimonials() {
               </div>
             );
           })}
-        </Carousel>
+        </Slider>
       </div>
     </div>
   );

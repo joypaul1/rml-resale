@@ -1,9 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select2Dp from "../components/Select2Dp";
 import Typewriter from "../components/Typewriter";
-
 const BrandOptions = [
   { value: "1", label: "Eicher" },
   { value: "2", label: "Mahindra" },
@@ -11,6 +10,10 @@ const BrandOptions = [
 ];
 
 function FindCar() {
+  const brandSelectRef = useRef(null);
+  const categorySelectRef = useRef(null);
+  const modelSelectRef = useRef(null);
+
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedModel, setSelectedModel] = useState(null);
@@ -32,7 +35,7 @@ function FindCar() {
           },
         }
       );
-        
+
       const data = response.data;
       if (data.status === "true") {
         const transformedData = data.data.map(({ NAME }) => ({
@@ -62,7 +65,7 @@ function FindCar() {
           },
         }
       );
-      
+
       const data = response.data;
       if (data.status === "true") {
         const transformedData = data.data.map(({ NAME }) => ({
@@ -85,9 +88,28 @@ function FindCar() {
   const navigate = useNavigate();
   const handleSearchData = async (event) => {
     event.preventDefault();
+    // Check if selectedBrand, selectedCategory, and selectedModel are all selected
+    if (!selectedBrand || !selectedCategory || !selectedModel) {
+      if (!selectedBrand) {
+        brandSelectRef.current.focus(); // Focus on brandSelectRef
+      } else if (!selectedCategory) {
+        categorySelectRef.current.focus(); // Focus on categorySelectRef
+      } else {
+        modelSelectRef.current.focus(); // Focus on modelSelectRef
+      }
+      return;
+    }
+
     try {
       // Navigate to the desired route
-      navigate("/searchable-product/" + selectedModel+ "/" + selectedBrand+ "/" + selectedCategory);
+      navigate(
+        "/searchable-product/" +
+          selectedModel +
+          "/" +
+          selectedBrand +
+          "/" +
+          selectedCategory
+      );
     } catch (error) {
       console.error("Error while navigating:", error);
       // Handle any navigation errors or fallback logic
@@ -109,6 +131,7 @@ function FindCar() {
                 <div className="form-group">
                   <p>Brand Name</p>
                   <Select2Dp
+                    ref={brandSelectRef}
                     name="brand_id"
                     optionProps={BrandOptions}
                     onChange={handleBrandChange}
@@ -120,6 +143,7 @@ function FindCar() {
                 <div className="form-group">
                   <p>Category</p>
                   <Select2Dp
+                    ref={categorySelectRef}
                     name="category"
                     optionProps={categoryList}
                     onChange={handleCategoryChange}
@@ -131,11 +155,11 @@ function FindCar() {
                 <div className="form-group">
                   <p>Model</p>
                   <Select2Dp
+                    ref={modelSelectRef}
                     name="model"
                     optionProps={modelList}
                     onChange={handleModelChange}
                     selectedValue={selectedModel}
-
                   />
                 </div>
               </div>

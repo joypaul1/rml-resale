@@ -71,11 +71,13 @@ const UserLoginModal = ({ previousLink }) => {
       throw error;
     }
   };
-
+  const ChangePage = () => {
+    handleClose();
+  };
   return (
     <>
       <button type="button" className="theme-btn" onClick={handleShow}>
-        <span className="far fa-sign-in"></span> Login 
+        <span className="far fa-sign-in"></span> Login
       </button>
 
       <Modal
@@ -148,7 +150,11 @@ const UserLoginModal = ({ previousLink }) => {
                     </div>
 
                     <div className="d-flex justify-content-end mb-4">
-                      <Link to="/forgot-password" className="forgot-pass">
+                      <Link
+                        to={"/forgot-password"}
+                        onClick={ChangePage}
+                        className="forgot-pass"
+                      >
                         Forgot Password?
                       </Link>
                     </div>
@@ -166,7 +172,10 @@ const UserLoginModal = ({ previousLink }) => {
                   <div className="login-footer">
                     <p>
                       Don't have an account?{" "}
-                      <Link to="/register">Register.</Link>
+                       
+                      <Link  to={"/register"}  onClick={ChangePage}>
+                        Register.
+                      </Link>
                     </p>
                   </div>
                 </div>

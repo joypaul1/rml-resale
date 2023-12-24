@@ -121,13 +121,11 @@ Table of contents
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 * {
   scroll-behavior: inherit !important;
-  /* scroll-behavior: smooth !important; */
-  /* overflow-anchor: none; */
 
 }
 
@@ -139,9 +137,10 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   scroll-behavior: smooth;
   overflow-anchor: none;
+  box-sizing: inherit !important;
 }
 
 body {
@@ -7146,4 +7145,17 @@ body.rtl-mode .price-wrapper {
 .buttons .activelang {
   box-shadow: inset 0 0 0 100vmax var(--_c);
   color: #fff;
+}
+
+div .testimonial-single {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  height: 380px !important;
+
+}
+
+@media screen and (max-width: 768px) {
+  div .testimonial-single {
+    height: auto !important;
+    /* Adjust the height for smaller screens */
+  }
 }
