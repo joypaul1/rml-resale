@@ -101,7 +101,9 @@ function RelatedCarArea(props) {
                       </li>
                       <li>
                         <i className="far fa-file-pen"></i>Reg :{" "}
-                       {`${carItem.REG_NO.substring(0, 20)}...`}
+                        {carItem.REG_NO && carItem.REG_NO.length > 20
+                          ? `${carItem.REG_NO.substring(0, 250)}...`
+                          : carItem.REG_NO}
                       </li>
                     </ul>
                     <div className="car-footer flex-column">

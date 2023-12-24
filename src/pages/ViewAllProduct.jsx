@@ -327,14 +327,16 @@ function ViewAllProduct(props) {
                             </li>
                             <li>
                               <i className="far fa-file-pen"></i>Reg :{" "}
-                             {`${carItem.REG_NO.substring(0, 20)}...`}
+                              {carItem.REG_NO && carItem.REG_NO.length > 20
+                                ? `${carItem.REG_NO.substring(0, 250)}...`
+                                : carItem.REG_NO}
                             </li>
                           </ul>
                           <div className="car-footer flex-column">
                             <span>
                               <strong>Cash Price : </strong>
                               <span className="car-price">
-                              {carItem.CASH_PRICE <= 0 ? (
+                                {carItem.CASH_PRICE <= 0 ? (
                                   <del>
                                     <NumericFormat
                                       value={carItem.CASH_PRICE}
@@ -346,16 +348,16 @@ function ViewAllProduct(props) {
                                       suffix={"TK "}
                                     />
                                   </del>
-                                ):(
+                                ) : (
                                   <NumericFormat
-                                      value={carItem.CASH_PRICE}
-                                      displayType={"text"}
-                                      thousandSeparator=","
-                                      allowLeadingZeros
-                                      decimalScale={2}
-                                      fixedDecimalScale={true}
-                                      suffix={"TK "}
-                                    />
+                                    value={carItem.CASH_PRICE}
+                                    displayType={"text"}
+                                    thousandSeparator=","
+                                    allowLeadingZeros
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}
+                                    suffix={"TK "}
+                                  />
                                 )}
                               </span>
                             </span>
@@ -374,16 +376,16 @@ function ViewAllProduct(props) {
                                       suffix={"TK "}
                                     />
                                   </del>
-                                ):(
+                                ) : (
                                   <NumericFormat
-                                      value={carItem.CREDIT_PRICE}
-                                      displayType={"text"}
-                                      thousandSeparator=","
-                                      allowLeadingZeros
-                                      decimalScale={2}
-                                      fixedDecimalScale={true}
-                                      suffix={"TK "}
-                                    />
+                                    value={carItem.CREDIT_PRICE}
+                                    displayType={"text"}
+                                    thousandSeparator=","
+                                    allowLeadingZeros
+                                    decimalScale={2}
+                                    fixedDecimalScale={true}
+                                    suffix={"TK "}
+                                  />
                                 )}
                               </span>
                             </span>
