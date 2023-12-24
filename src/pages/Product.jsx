@@ -743,7 +743,7 @@ const Product = () => {
                           </li>
                           <li>
                             <i className="far fa-file-pen"></i>Reg :{" "}
-                            {relatedcar.REG_NO}
+                            {`${relatedcar.REG_NO.substring(0, 20)}...`}
                           </li>
                         </ul>
                         <div className="car-footer flex-column">

@@ -352,7 +352,7 @@ function SearchableProduct(props) {
                             </li>
                             <li>
                               <i className="far fa-file-pen"></i>Reg :{" "}
-                              {carItem.REG_NO}
+                             {`${carItem.REG_NO.substring(0, 20)}...`}
                             </li>
                           </ul>
                           <div className="car-footer flex-column">
