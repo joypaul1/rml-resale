@@ -120,7 +120,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="https://www.facebook.com/rangsmotorsbd"
-                    target="_blank" rel="noreferrer"
+                    target="_blank" 
                   >
                     <i className="fab fa-facebook-f"></i>
                   </a>

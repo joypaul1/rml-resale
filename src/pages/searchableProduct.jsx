@@ -118,7 +118,7 @@ function SearchableProduct(props) {
     <div className="car-area bg py-50">
       <div className="container">
         <div className="row">
-          <div className="col-3">
+          <div className="col-sm-12 col-md-12 col-lg-3">
             <div className="car-sidebar">
               <div className="car-widget">
                 <h4 className="car-widget-title">{selectedCategory} MODEL </h4>
@@ -280,7 +280,7 @@ function SearchableProduct(props) {
               )}
             </div>
           </div>
-          <div className="col-9">
+          <div className="col-sm-12 col-md-12 col-lg-9">
             <div className="row">
               {carList.length === 0 ? (
                 <>
@@ -316,7 +316,7 @@ function SearchableProduct(props) {
                   }
 
                   return (
-                    <div key={index} className="col-md-4 col-lg-4">
+                    <div key={index} className="col-sm-12 col-md-6 col-lg-4">
                       <div className={`car-item`}>
                         <div className="car-img">
                           <span className={`car-status ${currentStatus.color}`}>

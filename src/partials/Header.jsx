@@ -185,7 +185,6 @@ export default function Header() {
                   <li className="nav-item dropdown">
                     <Link
                       className="nav-link dropdown-toggle"
-                      href="noreferrer"
                       data-bs-toggle="dropdown"
                     >
                       Dongfeng
