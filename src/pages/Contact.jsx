@@ -1,50 +1,81 @@
-"use client";
+import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const Contact = () => {
+  const [loading, setLoading] = useState(false);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
+
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    subject: "",
     message: "",
+    mobile: "",
   });
-  const [loading, setLoading] = useState(false);
+  const [formErrors, setFormErrors] = useState({
+    name: false,
+    message: false,
+    mobile: false,
+  });
+
   const notifySuccess = (msg) => {
     toast.success(msg);
   };
+
   const notifyError = (msg) => {
     toast.warning(msg);
   };
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target; // get the  input value & name
+    let isSubmitDisabled = false;
+    let isFieldInvalid = false;
+
+    if (name === "mobile") {
+      if (value.length !== 11 || !value.startsWith("01")) {
+        isSubmitDisabled = true;
+        isFieldInvalid = true;
+      } else {
+        isFieldInvalid = false;
+      }
+    } else if (value.trim() === "") {
+      isSubmitDisabled = true;
+      isFieldInvalid = true;
+    } else {
+      isFieldInvalid = false;
+    }
+
+    setFormErrors({ ...formErrors, [name]: isFieldInvalid }); // set errors for all fields
+    setFormData({ ...formData, [name]: value }); // set data for all fields
+    setSubmitDisabled(isSubmitDisabled); // set submit disabled
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
+    try { 
       setLoading(true);
-      const response = await fetch("/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        notifySuccess("Email sent successfully");
+      const response = await axios.post(
+        "https://api.rangsmotors.com?file_name=client_contact",
+        JSON.stringify(formData), // Data should be directly passed as the second argument
+        {
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
+      );
+      const data = response.data;
+      if (data.status === "true") {
+        notifySuccess("Submitted successfully");
       } else {
-        notifyError("Error sending email");
-        console.error("Error sending email", response);
+        notifyError("Error: " + response.message);
+        console.error("Error sending data", response);
       }
     } catch (error) {
-      notifyError("Error sending email:", error);
-      console.error("Error sending email:", error);
+      notifyError("Error: ", error);
     } finally {
       setLoading(false);
     }
   };
-
+  
   return (
     <div className="contact-area py-120">
       <div className="container">
@@ -121,16 +152,10 @@ const Contact = () => {
               <div className="contact-form">
                 <div className="contact-form-header">
                   <h2 className="text-center">Get In Touch with us</h2>
-                  <p>
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page randomised
-                    words which don't look even slightly when looking at its
-                    layout.{" "}
-                  </p>
+                
                 </div>
                 <form
                   method="post"
-                  
                   id="contact-form"
                   onSubmit={handleSubmit}
                   autoComplete="off"
@@ -140,7 +165,9 @@ const Contact = () => {
                       <div className="form-group">
                         <input
                           type="text"
-                          className="form-control"
+                          className={`form-control ${
+                            formErrors.name ? "border-red" : ""
+                          }`}
                           name="name"
                           placeholder="Your Name"
                           required=""
@@ -151,32 +178,27 @@ const Contact = () => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <input
-                          type="email"
-                          className="form-control"
-                          name="email"
-                          placeholder="Your Email"
+                          type="number"
+                          className={`form-control ${
+                            formErrors.mobile ? "border-red" : ""
+                          }`}
+                          name="mobile"
+                          placeholder="Your valid mobile number"
                           required=""
                           onChange={handleChange}
                         />
                       </div>
                     </div>
                   </div>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="subject"
-                      placeholder="Your Subject"
-                      required=""
-                      onChange={handleChange}
-                    />
-                  </div>
+
                   <div className="form-group">
                     <textarea
                       name="message"
                       cols="30"
                       rows="5"
-                      className="form-control"
+                      className={`form-control ${
+                        formErrors.message ? "border-red" : ""
+                      }`}
                       placeholder="Write Your Message"
                       onChange={handleChange}
                     ></textarea>
@@ -185,7 +207,7 @@ const Contact = () => {
                     <button
                       type="submit"
                       className="theme-btn"
-                      disabled={loading}
+                      disabled={loading || submitDisabled} // Add the condition to disable based on validation
                     >
                       {loading ? "Sending..." : "Send Message"}{" "}
                       <i className="far fa-paper-plane"></i>

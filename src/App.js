@@ -41,7 +41,7 @@ export default function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/imageUpload" element={<ImageUpload />} />
         <Route path="/view-all-product/:selectedBrandId?" element={<ViewAllProduct />} />
-        <Route path="/brand-wise-product/:selectedBrandId?" element={<BrandWiseProduct />} />
+        <Route path="/brand-wise-product/:selectedBrandId?/:selectedCategory?/:selectedModel" element={<BrandWiseProduct />} />
         <Route
           path="/searchable-product/:selectedModel/:selectedBrandId/:selectedCategory"
           element={<SearchableProduct />}

@@ -1,12 +1,49 @@
 <?php
 header('Content-Type: application/json');
-header("Access-Control-Allow-Headers: Content-Type, file_name, p_id,u_id,u_name,u_num,u_pass,imgSr,b_id,md_name,cat_name,dis_id,u_email,u_address,u_dis_id,u_up_id,bid_amount,bid_type,bidf_type,bid_rs_team_id,'ca_order','cre_order'");
+header("Access-Control-Allow-Headers: Content-Type, file_name, p_id,u_id,u_name,u_num,u_pass,imgSr,b_id,md_name,cat_name,dis_id,u_email,u_address,u_dis_id,u_up_id,bid_amount,bid_type,bidf_type,bid_rs_team_id,'ca_order','cre_order',pageNumber,limit,grade");
 // echo ($_GET['file_name']) ;
 
 $fileName = $_GET['file_name'];
 
 if ($fileName == 'home_helping_data') {
 	$curl = curl_init('http://202.40.181.98:9090/resale/web_api/version_1_0_1/home_helping_data.php');
+	// Set HTTP Header for POST request 
+	curl_setopt(
+		$curl,
+		CURLOPT_HTTPHEADER,
+		array(
+			'Content-Typ:e application/json',
+			'sis_id: 1'
+		)
+	);
+}
+if ($fileName == 'client_contact') {
+	$curl      = curl_init('http://202.40.181.98:9090/resale/web_api/version_1_0_1/client_contact.php');
+	$inputJSON = file_get_contents('php://input');
+	$input     = json_decode($inputJSON, true);
+	$postData  = [
+		'name'    => $input['name'] ?? null,
+		'mobile'  => $input['mobile'] ?? null,
+		'message' => $input['message'] ?? null,
+	];
+
+	// Set the data to be sent in the body
+	curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($postData));
+
+	// Set HTTP Header for POST request
+	curl_setopt(
+		$curl,
+		CURLOPT_HTTPHEADER,
+		array(
+			'Content-Type: application/json',
+			'sis_id: 1',
+		)
+	);
+
+}
+
+if ($fileName == 'product_grade') {
+	$curl = curl_init('http://202.40.181.98:9090/resale/web_api/version_1_0_1/pro_grade.php');
 	// Set HTTP Header for POST request 
 	curl_setopt(
 		$curl,
@@ -32,12 +69,15 @@ if ($fileName == 'client_comments') {
 else if ($fileName == 'product_list') {
 	$curl = curl_init('http://202.40.181.98:9090/resale/web_api/version_1_0_1/product_list.php');
 	// Set HTTP Header for POST request 
+	$limit = $_GET['limit'] ? $_GET['limit'] : null;
 	curl_setopt(
 		$curl,
 		CURLOPT_HTTPHEADER,
 		array(
 			'Content-Type: application/json',
-			'sis_id: 1'
+			'sis_id: 1',
+			'limit:' . $limit
+
 		)
 	);
 }
@@ -46,6 +86,10 @@ else if ($fileName == 'view_all_product_list') {
 	$brand_id     = $_GET['b_id'] ? $_GET['b_id'] : null;
 	$cash_order   = $_GET['ca_order'] ? $_GET['ca_order'] : null;
 	$credit_order = $_GET['cre_order'] ? $_GET['cre_order'] : null;
+	$pageNumber   = $_GET['pageNumber'] ? $_GET['pageNumber'] : null;
+	$limit        = $_GET['limit'] ? $_GET['limit'] : null;
+	$grade        = $_GET['grade'] ? $_GET['grade'] : null;
+
 	// Set HTTP Header for POST request 
 	curl_setopt(
 		$curl,
@@ -55,11 +99,41 @@ else if ($fileName == 'view_all_product_list') {
 			'sis_id: 1',
 			'brand_id: ' . $brand_id,
 			'cash_sort_order: ' . $cash_order,
-			'credit_sort_order: ' . $credit_order
+			'credit_sort_order: ' . $credit_order,
+			'pageNumber:' . $pageNumber,
+			'limit:' . $limit,
+			'grade:' . $grade,
+
 		)
 	);
 
 
+}
+else if ($fileName == 'search_list') {
+	$curl         = curl_init('http://202.40.181.98:9090/resale/web_api/version_1_0_1/model_wise_product.php');
+	$model_name   = $_GET['md_name'];
+	$brand_id     = $_GET['b_id'];
+	$cash_order   = $_GET['ca_order'] ? $_GET['ca_order'] : null;
+	$credit_order = $_GET['cre_order'] ? $_GET['cre_order'] : null;
+	$pageNumber   = $_GET['pageNumber'] ? $_GET['pageNumber'] : null;
+	$limit        = $_GET['limit'] ? $_GET['limit'] : null;
+	$grade        = $_GET['grade'] ? $_GET['grade'] : null;
+
+	curl_setopt(
+		$curl,
+		CURLOPT_HTTPHEADER,
+		array(
+			'Content-Type: application/json',
+			'sis_id: 1',
+			'model_name: ' . $model_name,
+			'brand_id: ' . $brand_id,
+			'cash_sort_order: ' . $cash_order,
+			'credit_sort_order: ' . $credit_order,
+			'pageNumber:' . $pageNumber,
+			'limit:' . $limit,
+			'grade:' . $grade,
+		)
+	);
 }
 else if ($fileName == 'product_details') {
 	$curl       = curl_init('http://202.40.181.98:9090/resale/web_api/version_1_0_1/product_details.php');
@@ -123,21 +197,6 @@ else if ($fileName == 'model_list') {
 			'Content-Type: application/json',
 			'sis_id: 1',
 			'category: ' . $cat_name
-		)
-	);
-}
-else if ($fileName == 'search_list') {
-	$curl       = curl_init('http://202.40.181.98:9090/resale/web_api/version_1_0_1/model_wise_product.php');
-	$model_name = $_GET['md_name'];
-	$brand_id   = $_GET['b_id'];
-	curl_setopt(
-		$curl,
-		CURLOPT_HTTPHEADER,
-		array(
-			'Content-Type: application/json',
-			'sis_id: 1',
-			'model_name: ' . $model_name,
-			'brand_id: ' . $brand_id
 		)
 	);
 }
