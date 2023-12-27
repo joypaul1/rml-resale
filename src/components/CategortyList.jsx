@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ModelList from "./ModelList";
 
-function CategortyList({ brand_id }) {
+export default  function CategortyList({ brand_id }) {
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function CategortyList({ brand_id }) {
   }, [brand_id]);
 
   return (
-    <div>
+    <>
       {categoryList.map((catItem, index) => {
         return (
           <li key={index} className="dropdown-submenu">
@@ -42,14 +42,12 @@ function CategortyList({ brand_id }) {
               {catItem.NAME}
             </Link>
 
-            <ul className="dropdown-menu">
+            <ul className="dropdown-menu show">
               <ModelList brand_id={brand_id} category={catItem.NAME} />
             </ul>
           </li>
         );
       })}
-    </div>
+    </>
   );
-}
-
-export default CategortyList;
+};

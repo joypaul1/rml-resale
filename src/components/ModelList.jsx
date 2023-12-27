@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function ModelList({ brand_id, category }) {
+export default function ModelList({ brand_id, category }) {
   const [modelList, setModelList] = useState([]);
   useEffect(() => {
     const fetchModelData = async () => {
@@ -34,7 +34,7 @@ function ModelList({ brand_id, category }) {
   }, [category]);
 
   return (
-    <div>
+     <>
       {modelList.map((modelList, index) => {
         return (
           <li key={index}>
@@ -47,8 +47,6 @@ function ModelList({ brand_id, category }) {
           </li>
         );
       })}
-    </div>
+     </>
   );
-}
-
-export default ModelList;
+};
