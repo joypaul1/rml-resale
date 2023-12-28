@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-header("Access-Control-Allow-Headers: Content-Type, file_name, p_id,u_id,u_name,u_num,u_pass,imgSr,b_id,md_name,cat_name,dis_id,u_email,u_address,u_dis_id,u_up_id,bid_amount,bid_type,bidf_type,bid_rs_team_id,'ca_order','cre_order',pageNumber,limit,grade");
+header("Access-Control-Allow-Headers: Content-Type, file_name, p_id,u_id,u_name,u_num,u_pass,imgSr,b_id,md_name,cat_name,reg_number,dis_id,u_email,u_address,u_dis_id,u_up_id,bid_amount,bid_type,bidf_type,bid_rs_team_id,'ca_order','cre_order',pageNumber,limit,grade");
 // echo ($_GET['file_name']) ;
 
 $fileName = $_GET['file_name'];
@@ -17,6 +17,7 @@ if ($fileName == 'home_helping_data') {
 		)
 	);
 }
+
 if ($fileName == 'client_contact') {
 	$curl      = curl_init('http://202.40.181.98:9090/resale/web_api/version_1_0_1/client_contact.php');
 	$inputJSON = file_get_contents('php://input');
@@ -28,7 +29,7 @@ if ($fileName == 'client_contact') {
 	];
 
 	// Set the data to be sent in the body
-	curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($postData));
+// 	curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
 
 	// Set HTTP Header for POST request
 	curl_setopt(
@@ -37,6 +38,9 @@ if ($fileName == 'client_contact') {
 		array(
 			'Content-Type: application/json',
 			'sis_id: 1',
+			'name:' . $postData['name'],
+			'mobile:' . $postData['mobile'],
+			'message:' . $postData['message'],
 		)
 	);
 
@@ -111,13 +115,16 @@ else if ($fileName == 'view_all_product_list') {
 }
 else if ($fileName == 'search_list') {
 	$curl         = curl_init('http://202.40.181.98:9090/resale/web_api/version_1_0_1/model_wise_product.php');
-	$model_name   = $_GET['md_name'];
 	$brand_id     = $_GET['b_id'];
+	$category     = $_GET['cat_name'] ? $_GET['cat_name'] : '';
+	$model_name   = $_GET['md_name'] ? $_GET['md_name'] : '';
+	$reg_number   = $_GET['reg_number'] ? $_GET['reg_number'] : '';
 	$cash_order   = $_GET['ca_order'] ? $_GET['ca_order'] : null;
 	$credit_order = $_GET['cre_order'] ? $_GET['cre_order'] : null;
 	$pageNumber   = $_GET['pageNumber'] ? $_GET['pageNumber'] : null;
 	$limit        = $_GET['limit'] ? $_GET['limit'] : null;
 	$grade        = $_GET['grade'] ? $_GET['grade'] : null;
+
 
 	curl_setopt(
 		$curl,
@@ -125,8 +132,10 @@ else if ($fileName == 'search_list') {
 		array(
 			'Content-Type: application/json',
 			'sis_id: 1',
-			'model_name: ' . $model_name,
 			'brand_id: ' . $brand_id,
+			'category_name: ' . $category,
+			'model_name: ' . $model_name,
+			'reg_number: ' . $reg_number,
 			'cash_sort_order: ' . $cash_order,
 			'credit_sort_order: ' . $credit_order,
 			'pageNumber:' . $pageNumber,

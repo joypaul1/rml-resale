@@ -36,7 +36,6 @@ export default function ViewAllProduct() {
     setPageNumber(0); // Reset pageNumber when credit order changes
   };
 
-
   const fetchCarData = async () => {
     try {
       const url = `https://api.rangsmotors.com?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&grade=${selectedGrade}`;
@@ -93,8 +92,6 @@ export default function ViewAllProduct() {
       setIsLoading(false);
     }, 1000); // 1000 milliseconds = 1 second
   };
-
-  const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
   return (
     <div className="car-area bg py-50">
@@ -266,7 +263,10 @@ export default function ViewAllProduct() {
               {carList.map((carItem, index) => {
                 let currentStatus;
 
-                if (carItem.INVOICE_STATUS === "Y") {
+                if (
+                  carItem.INVOICE_STATUS === "Y" ||
+                  carItem.SALES_STATUS === "Yes"
+                ) {
                   currentStatus = {
                     text: "Sold",
                     color: "status-1", // red color
@@ -297,11 +297,7 @@ export default function ViewAllProduct() {
                         <div className="car-content">
                           <div className="car-top">
                             <h4>
-                              <Link
-                                to={`/product/${carItem.ID}/${
-                                  userlogData?.ID || 0
-                                }`}
-                              >
+                              <Link to={`/product/${carItem.ID}`}>
                                 {carItem.MODEL}
                               </Link>
                             </h4>
@@ -390,9 +386,7 @@ export default function ViewAllProduct() {
                           </div>
                           <span className="d-flex align-items-center justify-content-center mt-2">
                             <Link
-                              to={`/product/${carItem.ID}/${
-                                userlogData?.ID || 0
-                              }`}
+                              to={`/product/${carItem.ID}`}
                               className="theme-btn"
                             >
                               <span className="far fa-eye fa-beat"></span>
@@ -441,4 +435,4 @@ export default function ViewAllProduct() {
       </div>
     </div>
   );
-};
+}

@@ -33,7 +33,6 @@ function RelatedCarArea(props) {
     fetchCarData();
   }, [props.brand_id, props.creditOrder, props.cashOrder]);
 
-  const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
   return (
     <div className="car-area bgs pb-10">
       <div className="containers">
@@ -45,7 +44,10 @@ function RelatedCarArea(props) {
           {carList.map((carItem, index) => {
             let currentStatus;
 
-            if (carItem.INVOICE_STATUS === "Y") {
+            if (
+              carItem.INVOICE_STATUS === "Y" ||
+              carItem.SALES_STATUS === "Yes"
+            ) {
               currentStatus = {
                 text: "Sold",
                 color: "status-1", // red color
@@ -75,9 +77,7 @@ function RelatedCarArea(props) {
                   <div className="car-content">
                     <div className="car-top">
                       <h4>
-                        <Link
-                          to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}
-                        >
+                        <Link to={`/product/${carItem.ID}`}>
                           {carItem.MODEL}
                         </Link>
                       </h4>
@@ -165,10 +165,7 @@ function RelatedCarArea(props) {
                       </span>
                     </div>
                     <span className="d-flex align-items-center justify-content-center mt-2">
-                      <Link
-                        to={`/product/${carItem.ID}/${userlogData?.ID || 0}`}
-                        className="theme-btn"
-                      >
+                      <Link to={`/product/${carItem.ID}`} className="theme-btn">
                         <span className="far fa-eye fa-beat"></span>Details
                       </Link>
                     </span>

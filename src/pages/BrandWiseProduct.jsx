@@ -6,8 +6,8 @@ import ImgSrc from "../components/ImgSrc";
 import RelatedCarArea from "../partials/RelatedCarArea";
 
 export default function BrandWiseProduct() {
-  const { selectedBrandId, selectedCategory, selectedModel } = useParams();
-  // console.log(selectedCategory, 'selectedCategory');
+  const { selectedBrandId, selectedCategory, selectedModel, selectedReg } =
+    useParams();
   const [selectedBrand] = useState(selectedBrandId ?? "");
   const [pageNumber, setPageNumber] = useState(0);
   const [selectedGrade] = useState("");
@@ -34,12 +34,11 @@ export default function BrandWiseProduct() {
     setPageNumber(0); // Reset pageNumber when credit order changes
   };
 
-
   const fetchCarData = async () => {
     try {
       const encodedModel = encodeURIComponent(selectedModel ?? null);
       const encodedCategory = encodeURIComponent(selectedCategory ?? null);
-      const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&cat_name=${encodedCategory}`;
+      const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&cat_name=${encodedCategory}&reg_number=${selectedReg}`;
 
       const response = await axios.get(url, {
         headers: {
@@ -48,7 +47,6 @@ export default function BrandWiseProduct() {
       });
 
       const data = response.data;
-      console.log(data, "data");
       if (data.status === "true") {
         setCarList((prevCarList) => {
           return pageNumber > 0 ? [...prevCarList, ...data.data] : data.data;
@@ -245,7 +243,10 @@ export default function BrandWiseProduct() {
                 carList.map((carItem, index) => {
                   let currentStatus;
 
-                  if (carItem.INVOICE_STATUS === "Y") {
+                  if (
+                    carItem.INVOICE_STATUS === "Y" ||
+                    carItem.SALES_STATUS === "Yes"
+                  ) {
                     currentStatus = {
                       text: "Sold",
                       color: "status-1", // red color

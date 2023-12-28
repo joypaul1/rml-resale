@@ -133,7 +133,7 @@ const Product = () => {
       justifyContent: "space-between",
     },
     strong: {
-      color: "#e40303",
+      color: "black",
     },
   };
   let images = [];
@@ -190,9 +190,10 @@ const Product = () => {
     } else {
       setMinBidAmount(carData.CREDIT_PRICE);
     }
-
   };
-
+  console.log(carData.INVOICE_STATUS, "carData.INVOICE_STATUS");
+  console.log(carData.SALES_STATUS, "carData.INVOICE_STATUS");
+  console.log(carData.SALES_STATUS === "Yes");
   return (
     <div className="shop-item-single bg pt-20">
       <div className="container">
@@ -303,39 +304,58 @@ const Product = () => {
               </div>
             </div>
           </div>
-
-          <div className="col-lg-3">
-            <div className="card">
-              <div className="card-header">
-                <h5 className="mb-3 text-center" style={{ color: "#EF1D26" }}>
-                  <i className="fas fa-gavel"></i> Bidding/Auction Here
-                </h5>
-              </div>
-              <div
-                className="countdown-area"
-                style={countdownStyles.countdownArea}
-              >
-                <ul
-                  className="countdown sidebar-countdown"
-                  style={countdownStyles.countdown}
+          {carData.INVOICE_STATUS === "Y" || carData.SALES_STATUS === "Yes" ? (
+            <div className="col-lg-3">
+              <img
+                src={window.location.origin + "/assets/img/logo/sold_out.gif"}
+                alt="Loading..."
+                style={{ width: "100%", height: "50%" }}
+              />
+            </div>
+          ) : (
+            <div className="col-lg-3">
+              <div className="card">
+                <div className="card-header">
+                  <h5 className="mb-3 text-center" style={{ color: "#EF1D26" }}>
+                    <i className="fas fa-gavel"></i> Bidding/Auction Here
+                  </h5>
+                </div>
+                <div
+                  className="countdown-area"
+                  style={countdownStyles.countdownArea}
                 >
-                  <CountdownTimer
-                    countdownStyles={countdownStyles.Strong}
-                    startTime={carData.AUCTTION_START_DATE}
-                    endTime={carData.AUCTION_END_DATE}
-                  />
-                </ul>
-              </div>
-              <hr></hr>
-              <span className="px-2">
-                <p>
-                  <i
-                    className="fa-solid fa-money-bill-1"
-                    style={{ color: "#EF1D26" }}
-                  ></i>{" "}
-                  Cash Price Bid :{" "}
-                  {carData.CASH_PRICE <= 0 ? (
-                    <del>
+                  <ul
+                    className="countdown sidebar-countdown"
+                    style={countdownStyles.countdown}
+                  >
+                    <CountdownTimer
+                      countdownStyles={countdownStyles.strong}
+                      startTime={carData.AUCTTION_START_DATE}
+                      endTime={carData.AUCTION_END_DATE}
+                    />
+                  </ul>
+                </div>
+                <hr></hr>
+                <span className="px-2">
+                  <p>
+                    <i
+                      className="fa-solid fa-money-bill-1"
+                      style={{ color: "#EF1D26" }}
+                    ></i>{" "}
+                    <span style={{ color: "black" }}> Cash Price Bid : </span>
+                    {carData.CASH_PRICE <= 0 ? (
+                      <del>
+                        <NumericFormat
+                          value={carData.CASH_PRICE}
+                          displayType={"text"}
+                          thousandSeparator=","
+                          allowLeadingZeros
+                          decimalScale={2}
+                          fixedDecimalScale={true}
+                          suffix={"TK "}
+                        />
+                      </del>
+                    ) : (
                       <NumericFormat
                         value={carData.CASH_PRICE}
                         displayType={"text"}
@@ -345,27 +365,27 @@ const Product = () => {
                         fixedDecimalScale={true}
                         suffix={"TK "}
                       />
-                    </del>
-                  ) : (
-                    <NumericFormat
-                      value={carData.CASH_PRICE}
-                      displayType={"text"}
-                      thousandSeparator=","
-                      allowLeadingZeros
-                      decimalScale={2}
-                      fixedDecimalScale={true}
-                      suffix={"TK "}
-                    />
-                  )}
-                </p>
-                <p>
-                  <i
-                    className="fa-solid fa-money-bill-1"
-                    style={{ color: "#EF1D26" }}
-                  ></i>{" "}
-                  Credit Price Bid :{" "}
-                  {carData.CREDIT_PRICE <= 0 ? (
-                    <del>
+                    )}
+                  </p>
+                  <p>
+                    <i
+                      className="fa-solid fa-money-bill-1"
+                      style={{ color: "#EF1D26" }}
+                    ></i>{" "}
+                    <span style={{ color: "black" }}> Credit Price Bid : </span>
+                    {carData.CREDIT_PRICE <= 0 ? (
+                      <del>
+                        <NumericFormat
+                          value={carData.CREDIT_PRICE}
+                          displayType={"text"}
+                          thousandSeparator=","
+                          allowLeadingZeros
+                          decimalScale={2}
+                          fixedDecimalScale={true}
+                          suffix={"TK "}
+                        />
+                      </del>
+                    ) : (
                       <NumericFormat
                         value={carData.CREDIT_PRICE}
                         displayType={"text"}
@@ -375,143 +395,142 @@ const Product = () => {
                         fixedDecimalScale={true}
                         suffix={"TK "}
                       />
-                    </del>
-                  ) : (
-                    <NumericFormat
-                      value={carData.CREDIT_PRICE}
-                      displayType={"text"}
-                      thousandSeparator=","
-                      allowLeadingZeros
-                      decimalScale={2}
-                      fixedDecimalScale={true}
-                      suffix={"TK "}
-                    />
-                  )}
+                    )}
+                  </p>
+                  <p>
+                    <i
+                      className="fa-brands fa-contao"
+                      style={{ color: "rgb(239, 29, 38)" }}
+                    ></i>{" "}
+                    <span style={{ color: "black" }}>
+                      {" "}
+                      Total Bid : {carData.TOTAL_BID}
+                    </span>
+                  </p>
+                </span>
+              </div>
+              <div className="car-single-widget text-black mt-2">
+                <p className="d-flex justify-content-center border-bottom">
+                  <i className="fas fa-gavel" style={{ color: "#EF1D26" }}></i>{" "}
+                  Bid For
                 </p>
-                <p>
-                  <i
-                    className="fa-brands fa-contao"
-                    style={{ color: "rgb(239, 29, 38)" }}
-                  ></i>{" "}
-                  Total Bid : {carData.TOTAL_BID}
-                </p>
-              </span>
-            </div>
-            <div className="car-single-widget text-black mt-2">
-              <p className="d-flex justify-content-center border-bottom">
-                <i className="fas fa-gavel" style={{ color: "#EF1D26" }}></i>{" "}
-                Bid For
-              </p>
-              <span className="d-flex justify-content-center">
-                <div className="form-check form-check-inline">
-                  {carData.CASH_PRICE > 0 && (
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      id="inlineCheckbox1"
-                      value="cash"
-                      name="bid_for"
-                      onChange={handleBidTypeChange}
-                      checked={selectedBidType === "cash"}
-                    />
-                  )}
-                  <label className="form-check-label" htmlFor="inlineCheckbox1">
-                    Cash
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  {carData.CREDIT_PRICE >= 0 && (
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      id="inlineCheckbox2"
-                      value="credit"
-                      name="bid_for"
-                      onChange={handleBidTypeChange}
-                      checked={selectedBidType === "credit"}
-                    />
-                  )}
-
-                  <label className="form-check-label" htmlFor="inlineCheckbox2">
-                    Credit
-                  </label>
-                </div>
-              </span>
-              <span className="d-flex justify-content-center border-bottom mb-2">
-                Reference By
-                <i
-                  className="fa-brands fa-searchengin"
-                  style={{
-                    color: "#EF1D26",
-                    marginTop: "3%",
-                    fontSize: "20px",
-                  }}
-                ></i>{" "}
-              </span>
-              <span className="d-flex justify-content-center mb-2">
-                <select
-                  className="form-select"
-                  onChange={handleReferenceByChange}
-                  value={selectedReferenceType}
-                >
-                  <option value="my_self">Myself</option>
-                  <option value="sale_concern">Sale Concern</option>
-                  <option value="facebook">Facebook</option>
-                </select>
-              </span>
-              {refSaleConcern && (
-                <Select2Dp
-                  name="selected_concern"
-                  optionProps={concernList}
-                  onChange={handleSaleConcernChange}
-                  selectedValue={selectedConcern}
-                />
-              )}
-
-              <div className="car-single-form mt-2">
-                {carData.AUCTION_PENDING >= "0" ? (
-                  <form onSubmit={bidSubmit}>
-                    <div className="input-group mb-3">
-                      <span className="input-group-text" id="basic-addon1">
-                        TK
-                      </span>
+                <span className="d-flex justify-content-center">
+                  <div className="form-check form-check-inline">
+                    {carData.CASH_PRICE > 0 && (
                       <input
-                        type="number"
-                        className="form-control"
-                        style={{ padding: "1%" }}
-                        placeholder="Bid Amount.."
-                        aria-label="amount"
-                        value={bidAmount}
-                        onChange={handleBidAmount}
-                        aria-describedby="basic-addon1"
+                        className="form-check-input"
+                        type="radio"
+                        id="inlineCheckbox1"
+                        value="cash"
+                        name="bid_for"
+                        onChange={handleBidTypeChange}
+                        checked={selectedBidType === "cash"}
                       />
-                    </div>
-
-                    <div className="text-center">
-                      {userlogData ? (
-                        <button
-                          type="submit"
-                          className="theme-btn"
-                          style={{ padding: "3%" }}
-                        >
-                          Bid Submit
-                          <i className="fas fa-arrow-right-long"></i>
-                        </button>
-                      ) : (
-                        <UserLoginModal
-                          previousLink={window.location.pathname}
-                        />
-                      )}
-                    </div>
-                  </form>
-                ) : (
-                  <div className="text-center">
-                    <h3 className="badge bg-info">Bidding Time Close.</h3>
+                    )}
+                    <label
+                      className="form-check-label"
+                      htmlFor="inlineCheckbox1"
+                    >
+                      Cash
+                    </label>
                   </div>
+                  <div className="form-check form-check-inline">
+                    {carData.CREDIT_PRICE >= 0 && (
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        id="inlineCheckbox2"
+                        value="credit"
+                        name="bid_for"
+                        onChange={handleBidTypeChange}
+                        checked={selectedBidType === "credit"}
+                      />
+                    )}
+
+                    <label
+                      className="form-check-label"
+                      htmlFor="inlineCheckbox2"
+                    >
+                      Credit
+                    </label>
+                  </div>
+                </span>
+                <span className="d-flex justify-content-center border-bottom mb-2">
+                  Reference By
+                  <i
+                    className="fa-brands fa-searchengin"
+                    style={{
+                      color: "#EF1D26",
+                      marginTop: "3%",
+                      fontSize: "20px",
+                    }}
+                  ></i>{" "}
+                </span>
+                <span className="d-flex justify-content-center mb-2">
+                  <select
+                    className="form-select"
+                    onChange={handleReferenceByChange}
+                    value={selectedReferenceType}
+                  >
+                    <option value="my_self">Myself</option>
+                    <option value="sale_concern">Sale Concern</option>
+                    <option value="facebook">Facebook</option>
+                  </select>
+                </span>
+                {refSaleConcern && (
+                  <Select2Dp
+                    name="selected_concern"
+                    optionProps={concernList}
+                    onChange={handleSaleConcernChange}
+                    selectedValue={selectedConcern}
+                  />
                 )}
+
+                <div className="car-single-form mt-2">
+                  {carData.AUCTION_PENDING >= "0" ? (
+                    <form onSubmit={bidSubmit}>
+                      <div className="input-group mb-3">
+                        <span className="input-group-text" id="basic-addon1">
+                          TK
+                        </span>
+                        <input
+                          type="number"
+                          className="form-control"
+                          style={{ padding: "1%" }}
+                          placeholder="Bid Amount.."
+                          aria-label="amount"
+                          value={bidAmount}
+                          onChange={handleBidAmount}
+                          aria-describedby="basic-addon1"
+                        />
+                      </div>
+
+                      <div className="text-center">
+                        {userlogData ? (
+                          <button
+                            type="submit"
+                            className="theme-btn"
+                            style={{ padding: "3%" }}
+                          >
+                            Bid Submit
+                            <i className="fas fa-arrow-right-long"></i>
+                          </button>
+                        ) : (
+                          <UserLoginModal
+                            previousLink={window.location.pathname}
+                          />
+                        )}
+                      </div>
+                    </form>
+                  ) : (
+                    <div className="text-center">
+                      <h3 className="badge bg-info">Bidding Time Close.</h3>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           <div className="d-flex  justify-content-start  align-items-center gap-2">
             <div className="col-lg-3 car-single-widgets">
@@ -717,11 +736,7 @@ const Product = () => {
                       <div className="car-content">
                         <div className="car-top">
                           <h4>
-                            <Link
-                              to={`/product/${relatedcar.ID}/${
-                                userlogData?.ID || 0
-                              }`}
-                            >
+                            <Link to={`/product/${relatedcar.ID}`}>
                               {relatedcar.MODEL}
                             </Link>
                           </h4>

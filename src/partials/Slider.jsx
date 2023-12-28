@@ -13,8 +13,8 @@ export default function Slider(props) {
       boxClass: "wow",
       animateClass: "animated",
       offset: 0,
-      mobile: false,
-      live: false,
+      mobile: true,
+      live: true
     });
     wow.current.init();
 

@@ -160,11 +160,7 @@ function Dashboard(props) {
                                 <td>{index + 1}</td>
                                 <td>
                                   <div className="table-list-info">
-                                    <Link
-                                      to={`/product/${biddingItem.ID}/${
-                                        userlogData?.ID || 0
-                                      }`}
-                                    >
+                                    <Link to={`/product/${biddingItem.ID}`}>
                                       <ImgSrc src={biddingItem.PIC_URL} />
                                       <div className="table-ad-content">
                                         <h6>{biddingItem.MODEL}</h6>
@@ -220,18 +216,16 @@ function Dashboard(props) {
                                   <small>
                                     {" "}
                                     BID FOR{""}: {biddingItem.BID_PRICE_TYPE}
-                                  </small> <br />
-                                  
+                                  </small>{" "}
+                                  <br />
                                 </td>
-                                
+
                                 <td>{biddingItem.BID_ENTRY_DATE}</td>
                                 <td className="text-center">
                                   {biddingItem.AUCTION_PENDING_DAY >= "0" ? (
                                     <>
                                       <Link
-                                        to={`/product/${biddingItem.ID}/${
-                                          userlogData?.ID || 0
-                                        }`}
+                                        to={`/product/${biddingItem.ID}`}
                                         className="badge badge-success"
                                       >
                                         OPEN{" "}

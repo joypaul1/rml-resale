@@ -17,6 +17,7 @@ function FindCar() {
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedModel, setSelectedModel] = useState(null);
+  const [selectedReg, setSelectedReg] = useState(null);
   const [categoryList, setCategoryList] = useState([]);
   const [modelList, setModelList] = useState([]);
 
@@ -84,21 +85,35 @@ function FindCar() {
   const handleModelChange = (model) => {
     setSelectedModel(model); // Handle selected model change here
   };
+  const handleRegChange = (e) => {
+    if ((e.target.value).length <= 4) {
+      setSelectedReg(e.target.value); // Handle reg change here
+    }
+    
+  };
 
   const handleSearchData = async (event) => {
     event.preventDefault();
+    console.log(selectedReg, "selectedReg");
     // Check if selectedBrand, selectedCategory, and selectedModel are all selected
     // if (!selectedBrand || !selectedCategory || !selectedModel) {
     //   if (!selectedBrand) {
     //     brandSelectRef.current.focus(); // Focus on brandSelectRef
-    //   } else if (!selectedCategory) {
-    //     categorySelectRef.current.focus(); // Focus on categorySelectRef
-    //   } else {
-    //     modelSelectRef.current.focus(); // Focus on modelSelectRef
     //   }
-    //   return;
+    //   // else if (!selectedCategory) {
+    //   //   categorySelectRef.current.focus(); // Focus on categorySelectRef
+    //   // } else {
+    //   //   modelSelectRef.current.focus(); // Focus on modelSelectRef
+    //   // }
+
     // }
 
+    if (!selectedBrand) {
+      if (!selectedReg) {
+        brandSelectRef.current.focus(); // Focus on brandSelectRef
+        return;
+      }
+    }
     try {
       // Navigate to the desired route
       navigate(
@@ -107,7 +122,9 @@ function FindCar() {
           "/" +
           selectedCategory +
           "/" +
-          selectedModel
+          selectedModel +
+          "/" +
+          selectedReg
       );
     } catch (error) {
       console.error("Error while navigating:", error);
@@ -128,7 +145,7 @@ function FindCar() {
             <div className="row justify-content-end">
               <div className="col-lg-3">
                 <div className="form-group">
-                  <p>Brand Name</p>
+                  <label>Brand Name</label>
                   <Select2Dp
                     ref={brandSelectRef}
                     name="brand_id"
@@ -140,7 +157,7 @@ function FindCar() {
               </div>
               <div className="col-lg-3">
                 <div className="form-group">
-                  <p>Category</p>
+                  <label>Category</label>
                   <Select2Dp
                     ref={categorySelectRef}
                     name="category"
@@ -152,13 +169,26 @@ function FindCar() {
               </div>
               <div className="col-lg-3">
                 <div className="form-group">
-                  <p>Model</p>
+                  <label>Model</label>
                   <Select2Dp
                     ref={modelSelectRef}
                     name="model"
                     optionProps={modelList}
                     onChange={handleModelChange}
                     selectedValue={selectedModel}
+                  />
+                </div>
+              </div>
+              <div className="col-lg-3">
+                <div className="form-group">
+                  <label>Registration Number :</label>
+                  <input
+                    type="text"
+                    onChange={handleRegChange}
+                    name="registation"
+                    className="form-control"
+                    placeholder="Last four Digit..(EX:8392)"
+                    value={selectedReg}
                   />
                 </div>
               </div>

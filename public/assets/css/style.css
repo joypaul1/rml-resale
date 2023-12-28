@@ -1854,8 +1854,8 @@ label {
 
 .find-car-form .form-select,
 .find-car-form .form-control {
-  padding: 15px 20px 15px 50px;
-  border-radius: 12px;
+  /* padding: 15px 20px 15px 50px; */
+  border-radius: 5px;
   font-size: 18px;
   box-shadow: none;
   color: var(--body-text-color);

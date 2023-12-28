@@ -7,9 +7,9 @@ import RelatedCarArea from "../partials/RelatedCarArea";
 
 function SearchableProduct() {
   const { selectedModel, selectedBrandId, selectedCategory } = useParams();
-  const [selectedBrand, setSelectedBrand] = useState(selectedBrandId ?? "");
+  const [selectedBrand] = useState(selectedBrandId ?? "");
   const [pageNumber, setPageNumber] = useState(0);
-  const [selectedGrade, setSelectedGrade] = useState("");
+  const [selectedGrade] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
   const [carList, setCarList] = useState([]);
@@ -43,7 +43,7 @@ function SearchableProduct() {
   const fetchCarData = async () => {
     try {
       const encodedModel = encodeURIComponent(selectedModel);
-      const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&brand_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&grade=${selectedGrade}`;
+      const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&grade=${selectedGrade}`;
 
       const response = await axios.get(url, {
         headers: {
@@ -298,7 +298,10 @@ function SearchableProduct() {
                 carList.map((carItem, index) => {
                   let currentStatus;
 
-                  if (carItem.INVOICE_STATUS === "Y") {
+                  if (
+                    carItem.INVOICE_STATUS === "Y" ||
+                    carItem.SALES_STATUS === "Yes"
+                  ) {
                     currentStatus = {
                       text: "Sold",
                       color: "status-1", // red color

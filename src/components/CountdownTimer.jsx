@@ -51,9 +51,6 @@ const CountdownTimer = ({ countdownStyles, startTime, endTime }) => {
         // If the count down is over, clear the interval
         if (distance < 0) {
           clearInterval(interval);
-          // Optionally, you can perform some action when the countdown expires
-          // For example, set a flag in state or trigger a function
-          // handleCountdownExpired();
         }
       }, 1000);
 
