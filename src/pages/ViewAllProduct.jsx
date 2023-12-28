@@ -4,7 +4,7 @@ import { NumericFormat } from "react-number-format";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ImgSrc from "../components/ImgSrc";
 
-function ViewAllProduct(props) {
+export default function ViewAllProduct() {
   const { selectedBrandId } = useParams();
   const [carList, setCarList] = useState([]);
   const [gradeList, setGradeList] = useState([]);
@@ -35,9 +35,7 @@ function ViewAllProduct(props) {
     setCreditOrder(event.target.value);
     setPageNumber(0); // Reset pageNumber when credit order changes
   };
-  const handleGradeChange = (event) => {
-    setSelectedGrade(event.target.value);
-  };
+
 
   const fetchCarData = async () => {
     try {
@@ -443,6 +441,4 @@ function ViewAllProduct(props) {
       </div>
     </div>
   );
-}
-
-export default ViewAllProduct;
+};

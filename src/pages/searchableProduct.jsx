@@ -5,7 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import ImgSrc from "../components/ImgSrc";
 import RelatedCarArea from "../partials/RelatedCarArea";
 
-function SearchableProduct(props) {
+function SearchableProduct() {
   const { selectedModel, selectedBrandId, selectedCategory } = useParams();
   const [selectedBrand, setSelectedBrand] = useState(selectedBrandId ?? "");
   const [pageNumber, setPageNumber] = useState(0);

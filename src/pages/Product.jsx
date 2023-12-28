@@ -54,6 +54,7 @@ const Product = () => {
         }
         // console.log(response.data.status);
         const data = response.data;
+        console.log(data);
         setCarData(data.data);
         if (data.data.CASH_PRICE > 0 && data.data.CREDIT_PRICE > 0) {
           setSelectedBidType("cash");
@@ -189,6 +190,7 @@ const Product = () => {
     } else {
       setMinBidAmount(carData.CREDIT_PRICE);
     }
+
   };
 
   return (

@@ -1,24 +1,25 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ImgSrc from "../components/ImgSrc";
+import RelatedCarArea from "../partials/RelatedCarArea";
 
-function BrandWiseProduct(props) {
-  const [carList, setCarList] = useState([]);
-  const [gradeList, setGradeList] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState(props.brand_id);
-  const [selectedGrade, setSelectedGrade] = useState("");
-  const [cashOrder, setCashOrder] = useState("");
-  const [creditOrder, setCreditOrder] = useState("");
+export default function BrandWiseProduct() {
+  const { selectedBrandId, selectedCategory, selectedModel } = useParams();
+  // console.log(selectedCategory, 'selectedCategory');
+  const [selectedBrand] = useState(selectedBrandId ?? "");
   const [pageNumber, setPageNumber] = useState(0);
+  const [selectedGrade] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
+  const [carList, setCarList] = useState([]);
+  const [cashOrder, setCashOrder] = useState("");
+  const [creditOrder, setCreditOrder] = useState("");
+  const navigate = useNavigate();
 
   const handleBrandChange = (event) => {
-    setPageNumber(0); // Reset pageNumber when brand changes
-    setHasMoreData(true);
-    setSelectedBrand(event.target.value);
+    navigate(`/view-all-product/${event.target.value}`);
   };
 
   const handleCashOrderChange = (event) => {
@@ -32,13 +33,14 @@ function BrandWiseProduct(props) {
     setCreditOrder(event.target.value);
     setPageNumber(0); // Reset pageNumber when credit order changes
   };
-  const handleGradeChange = (event) => {
-    setSelectedGrade(event.target.value);
-  };
+
 
   const fetchCarData = async () => {
     try {
-      const url = `https://api.rangsmotors.com?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&grade=${selectedGrade}`;
+      const encodedModel = encodeURIComponent(selectedModel ?? null);
+      const encodedCategory = encodeURIComponent(selectedCategory ?? null);
+      const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&cat_name=${encodedCategory}`;
+
       const response = await axios.get(url, {
         headers: {
           "Content-Type": "application/json",
@@ -46,9 +48,10 @@ function BrandWiseProduct(props) {
       });
 
       const data = response.data;
+      console.log(data, "data");
       if (data.status === "true") {
         setCarList((prevCarList) => {
-          return pageNumber >= 1 ? [...prevCarList, ...data.data] : data.data;
+          return pageNumber > 0 ? [...prevCarList, ...data.data] : data.data;
         });
         // Check if there's more data available in the response
         if (data.data.length === 0) {
@@ -64,7 +67,16 @@ function BrandWiseProduct(props) {
 
   useEffect(() => {
     fetchCarData();
-  }, [selectedBrand, cashOrder, creditOrder, pageNumber, selectedGrade]);
+    // fetchModelData();
+  }, [
+    selectedBrand,
+    selectedCategory,
+    selectedModel,
+    cashOrder,
+    creditOrder,
+    pageNumber,
+    selectedGrade,
+  ]);
 
   const loadMore = (event) => {
     setIsLoading(true);
@@ -78,42 +90,12 @@ function BrandWiseProduct(props) {
     }, 1000); // 1000 milliseconds = 1 second
   };
 
-  const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
-
   return (
     <div className="car-area bg py-50">
       <div className="container">
         <div className="row">
-          <div className="col-3">
+          <div className="col-sm-12 col-md-12 col-lg-3">
             <div className="car-sidebar">
-              {/* <div className="car-widget">
-                <h4 className="car-widget-title">PRODUCT GRADING </h4>
-                <ul style={{  display: 'flex',flexDirection:'row',gap:'5%' }}>
-                  {gradeList.map((gradeItem, index) => {
-                    return (
-                      <li>
-                        <div className="form-check">
-                          <input
-                            name="grade_range"
-                            value={gradeItem.NAME}
-                            checked={selectedGrade === gradeItem.NAME}
-                            onChange={handleGradeChange}
-                            className="form-check-input"
-                            type="radio"
-                            id={index + "_GRA"}
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor={index + "_GRA"}
-                          >
-                            {gradeItem.NAME}
-                          </label>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div> */}
               <div className="car-widget">
                 <h4 className="car-widget-title">CREDIT PRICE RANGE </h4>
                 <ul>
@@ -188,88 +170,100 @@ function BrandWiseProduct(props) {
                   </li>
                 </ul>
               </div>
-              <div className="car-widget">
-                <h4 className="car-widget-title">BRANDS</h4>
-                <ul>
-                  <li>
-                    <div className="form-check">
-                      <input
-                        name="brand"
-                        value={1}
-                        checked={selectedBrand === "1"}
-                        onChange={handleBrandChange}
-                        className="form-check-input"
-                        type="radio"
-                        id="brand1"
-                      />
-                      <label className="form-check-label" htmlFor="brand1">
-                        Eicher{" "}
-                      </label>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="form-check">
-                      <input
-                        name="brand"
-                        value={2}
-                        checked={selectedBrand === "2"}
-                        onChange={handleBrandChange}
-                        className="form-check-input"
-                        type="radio"
-                        id="brand2"
-                      />
-                      <label className="form-check-label" htmlFor="brand2">
-                        {" "}
-                        Mahindra
-                      </label>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="form-check">
-                      <input
-                        name="brand"
-                        value={3}
-                        checked={selectedBrand === "3"}
-                        onChange={handleBrandChange}
-                        className="form-check-input"
-                        type="radio"
-                        id="brand3"
-                      />
-                      <label className="form-check-label" htmlFor="brand3">
-                        {" "}
-                        DongFeng
-                      </label>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              {carList.length === 0 && (
+                <div className="car-widget">
+                  <h4 className="car-widget-title">BRANDS</h4>
+                  <ul>
+                    <li>
+                      <div className="form-check">
+                        <input
+                          name="brand"
+                          value={1}
+                          checked={selectedBrand === "1"}
+                          onChange={handleBrandChange}
+                          className="form-check-input"
+                          type="radio"
+                          id="brand1"
+                        />
+                        <label className="form-check-label" htmlFor="brand1">
+                          Eicher
+                        </label>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="form-check">
+                        <input
+                          name="brand"
+                          value={2}
+                          checked={selectedBrand === "2"}
+                          onChange={handleBrandChange}
+                          className="form-check-input"
+                          type="radio"
+                          id="brand2"
+                        />
+                        <label className="form-check-label" htmlFor="brand2">
+                          Mahindra
+                        </label>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="form-check">
+                        <input
+                          name="brand"
+                          value={3}
+                          checked={selectedBrand === "3"}
+                          onChange={handleBrandChange}
+                          className="form-check-input"
+                          type="radio"
+                          id="brand3"
+                        />
+                        <label className="form-check-label" htmlFor="brand3">
+                          DongFeng
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
-          <div className="col-9">
+          <div className="col-sm-12 col-md-12 col-lg-9">
             <div className="row">
-              {carList.map((carItem, index) => {
-                let currentStatus;
+              {carList.length === 0 ? (
+                <>
+                  <strong
+                    style={{ color: "rgb(239, 29, 38)" }}
+                    className="shadow p-3 mb-5 bg-body rounded"
+                  >
+                    We appreciate your interest ! Unfortunately, the requested
+                    product is currently unavailable. Please explore our current
+                    product list as referred below :-
+                  </strong>
+                  <RelatedCarArea brand_id={selectedBrand} />
+                </>
+              ) : (
+                carList.map((carItem, index) => {
+                  let currentStatus;
 
-                if (carItem.INVOICE_STATUS === "Y") {
-                  currentStatus = {
-                    text: "Sold",
-                    color: "status-1", // red color
-                  };
-                } else if (carItem.BOOKED_STATUS === "Y") {
-                  currentStatus = {
-                    text: "Booked",
-                    color: "status-3", // yellow color
-                  };
-                } else {
-                  currentStatus = {
-                    text: "Available",
-                    color: "status-2", // green color
-                  };
-                }
+                  if (carItem.INVOICE_STATUS === "Y") {
+                    currentStatus = {
+                      text: "Sold",
+                      color: "status-1", // red color
+                    };
+                  } else if (carItem.BOOKED_STATUS === "Y") {
+                    currentStatus = {
+                      text: "Booked",
+                      color: "status-3", // yellow color
+                    };
+                  } else {
+                    currentStatus = {
+                      text: "Available",
+                      color: "status-2", // green color
+                    };
+                  }
 
-                return (
-                  <>
-                    <div key={index} className="col-md-4 col-lg-4">
+                  return (
+                    <div key={index} className="col-sm-12 col-md-6 col-lg-4">
                       <div className={`car-item`}>
                         <div className="car-img">
                           <span className={`car-status ${currentStatus.color}`}>
@@ -281,11 +275,7 @@ function BrandWiseProduct(props) {
                         <div className="car-content">
                           <div className="car-top">
                             <h4>
-                              <Link
-                                to={`/product/${carItem.ID}/${
-                                  userlogData?.ID || 0
-                                }`}
-                              >
+                              <Link to={`/product/${carItem.ID}`}>
                                 {carItem.MODEL}
                               </Link>
                             </h4>
@@ -374,9 +364,7 @@ function BrandWiseProduct(props) {
                           </div>
                           <span className="d-flex align-items-center justify-content-center mt-2">
                             <Link
-                              to={`/product/${carItem.ID}/${
-                                userlogData?.ID || 0
-                              }`}
+                              to={`/product/${carItem.ID}`}
                               className="theme-btn"
                             >
                               <span className="far fa-eye fa-beat"></span>
@@ -386,20 +374,8 @@ function BrandWiseProduct(props) {
                         </div>
                       </div>
                     </div>
-                  </>
-                );
-              })}
-              {carList.length === 0 && (
-                <>
-                  <strong
-                    style={{ color: "rgb(239, 29, 38)" }}
-                    className="shadow p-3 mb-5 bg-body rounded"
-                  >
-                    We appreciate your interest ! Unfortunately, the requested
-                    product is currently unavailable. Please explore our current
-                    product list as referred or filtering below :-
-                  </strong>
-                </>
+                  );
+                })
               )}
               {hasMoreData && (
                 <div className="text-center mt-4">
@@ -426,5 +402,3 @@ function BrandWiseProduct(props) {
     </div>
   );
 }
-
-export default BrandWiseProduct;

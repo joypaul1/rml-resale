@@ -13,7 +13,7 @@ function FindCar() {
   const brandSelectRef = useRef(null);
   const categorySelectRef = useRef(null);
   const modelSelectRef = useRef(null);
-
+  const navigate = useNavigate();
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedModel, setSelectedModel] = useState(null);
@@ -85,30 +85,29 @@ function FindCar() {
     setSelectedModel(model); // Handle selected model change here
   };
 
-  const navigate = useNavigate();
   const handleSearchData = async (event) => {
     event.preventDefault();
     // Check if selectedBrand, selectedCategory, and selectedModel are all selected
-    if (!selectedBrand || !selectedCategory || !selectedModel) {
-      if (!selectedBrand) {
-        brandSelectRef.current.focus(); // Focus on brandSelectRef
-      } else if (!selectedCategory) {
-        categorySelectRef.current.focus(); // Focus on categorySelectRef
-      } else {
-        modelSelectRef.current.focus(); // Focus on modelSelectRef
-      }
-      return;
-    }
+    // if (!selectedBrand || !selectedCategory || !selectedModel) {
+    //   if (!selectedBrand) {
+    //     brandSelectRef.current.focus(); // Focus on brandSelectRef
+    //   } else if (!selectedCategory) {
+    //     categorySelectRef.current.focus(); // Focus on categorySelectRef
+    //   } else {
+    //     modelSelectRef.current.focus(); // Focus on modelSelectRef
+    //   }
+    //   return;
+    // }
 
     try {
       // Navigate to the desired route
       navigate(
-        "/searchable-product/" +
-          selectedModel +
-          "/" +
+        "/brand-wise-product/" +
           selectedBrand +
           "/" +
-          selectedCategory
+          selectedCategory +
+          "/" +
+          selectedModel
       );
     } catch (error) {
       console.error("Error while navigating:", error);
