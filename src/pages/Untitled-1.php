@@ -12,7 +12,7 @@ if ($fileName == 'home_helping_data') {
 		$curl,
 		CURLOPT_HTTPHEADER,
 		array(
-			'Content-Typ:e application/json',
+			'Content-Type: application/json',
 			'sis_id: 1'
 		)
 	);
@@ -28,9 +28,6 @@ if ($fileName == 'client_contact') {
 		'message' => $input['message'] ?? null,
 	];
 
-	// Set the data to be sent in the body
-// 	curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
-
 	// Set HTTP Header for POST request
 	curl_setopt(
 		$curl,
@@ -45,6 +42,21 @@ if ($fileName == 'client_contact') {
 	);
 
 }
+if ($fileName == 'client_subscribe') {
+	$curl   = curl_init('http://202.40.181.98:9090/resale/web_api/version_1_0_1/client_subscribe.php');
+	$mobile = $_GET['mobile'] ? $_GET['mobile'] : null;
+	// Set HTTP Header for POST request
+	curl_setopt(
+		$curl,
+		CURLOPT_HTTPHEADER,
+		array(
+			'Content-Type: application/json',
+			'sis_id: 1',
+			'mobile:' . $mobile,
+		)
+	);
+
+}
 
 if ($fileName == 'product_grade') {
 	$curl = curl_init('http://202.40.181.98:9090/resale/web_api/version_1_0_1/pro_grade.php');
@@ -53,7 +65,7 @@ if ($fileName == 'product_grade') {
 		$curl,
 		CURLOPT_HTTPHEADER,
 		array(
-			'Content-Typ:e application/json',
+			'Content-Type: application/json',
 			'sis_id: 1'
 		)
 	);
@@ -65,7 +77,7 @@ if ($fileName == 'client_comments') {
 		$curl,
 		CURLOPT_HTTPHEADER,
 		array(
-			'Content-Typ:e application/json',
+			'Content-Type: application/json',
 			'sis_id: 1'
 		)
 	);

@@ -1,6 +1,51 @@
+import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Footer() {
+  const [mobileNumber, setMobileNumber] = useState("");
+  const notifySuccess = (msg) => {
+    toast.success(msg);
+  };
+  const notifyError = (msg) => {
+    toast.warning(msg);
+  };
+  const handleUserMobileChange = (event) => {
+    const inputValue = event.target.value.replace(/[^0-9]/g, "");
+    // if (inputValue.length <= 11) {
+      setMobileNumber(inputValue);
+    // }
+  };
+
+  const subcribeSubmit = async (e) => {
+    e.preventDefault();
+    if (mobileNumber != 11) {
+      notifyError('Mobile number is not valid.');
+      return false;
+    }
+    try {
+      const response = await axios.get(
+        "https://api.rangsmotors.com?file_name=client_subscribe" +
+          `&mobile=${mobileNumber}&sis_id=1`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = response.data;
+
+      if (data.status === "true") {
+        setMobileNumber(' ');
+        notifySuccess("Subscribed Successfully.");
+      } else {
+        notifyError(data.message);
+      }
+    } catch (error) {
+      console.error("Error subscribe:", error);
+    }
+  };
   return (
     <footer className="footer-area">
       <div className="footer-widget">
@@ -9,7 +54,10 @@ export default function Footer() {
             <div className="col-md-6 col-lg-5">
               <div className="footer-widget-box about-us">
                 <Link to="/" className="footer-logo">
-                  <img  src={window.location.origin+ "/assets/img/logo/logo.png"} alt="Company Logo" />
+                  <img
+                    src={window.location.origin + "/assets/img/logo/logo.png"}
+                    alt="Company Logo"
+                  />
                 </Link>
                 {/* Rest of the about us content */}
                 <p className="mb-3">
@@ -34,28 +82,7 @@ export default function Footer() {
                 </ul>
               </div>
             </div>
-            {/* <div className="col-md-6 col-lg-2">
-              <div className="footer-widget-box list">
-                <h4 className="footer-widget-title">Quick Links</h4>
-                <ul className="footer-list">
-                  <li>
-                    <Link to="/about-us">
-                      <i className="fas fa-caret-right"></i> About Us
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/service">
-                      <i className="fas fa-caret-right"></i> Service
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/contact">
-                      <i className="fas fa-caret-right"></i> Contact
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div> */}
+
             <div className="col-md-6 col-lg-4">
               <div className="footer-widget-box list">
                 <h4 className="footer-widget-title">Support Center</h4>
@@ -66,11 +93,7 @@ export default function Footer() {
                       <i className="fas fa-caret-right"></i> About Us
                     </Link>
                   </li>
-                  {/* <li>
-                    <Link to="/service">
-                      <i className="fas fa-caret-right"></i> Service
-                    </Link>
-                  </li> */}
+
                   <li>
                     <Link to="/contact">
                       <i className="fas fa-caret-right"></i> Contact
@@ -80,20 +103,25 @@ export default function Footer() {
               </div>
             </div>
             <div className="col-md-6 col-lg-3">
-              <div className="footer-widget-box list">
-                <h4 className="footer-widget-title">Newsletter</h4>
+              <div className="footer-widget-box list ">
+                <h4 className="footer-widget-title">Mobile Notification</h4>
                 {/* Newsletter content */}
-                <div className="footer-newsletter">
-                  <p>Subscribe Our Newsletter To Get Latest Update And News</p>
+                <div className="footer-newsletter ">
+                  <p>Get Our Latest Offer & News.</p>
                   <div className="subscribe-form">
-                    <form  method="post">
-                      {/* Add a "name" attribute to the input for better form handling */}
+                    <form
+                      onSubmit={subcribeSubmit}
+                      autoComplete="off"
+                      className="row justify-content-center"
+                    >
                       <input
-                        type="email"
+                        type="text"
                         name="email"
                         className="form-control"
-                        placeholder="Your Email"
+                        placeholder="Your Valid Mobile Number"
                         required
+                        value={mobileNumber}
+                        onChange={handleUserMobileChange}
                       />
                       <button className="theme-btn" type="submit">
                         Subscribe Now <i className="far fa-paper-plane"></i>
@@ -111,8 +139,8 @@ export default function Footer() {
           <div className="row">
             <div className="col-md-6 align-self-center">
               <p className="copyright-text">
-                &copy; Copyright <span id="date"></span>{" "}
-                <Link > RML </Link> All Rights Reserved.
+                &copy; Copyright <span id="date"></span> <Link> RML </Link> All
+                Rights Reserved.
               </p>
             </div>
             <div className="col-md-6 align-self-center">
@@ -120,7 +148,8 @@ export default function Footer() {
                 <li>
                   <a
                     href="https://www.facebook.com/rangsmotorsbd"
-                    target="_blank" 
+                    target="_blank"
+                    rel="noreferrer"
                   >
                     <i className="fab fa-facebook-f"></i>
                   </a>
@@ -128,7 +157,8 @@ export default function Footer() {
                 <li>
                   <a
                     href="https://www.linkedin.com/company/rangsmotorslimited"
-                    target="_blank" rel="noreferrer"
+                    target="_blank"
+                    rel="noreferrer"
                   >
                     <i className="fab fa-twitter"></i>
                   </a>

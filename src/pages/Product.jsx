@@ -38,7 +38,6 @@ const Product = () => {
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
   useEffect(() => {
-    // console.log( window.location.pathname);
     const fetchCarData = async () => {
       try {
         const response = await axios.get(
@@ -191,9 +190,7 @@ const Product = () => {
       setMinBidAmount(carData.CREDIT_PRICE);
     }
   };
-  console.log(carData.INVOICE_STATUS, "carData.INVOICE_STATUS");
-  console.log(carData.SALES_STATUS, "carData.INVOICE_STATUS");
-  console.log(carData.SALES_STATUS === "Yes");
+
   return (
     <div className="shop-item-single bg pt-20">
       <div className="container">
