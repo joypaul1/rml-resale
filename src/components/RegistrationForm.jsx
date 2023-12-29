@@ -6,13 +6,13 @@ export const RegistrationForm = ({
   handleUserNameChange,
   handlePassword,
   handleRegSubmit,
-  isPasswordValid
+  isPasswordValid,
 }) => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);  
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
   };
- 
 
   return (
     <form
@@ -24,7 +24,7 @@ export const RegistrationForm = ({
       <div className="form-group">
         <div className="input-group mb-3">
           <span className="input-group-text bg-white" id="basic-addon1">
-            <i className="fa-solid fa-circle-user" ></i>
+            <i className="fa-regular fa-circle-user"></i>
           </span>
           <input
             type="text"
@@ -39,12 +39,16 @@ export const RegistrationForm = ({
       </div>
       <div className="form-group">
         <div className="input-group mb-3">
-          <span className="input-group-text bg-white" id="basic-addon1">
-            
-            <i className={`fa-solid ${isPasswordVisible? "fa-solid fa-eye" : "fa-solid fa-eye-slash"}`} onClick={togglePasswordVisibility}></i>
+          <span  onClick={togglePasswordVisibility} className="input-group-text bg-white" id="basic-addon1">
+            <i
+              className={`fa-regular ${
+                isPasswordVisible ? " fa-eye" : " fa-eye-slash"
+              }`}
+              
+            ></i>
           </span>
           <input
-           type={isPasswordVisible ? "text" : "password"}
+            type={isPasswordVisible ? "text" : "password"}
             className={`form-control ${isPasswordValid ? "" : "border-red"}`}
             placeholder="Your Password"
             aria-label="password"
@@ -52,7 +56,9 @@ export const RegistrationForm = ({
             onChange={handlePassword}
           />
         </div>
-        <small className="d-block text-right text-danger">[Minmum 4 digit Password.]</small>
+        <small className="d-block text-right text-danger">
+          [Minmum 4 digit Password.]
+        </small>
       </div>
       <div className="d-flex align-items-center">
         <button type="submit" disabled={!isPasswordValid} className="theme-btn">

@@ -6,8 +6,13 @@ import { toast } from "react-toastify";
 
 const UserLoginModal = ({ previousLink }) => {
   const [show, setShow] = useState(false);
-  const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
+  };
   const navigate = useNavigate();
 
   const notifySuccess = (msg) => {
@@ -132,13 +137,20 @@ const UserLoginModal = ({ previousLink }) => {
                       <label>Password</label>
                       <div className="input-group mb-1">
                         <span
+                          onClick={togglePasswordVisibility}
                           className="input-group-text bg-white"
                           id="basic-addon2"
                         >
-                          <i className="fa-regular fa-eye-slash"></i>
+                          <i
+                            className={`fa-regular ${
+                              isPasswordVisible
+                                ? " fa-eye"
+                                : " fa-eye-slash"
+                            }`}
+                          ></i>
                         </span>
                         <input
-                          type="password"
+                         type={isPasswordVisible ? "text" : "password"}
                           className="form-control"
                           placeholder="Your Password"
                           aria-label="password"
@@ -172,8 +184,7 @@ const UserLoginModal = ({ previousLink }) => {
                   <div className="login-footer">
                     <p>
                       Don't have an account?{" "}
-                       
-                      <Link  to={"/register"}  onClick={ChangePage}>
+                      <Link to={"/register"} onClick={ChangePage}>
                         Register.
                       </Link>
                     </p>

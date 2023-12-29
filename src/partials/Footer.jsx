@@ -13,9 +13,9 @@ export default function Footer() {
   };
   const handleUserMobileChange = (event) => {
     const inputValue = event.target.value.replace(/[^0-9]/g, "");
-    // if (inputValue.length <= 11) {
+    if (inputValue.length <= 11) {
       setMobileNumber(inputValue);
-    // }
+    }
   };
 
   const subcribeSubmit = async (e) => {
