@@ -77,7 +77,7 @@ export default function BrandWiseProduct() {
     cashOrder,
     creditOrder,
     pageNumber,
-    initialLoadComplete,
+    initialLoadComplete
   ]);
 
   const loadMore = (event) => {
@@ -383,7 +383,7 @@ export default function BrandWiseProduct() {
                     <RelatedCarArea brand_id={selectedBrand} />
                   </>
                 ))}
-              {hasMoreData && (
+              {initialLoadComplete && hasMoreData && (
                 <div className="text-center mt-4">
                   {isLoading ? (
                     <img

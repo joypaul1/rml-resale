@@ -448,7 +448,7 @@ function SearchableProduct() {
                     <RelatedCarArea brand_id={selectedBrand} />
                   </>
                 ))}
-              {hasMoreData && (
+              {initialLoadComplete && hasMoreData && (
                 <div className="text-center mt-4">
                   {isLoading ? (
                     <img
