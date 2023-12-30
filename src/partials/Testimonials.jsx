@@ -27,8 +27,8 @@ function Testimonials() {
     autoplay: true,
     speed: 5000,
     autoplaySpeed: 3000,
-    // slidesToShow: 3,
-    // slidesToScroll: 3,
+    slidesToShow: 3,
+    slidesToScroll: 3,
     initialSlide: 1,
     responsive: [
       {
