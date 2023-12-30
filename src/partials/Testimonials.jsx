@@ -22,11 +22,13 @@ function Testimonials() {
     // dots: true,
     // infinite: true,
     // autoplay: true,
+    infinite: true,
     dots: true,
+    autoplay: true,
     speed: 5000,
     autoplaySpeed: 3000,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    // slidesToShow: 3,
+    // slidesToScroll: 3,
     initialSlide: 1,
     responsive: [
       {
@@ -34,23 +36,21 @@ function Testimonials() {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
-          dots: true,
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
         },
       },
     ],

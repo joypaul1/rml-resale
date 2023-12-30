@@ -7159,3 +7159,12 @@ div .testimonial-single {
     /* Adjust the height for smaller screens */
   }
 }
+
+div>i {
+  /* Adjust the width and height of the Font Awesome icons */
+  width: 20px;
+  /* justify-content: center center; */
+  /* Set your desired width */
+  /* height: 18px; */
+  /* Set your desired height */
+}

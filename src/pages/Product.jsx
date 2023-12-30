@@ -201,79 +201,58 @@ const Product = () => {
               <div className="car-key-info">
                 <ul>
                   <li>
-                    <div className="d-flex gap-2 align-items-center">
-                      <i className="fa-solid fa-car " style={KeyStyles}></i>
+                    <div className="d-flex gap-2 justify-content-start align-items-center">
+                      <i className="fa-solid fa-car" style={KeyStyles}></i>
                       <span>Model :</span>
                       <span>{carData.MODEL}</span>
                     </div>
                   </li>
                   <li>
-                    <div className="d-flex gap-2 align-items-center">
-                      <i
-                        className="fa-solid fa-gear fa-spin"
-                        style={KeyStyles}
-                      ></i>
+                    <div className="d-flex gap-2 justify-content-start align-items-center">
+                      <i className="fa-solid fa-gear fa-spin" style={KeyStyles} ></i>
                       <span>Ref Code :</span>
                       <span>{carData.REF_CODE}</span>
                     </div>
                   </li>
 
                   <li>
-                    <div className="d-flex gap-2 align-items-center">
-                      <i
-                        className="fa-brands fa-slack fa-spin"
-                        style={KeyStyles}
-                      ></i>
-                      <span> Chasis :</span>
+                    <div className="d-flex gap-2 justify-content-start align-items-center">
+                      <i className="fa-brands fa-slack fa-spin" style={KeyStyles} ></i>
+                      <span>Chasis :</span>
                       <span>{carData.CHS_NO}</span>
                     </div>
                   </li>
                   <li>
-                    <div className="d-flex gap-2 align-items-center">
-                      <i
-                        className="fa-solid fa-engine fa-beat"
-                        style={KeyStyles}
-                      ></i>
-                      <span> Engine :</span>
+                    <div className="d-flex gap-2 justify-content-start align-items-center">
+                      <i className="fa-solid fa-engine fa-beat" style={KeyStyles} ></i>
+                      <span>Engine :</span>
                       <span>{carData.ENG_NO}</span>
                     </div>
                   </li>
                   <li>
-                    <div className="d-flex gap-2 align-items-center">
-                      <i
-                        className="fa-solid fa-file-pen fa-beat"
-                        style={KeyStyles}
-                      ></i>
+                    <div className="d-flex gap-2 justify-content-start align-items-center">
+                      <i className="fa-solid fa-file-pen fa-beat" style={KeyStyles}></i>
                       <span>Reg :</span>
                       <span>{carData.REG_NO}</span>
                     </div>
                   </li>
                   <li>
-                    <div className="d-flex gap-2 align-items-center">
-                      <i
-                        className="fa-solid fa-file-contract fa-beat"
-                        style={KeyStyles}
-                      ></i>
+                    <div className="d-flex gap-2 justify-content-start align-items-center">
+                      <i className="fa-solid fa-file-pen fa-beat" style={KeyStyles} ></i>
                       <span>Reg Paper:</span>
                       <span>{carData.REG_PAPER}</span>
                     </div>
                   </li>
                   <li>
-                    <div className="d-flex gap-2 align-items-center">
-                      <i
-                        className="fa-solid fa-car fa-beat-fade"
-                        style={KeyStyles}
-                      ></i>
-                      <span>Body /Sit :</span>
+                    <div className="d-flex gap-2 justify-content-start align-items-center">
+                      <i className="fa-solid fa-car fa-beat-fade" style={KeyStyles} ></i>
+                      <span>Body /Seat :</span>
                       <span>{carData.BODY_SIT}</span>
                     </div>
                   </li>
                   <li>
-                    <div className="d-flex gap-2 align-items-center">
-                      <i
-                        className="fa-solid fa-map-marked-alt fa-beat-fade"
-                        style={KeyStyles}
-                      ></i>
+                    <div className="d-flex gap-2 justify-content-start align-items-center">
+                      <i className="fa-solid fa-map-marked-alt fa-beat-fade" style={KeyStyles} ></i>
                       <span>Depo :</span>
                       <span>
                         {carData.DEPO_LOCATION &&
