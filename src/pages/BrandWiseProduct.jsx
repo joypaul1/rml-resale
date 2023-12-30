@@ -10,7 +10,6 @@ export default function BrandWiseProduct() {
     useParams();
   const [selectedBrand] = useState(selectedBrandId ?? "");
   const [pageNumber, setPageNumber] = useState(0);
-  const [selectedGrade] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
   const [carList, setCarList] = useState([]);

@@ -7,9 +7,8 @@ import ImgSrc from "../components/ImgSrc";
 export default function ViewAllProduct() {
   const { selectedBrandId } = useParams();
   const [carList, setCarList] = useState([]);
-  const [gradeList, setGradeList] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState(selectedBrandId ?? "");
-  const [selectedGrade, setSelectedGrade] = useState("");
+  const [selectedGrade] = useState("");
   const [cashOrder, setCashOrder] = useState("");
   const [creditOrder, setCreditOrder] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
@@ -62,24 +61,10 @@ export default function ViewAllProduct() {
     }
   };
 
-  const gradingProduct = async () => {
-    const url = `https://api.rangsmotors.com?file_name=product_grade`;
-    const response = await axios.get(url, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = response.data;
-    if (data.status === "true") {
-      setGradeList(data.data);
-    } else {
-      console.error("API response status is not true:", data);
-    }
-  };
   useEffect(() => {
     // gradingProduct();
     fetchCarData();
-  }, [selectedBrand, cashOrder, creditOrder, pageNumber, selectedGrade]);
+  }, [selectedBrand, cashOrder, creditOrder, pageNumber]);
 
   const loadMore = (event) => {
     setIsLoading(true);
