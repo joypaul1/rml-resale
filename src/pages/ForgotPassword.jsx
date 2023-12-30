@@ -40,7 +40,7 @@ function ForgotPassword(props) {
 
     try {
       const data = await sendLoginRequest();
-      
+
       if (data.status === "true") {
         notifySuccess(data.message);
         setTimeout(async () => {
@@ -48,7 +48,6 @@ function ForgotPassword(props) {
         }, 1000);
       } else {
         notifyError(data.message);
-
       }
     } catch (error) {
       notifyError("Error Login:", error);
@@ -64,8 +63,8 @@ function ForgotPassword(props) {
         },
       }
     );
-    
-    return response.json();
+
+    return response.data;
   };
 
   return (
