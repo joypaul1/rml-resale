@@ -16,6 +16,8 @@ function SearchableProduct() {
   const [modelList, setModelList] = useState([]);
   const [cashOrder, setCashOrder] = useState("");
   const [creditOrder, setCreditOrder] = useState("");
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
+
   const navigate = useNavigate();
 
   const handleBrandChange = (event) => {
@@ -56,6 +58,9 @@ function SearchableProduct() {
         setCarList((prevCarList) => {
           return pageNumber > 0 ? [...prevCarList, ...data.data] : data.data;
         });
+        if (!initialLoadComplete) {
+          setInitialLoadComplete(true);
+        }
         // Check if there's more data available in the response
         if (data.data.length === 0) {
           setHasMoreData(false); // No more data available
@@ -65,33 +70,42 @@ function SearchableProduct() {
       }
     } catch (error) {
       console.error("Error fetching car data:", error);
+    } finally {
+      setIsLoading(false); // Set loading to false after API request is completed
+    }
+  };
+
+  const fetchModelData = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.rangsmotors.com?file_name=model_list&cat_name=${selectedCategory}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = response.data;
+      if (data.status === "true") {
+        setModelList(data.data);
+      } else {
+        console.error("API response status is not true:", data);
+      }
+    } catch (error) {
+      console.error("Error fetching car model data:", error);
     }
   };
 
   useEffect(() => {
-    const fetchModelData = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.rangsmotors.com?file_name=model_list&cat_name=${selectedCategory}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+    setIsLoading(true); // Set loading to true initially
+    const timer = setTimeout(() => {
+      setIsLoading(false); // After 1 second, set loading to false
+    }, 2000);
 
-        const data = response.data;
-        if (data.status === "true") {
-          setModelList(data.data);
-        } else {
-          console.error("API response status is not true:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching car model data:", error);
-      }
-    };
     fetchCarData();
     fetchModelData();
+    return () => clearTimeout(timer);
   }, [
     selectedBrand,
     selectedCategory,
@@ -99,7 +113,7 @@ function SearchableProduct() {
     cashOrder,
     creditOrder,
     pageNumber,
-    selectedGrade,
+    initialLoadComplete,
   ]);
 
   const loadMore = (event) => {
@@ -223,160 +237,137 @@ function SearchableProduct() {
                   </li>
                 </ul>
               </div>
-              {carList.length === 0 && (
-                <div className="car-widget">
-                  <h4 className="car-widget-title">BRANDS</h4>
-                  <ul>
-                    <li>
-                      <div className="form-check">
-                        <input
-                          name="brand"
-                          value={1}
-                          checked={selectedBrand === "1"}
-                          onChange={handleBrandChange}
-                          className="form-check-input"
-                          type="radio"
-                          id="brand1"
-                        />
-                        <label className="form-check-label" htmlFor="brand1">
-                          Eicher
-                        </label>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="form-check">
-                        <input
-                          name="brand"
-                          value={2}
-                          checked={selectedBrand === "2"}
-                          onChange={handleBrandChange}
-                          className="form-check-input"
-                          type="radio"
-                          id="brand2"
-                        />
-                        <label className="form-check-label" htmlFor="brand2">
-                          Mahindra
-                        </label>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="form-check">
-                        <input
-                          name="brand"
-                          value={3}
-                          checked={selectedBrand === "3"}
-                          onChange={handleBrandChange}
-                          className="form-check-input"
-                          type="radio"
-                          id="brand3"
-                        />
-                        <label className="form-check-label" htmlFor="brand3">
-                          DongFeng
-                        </label>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              )}
+              {!initialLoadComplete ||
+                (carList.length === 0 && (
+                  <div className="car-widget">
+                    <h4 className="car-widget-title">BRANDS</h4>
+                    <ul>
+                      <li>
+                        <div className="form-check">
+                          <input
+                            name="brand"
+                            value={1}
+                            checked={selectedBrand === "1"}
+                            onChange={handleBrandChange}
+                            className="form-check-input"
+                            type="radio"
+                            id="brand1"
+                          />
+                          <label className="form-check-label" htmlFor="brand1">
+                            Eicher
+                          </label>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="form-check">
+                          <input
+                            name="brand"
+                            value={2}
+                            checked={selectedBrand === "2"}
+                            onChange={handleBrandChange}
+                            className="form-check-input"
+                            type="radio"
+                            id="brand2"
+                          />
+                          <label className="form-check-label" htmlFor="brand2">
+                            Mahindra
+                          </label>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="form-check">
+                          <input
+                            name="brand"
+                            value={3}
+                            checked={selectedBrand === "3"}
+                            onChange={handleBrandChange}
+                            className="form-check-input"
+                            type="radio"
+                            id="brand3"
+                          />
+                          <label className="form-check-label" htmlFor="brand3">
+                            DongFeng
+                          </label>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                ))}
             </div>
           </div>
           <div className="col-sm-12 col-md-12 col-lg-9">
             <div className="row">
-              {carList.length === 0 ? (
-                <>
-                  <strong
-                    style={{ color: "rgb(239, 29, 38)" }}
-                    className="shadow p-3 mb-5 bg-body rounded"
-                  >
-                    We appreciate your interest ! Unfortunately, the requested
-                    product is currently unavailable. Please explore our current
-                    product list as referred below :-
-                  </strong>
-                  <RelatedCarArea brand_id={selectedBrand} />
-                </>
-              ) : (
-                carList.map((carItem, index) => {
-                  let currentStatus;
+              {carList.map((carItem, index) => {
+                let currentStatus;
 
-                  if (
-                    carItem.INVOICE_STATUS === "Y" ||
-                    carItem.SALES_STATUS === "Yes"
-                  ) {
-                    currentStatus = {
-                      text: "Sold",
-                      color: "status-1", // red color
-                    };
-                  } else if (carItem.BOOKED_STATUS === "Y") {
-                    currentStatus = {
-                      text: "Booked",
-                      color: "status-3", // yellow color
-                    };
-                  } else {
-                    currentStatus = {
-                      text: "Available",
-                      color: "status-2", // green color
-                    };
-                  }
+                if (
+                  carItem.INVOICE_STATUS === "Y" ||
+                  carItem.SALES_STATUS === "Yes"
+                ) {
+                  currentStatus = {
+                    text: "Sold",
+                    color: "status-1", // red color
+                  };
+                } else if (carItem.BOOKED_STATUS === "Y") {
+                  currentStatus = {
+                    text: "Booked",
+                    color: "status-3", // yellow color
+                  };
+                } else {
+                  currentStatus = {
+                    text: "Available",
+                    color: "status-2", // green color
+                  };
+                }
 
-                  return (
-                    <div key={index} className="col-sm-12 col-md-6 col-lg-4">
-                      <div className={`car-item`}>
-                        <div className="car-img">
-                          <span className={`car-status ${currentStatus.color}`}>
-                            {currentStatus.text}
-                          </span>
+                return (
+                  <div key={index} className="col-sm-12 col-md-6 col-lg-4">
+                    <div className={`car-item`}>
+                      <div className="car-img">
+                        <span className={`car-status ${currentStatus.color}`}>
+                          {currentStatus.text}
+                        </span>
 
-                          <ImgSrc src={carItem.PIC_URL} />
-                        </div>
-                        <div className="car-content">
-                          <div className="car-top">
-                            <h4>
-                              <Link to={`/product/${carItem.ID}`}>
-                                {carItem.MODEL}
-                              </Link>
-                            </h4>
-                            <div className="car-rate">
-                              <i className="fas fa-star"></i>
-                              <i className="fas fa-star"></i>
-                              <i className="fas fa-star"></i>
-                              <i className="fas fa-star"></i>
-                              <i className="fas fa-star"></i>
-                              <span>5.0 (Review)</span>
-                            </div>
+                        <ImgSrc src={carItem.PIC_URL} />
+                      </div>
+                      <div className="car-content">
+                        <div className="car-top">
+                          <h4>
+                            <Link to={`/product/${carItem.ID}`}>
+                              {carItem.MODEL}
+                            </Link>
+                          </h4>
+                          <div className="car-rate">
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <span>5.0 (Review)</span>
                           </div>
-                          <ul className="car-list">
-                            <li>
-                              <i className="fa-solid fa-engine"></i>Engine :{" "}
-                              {carItem.ENG_NO}
-                            </li>
-                            <li>
-                              <i className="fa-brands fa-slack"></i> Chass :{" "}
-                              {carItem.CHS_NO}
-                            </li>
-                            <li>
-                              <i className="far fa-file-pen"></i>Reg :{" "}
-                              {carItem.REG_NO && carItem.REG_NO.length > 20
-                                ? `${carItem.REG_NO.substring(0, 250)}...`
-                                : carItem.REG_NO}
-                            </li>
-                          </ul>
-                          <div className="car-footer flex-column">
-                            <span>
-                              <strong>Cash Price : </strong>
-                              <span className="car-price">
-                                {carItem.CASH_PRICE <= 0 ? (
-                                  <del>
-                                    <NumericFormat
-                                      value={carItem.CASH_PRICE}
-                                      displayType={"text"}
-                                      thousandSeparator=","
-                                      allowLeadingZeros
-                                      decimalScale={2}
-                                      fixedDecimalScale={true}
-                                      suffix={"TK "}
-                                    />
-                                  </del>
-                                ) : (
+                        </div>
+                        <ul className="car-list">
+                          <li>
+                            <i className="fa-solid fa-engine"></i>Engine :{" "}
+                            {carItem.ENG_NO}
+                          </li>
+                          <li>
+                            <i className="fa-brands fa-slack"></i> Chass :{" "}
+                            {carItem.CHS_NO}
+                          </li>
+                          <li>
+                            <i className="far fa-file-pen"></i>Reg :{" "}
+                            {carItem.REG_NO && carItem.REG_NO.length > 20
+                              ? `${carItem.REG_NO.substring(0, 250)}...`
+                              : carItem.REG_NO}
+                          </li>
+                        </ul>
+                        <div className="car-footer flex-column">
+                          <span>
+                            <strong>Cash Price : </strong>
+                            <span className="car-price">
+                              {carItem.CASH_PRICE <= 0 ? (
+                                <del>
                                   <NumericFormat
                                     value={carItem.CASH_PRICE}
                                     displayType={"text"}
@@ -386,25 +377,25 @@ function SearchableProduct() {
                                     fixedDecimalScale={true}
                                     suffix={"TK "}
                                   />
-                                )}
-                              </span>
+                                </del>
+                              ) : (
+                                <NumericFormat
+                                  value={carItem.CASH_PRICE}
+                                  displayType={"text"}
+                                  thousandSeparator=","
+                                  allowLeadingZeros
+                                  decimalScale={2}
+                                  fixedDecimalScale={true}
+                                  suffix={"TK "}
+                                />
+                              )}
                             </span>
-                            <span>
-                              <strong>Credit Price : </strong>
-                              <span className="car-price">
-                                {carItem.CREDIT_PRICE <= 0 ? (
-                                  <del>
-                                    <NumericFormat
-                                      value={carItem.CREDIT_PRICE}
-                                      displayType={"text"}
-                                      thousandSeparator=","
-                                      allowLeadingZeros
-                                      decimalScale={2}
-                                      fixedDecimalScale={true}
-                                      suffix={"TK "}
-                                    />
-                                  </del>
-                                ) : (
+                          </span>
+                          <span>
+                            <strong>Credit Price : </strong>
+                            <span className="car-price">
+                              {carItem.CREDIT_PRICE <= 0 ? (
+                                <del>
                                   <NumericFormat
                                     value={carItem.CREDIT_PRICE}
                                     displayType={"text"}
@@ -414,25 +405,49 @@ function SearchableProduct() {
                                     fixedDecimalScale={true}
                                     suffix={"TK "}
                                   />
-                                )}
-                              </span>
+                                </del>
+                              ) : (
+                                <NumericFormat
+                                  value={carItem.CREDIT_PRICE}
+                                  displayType={"text"}
+                                  thousandSeparator=","
+                                  allowLeadingZeros
+                                  decimalScale={2}
+                                  fixedDecimalScale={true}
+                                  suffix={"TK "}
+                                />
+                              )}
                             </span>
-                          </div>
-                          <span className="d-flex align-items-center justify-content-center mt-2">
-                            <Link
-                              to={`/product/${carItem.ID}`}
-                              className="theme-btn"
-                            >
-                              <span className="far fa-eye fa-beat"></span>
-                              Details
-                            </Link>
                           </span>
                         </div>
+                        <span className="d-flex align-items-center justify-content-center mt-2">
+                          <Link
+                            to={`/product/${carItem.ID}`}
+                            className="theme-btn"
+                          >
+                            <span className="far fa-eye fa-beat"></span>
+                            Details
+                          </Link>
+                        </span>
                       </div>
                     </div>
-                  );
-                })
-              )}
+                  </div>
+                );
+              })}
+              {!initialLoadComplete ||
+                (carList.length === 0 && (
+                  <>
+                    <strong
+                      style={{ color: "rgb(239, 29, 38)" }}
+                      className="shadow p-3 mb-5 bg-body rounded"
+                    >
+                      We appreciate your interest ! Unfortunately, the requested
+                      product is currently unavailable. Please explore our
+                      current product list as referred below :-
+                    </strong>
+                    <RelatedCarArea brand_id={selectedBrand} />
+                  </>
+                ))}
               {hasMoreData && (
                 <div className="text-center mt-4">
                   {isLoading ? (
