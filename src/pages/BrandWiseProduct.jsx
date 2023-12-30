@@ -64,6 +64,11 @@ export default function BrandWiseProduct() {
   };
 
   useEffect(() => {
+    
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); // 1000 milliseconds = 1 second
     fetchCarData();
     // fetchModelData();
   }, [

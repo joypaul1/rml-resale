@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import ImgSrc from "../../components/ImgSrc";
 function Dashboard(props) {
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
+  console.log(userlogData, "userlogData");
   const [biddingList, setBiddingList] = useState([]);
   const [userProfile, setUserProfile] = useState([]);
 
@@ -47,7 +48,7 @@ function Dashboard(props) {
 
     fetchCommonData();
   }, []);
-
+  console.log(biddingList, "BiddingList");
   return (
     <div className="user-profile py-50">
       <div className="container">
@@ -80,7 +81,7 @@ function Dashboard(props) {
               <ul className="user-profile-sidebar-list">
                 <ul className="user-profile-sidebar-list">
                   <li>
-                    <Link to="/biddinglist" className="active">
+                    <Link to="/dashboard" className="active">
                       <i className="far fa-layer-group"></i> Bidding Listing
                     </Link>
                   </li>
@@ -148,7 +149,6 @@ function Dashboard(props) {
                             <th>SL.</th>
                             <th>Vehicle Info</th>
                             <th>Bidding Amount</th>
-                            {/* <th>Bidding Info</th> */}
                             <th>Bidding Date</th>
                             <th>Bidding Status</th>
                           </tr>
@@ -222,6 +222,12 @@ function Dashboard(props) {
 
                                 <td>{biddingItem.BID_ENTRY_DATE}</td>
                                 <td className="text-center">
+                                  {biddingItem.BOOKED_STATUS === "Y" && (
+                                    <span className="badge badge-info">
+                                      Accepted
+                                    </span>
+                                  )}
+
                                   {biddingItem.AUCTION_PENDING_DAY >= "0" ? (
                                     <>
                                       <Link
@@ -232,6 +238,7 @@ function Dashboard(props) {
                                         <i className="fa-solid fa-eye fa-beat"></i>
                                       </Link>
                                       <br />
+
                                       <span className="badge badge-info">
                                         {" "}
                                         Remaining Days{" "}

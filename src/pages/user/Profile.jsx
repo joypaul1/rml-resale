@@ -41,7 +41,7 @@ function Profile(props) {
 
     try {
       const data = await sendUpdateRequest();
-
+      
       if (data.status === "true") {
         notifySuccess("Porfile successfully Updated.");
 
@@ -74,7 +74,7 @@ function Profile(props) {
       }
     );
     
-    return response.json();
+    return response.data;
   };
 
   const handleLogout = () => {

@@ -59,8 +59,9 @@ function ChangePassword(props) {
         },
       }
     );
+
     
-    return response.json();
+    return response.data;
   };
   return (
     <div className="user-profile py-50">
