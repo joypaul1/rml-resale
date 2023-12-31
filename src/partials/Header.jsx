@@ -64,7 +64,12 @@ export default function Header() {
                 {userlogData && (
                   <div className="header-top-link">
                     <Link to="/dashboard">
-                      <i className="fa-solid fa-circle-user"></i>{" "}
+                      {userlogData.PICTURE_LINK ? (
+                        <ImgSrc src={userlogData.PICTURE_LINK} width='20px' />
+                      ) : (
+                        <i className="fa-solid fa-circle-user"></i>
+                      )}
+
                       <span style={{ color: "#EF1D26" }}>
                         {" "}
                         {userlogData.USER_NAME}{" "}
