@@ -34,6 +34,7 @@ export const RegistrationForm = ({
             aria-describedby="basic-addon1"
             value={userName}
             onChange={handleUserNameChange}
+            required
           />
         </div>
       </div>
@@ -54,6 +55,8 @@ export const RegistrationForm = ({
             aria-label="password"
             aria-describedby="basic-addon1"
             onChange={handlePassword}
+            required
+
           />
         </div>
         <small className="d-block text-right text-danger">

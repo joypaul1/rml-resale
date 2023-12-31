@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 function ImageUpload(props) {
@@ -14,19 +15,23 @@ function ImageUpload(props) {
     if (selectedFile) {
       const formData = new FormData();
       formData.append("file", selectedFile);
-
       try {
-        // const response = await fetch("http://localhost:8000/imgUpload", {
-        //   method: "POST",
-        //   body: formData, // Pass formData directly as the body
-        // });
+        const res = await axios.post(
+          "https://api.rangsmotors.com/upload.php",
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
+        console.log(res);
 
         // const data = await response.json();
-      // Handle success or error messages from the server
+        // Handle success or error messages from the server
       } catch (error) {
         console.error("Error uploading file:", error);
       }
     } else {
+      console.log('no file uploaded');
       // Handle case when no file is selected
     }
   };
@@ -44,13 +49,14 @@ function ImageUpload(props) {
             </div>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Mobile</label>
+                <label>User Profile Image :</label>
                 <div className="input-group mb-3">
                   <span className="input-group-text bg-white" id="basic-addon1">
                     <i className="fa-regular fa-user"></i>
                   </span>
                   <input
                     type="file"
+                    accept="image/*"
                     className="form-control"
                     placeholder="Your profile Image"
                     aria-label="image"
