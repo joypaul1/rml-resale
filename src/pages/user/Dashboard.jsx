@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import ImgSrc from "../../components/ImgSrc";
 function Dashboard(props) {
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
-  console.log(userlogData, "userlogData");
   const [biddingList, setBiddingList] = useState([]);
   const [userProfile, setUserProfile] = useState([]);
 
@@ -48,7 +47,7 @@ function Dashboard(props) {
 
     fetchCommonData();
   }, []);
-  console.log(biddingList, "BiddingList");
+
   return (
     <div className="user-profile py-50">
       <div className="container">
@@ -57,16 +56,20 @@ function Dashboard(props) {
             <div className="user-profile-sidebar">
               <div className="user-profile-sidebar-top">
                 <div className="user-profile-img">
-                  <img
-                    src={
-                      userlogData.PICTURE_LINK ||
-                      "https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
-                    }
-                    alt=""
-                  />
-                  <button type="button" className="profile-img-btn">
-                    <i className="far fa-camera"></i>
-                  </button>
+                  {userlogData.PICTURE_LINK ? (
+                    <ImgSrc src={userlogData.PICTURE_LINK} />
+                  ) : (
+                    <img
+                      src="https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
+                      alt="user"
+                    />
+                  )}
+                  <Link to="/imageUpload">
+                    <button type="button" className="profile-img-btn">
+                      <i className="far fa-camera"></i>
+                    </button>
+                  </Link>
+
                   <input type="file" className="profile-img-file" />
                 </div>
                 <h5> {userlogData.USER_NAME} </h5>

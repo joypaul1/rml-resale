@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Select2Dp from "../../components/Select2Dp";
+import ImgSrc from "../../components/ImgSrc";
 
 function Profile(props) {
   // const [mobileNumber, setMobileNumber] = useState("");
@@ -41,7 +42,7 @@ function Profile(props) {
 
     try {
       const data = await sendUpdateRequest();
-      
+
       if (data.status === "true") {
         notifySuccess("Porfile successfully Updated.");
 
@@ -50,7 +51,7 @@ function Profile(props) {
         storedData.EMAIL = userEmail;
         storedData.ADDRESS = userAddress;
         localStorage.setItem("lg_us_data", JSON.stringify(storedData));
-        
+
         setUserName(userName);
         setUserEmail(userEmail);
         setUserAddress(userAddress);
@@ -73,7 +74,7 @@ function Profile(props) {
         },
       }
     );
-    
+
     return response.data;
   };
 
@@ -98,7 +99,6 @@ function Profile(props) {
             },
           }
         );
-        
 
         const res = await response.data;
         if (res.status === "true") {
@@ -125,7 +125,6 @@ function Profile(props) {
     fetchCommonData();
   }, [userlogData.ID]);
   const handleDistrictChange = async (districtId) => {
-   
     setUserDistrict(districtId);
     try {
       const response = await axios.get(
@@ -136,7 +135,7 @@ function Profile(props) {
           },
         }
       );
-      
+
       const res = await response.data;
 
       if (res.status === "true") {
@@ -153,7 +152,6 @@ function Profile(props) {
     }
   };
   const handleUpazilaChange = async (upazilaId) => {
-    
     setUserUpazila(upazilaId);
   };
 
@@ -165,13 +163,14 @@ function Profile(props) {
             <div className="user-profile-sidebar">
               <div className="user-profile-sidebar-top">
                 <div className="user-profile-img">
-                  <img
-                    src={
-                      userlogData.PICTURE_LINK ||
-                      "https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
-                    }
-                    alt=""
-                  />
+                  {userlogData.PICTURE_LINK ? (
+                    <ImgSrc src={userlogData.PICTURE_LINK} />
+                  ) : (
+                    <img
+                      src="https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
+                      alt="user"
+                    />
+                  )}
                   <button type="button" className="profile-img-btn">
                     <i className="far fa-camera"></i>
                   </button>
@@ -278,7 +277,6 @@ function Profile(props) {
                               optionProps={upazilaList}
                               onChange={handleUpazilaChange}
                               selectedValue={userUpazila}
-
                             />
                           </div>
                           <div className="d-block text-right">

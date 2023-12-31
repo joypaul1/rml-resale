@@ -1,9 +1,20 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 function ImageUpload(props) {
   const [selectedFile, setSelectedFile] = useState(null);
+  let userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
 
+  const navigate = useNavigate();
+
+  const notifySuccess = (msg) => {
+    toast.success(msg);
+  };
+  const notifyError = (msg) => {
+    toast.warning(msg);
+  };
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
@@ -21,17 +32,27 @@ function ImageUpload(props) {
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
+            params: { user_id: userlogData.ID }, // Passing user_id as a parameter
           }
         );
-        console.log(res);
+        userlogData.PICTURE_LINK = res.data.imageURL;
+        localStorage.setItem("lg_us_data", JSON.stringify(userlogData));
 
-        // const data = await response.json();
+        if (res.data.status) {
+          notifySuccess("Image Updated Successfully.");
+          setTimeout(async () => {
+            navigate("/dashboard");
+          }, 1000);
+        } else {
+          notifyError(res.data.message);
+        }
         // Handle success or error messages from the server
       } catch (error) {
+        notifyError("Error :", error);
         console.error("Error uploading file:", error);
       }
     } else {
-      console.log('no file uploaded');
+      console.log("no file uploaded");
       // Handle case when no file is selected
     }
   };
@@ -62,6 +83,7 @@ function ImageUpload(props) {
                     aria-label="image"
                     aria-describedby="basic-addon1"
                     onChange={handleFileChange}
+                    required
                   />
                 </div>
               </div>

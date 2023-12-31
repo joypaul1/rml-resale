@@ -546,7 +546,7 @@ const Product = () => {
               >
                 <i className="fa-brands fa-slack fa-spin"></i> Vehicle Features
               </button>
-              <button
+              {/* <button
                 className="nav-link"
                 id="nav-tab2"
                 data-bs-toggle="tab"
@@ -562,7 +562,7 @@ const Product = () => {
                   className="fa-regular fa-rectangle-list"
                 ></i>{" "}
                 Description
-              </button>
+              </button> */}
               <button
                 className="nav-link"
                 id="nav-tab3"

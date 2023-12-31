@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import HeaderManuList from "../components/CategortyList";
 import Sidebar from "./Sidebar";
 import UserLoginModal from "./UserLoginModal";
+import ImgSrc from "../components/ImgSrc";
 export default function Header() {
   const navigate = useNavigate();
 
@@ -113,13 +114,14 @@ export default function Header() {
                   <div className="nav-right-account">
                     <div className="dropdown">
                       <div data-bs-toggle="dropdown" aria-expanded="false">
-                        <img
-                          src={
-                            userlogData.PICTURE_LINK ||
-                            "https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
-                          }
-                          alt="user-img"
-                        />
+                        {userlogData.PICTURE_LINK ? (
+                          <ImgSrc src={userlogData.PICTURE_LINK} />
+                        ) : (
+                          <img
+                            src="https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
+                            alt="user"
+                          />
+                        )}
                       </div>
                       <ul className="dropdown-menu dropdown-menu-end">
                         <li>
@@ -225,13 +227,14 @@ export default function Header() {
                     <div className="nav-right-account">
                       <div className="dropdown">
                         <div data-bs-toggle="dropdown" aria-expanded="false">
-                          <img
-                            src={
-                              userlogData.PICTURE_LINK ||
-                              "https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
-                            }
-                            alt="user"
-                          />
+                          {userlogData.PICTURE_LINK ? (
+                            <ImgSrc src={userlogData.PICTURE_LINK} />
+                          ) : (
+                            <img
+                              src="https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
+                              alt="user"
+                            />
+                          )}
                         </div>
                         <ul className="dropdown-menu dropdown-menu-end">
                           <li>
