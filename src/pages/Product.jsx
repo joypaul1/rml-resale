@@ -646,7 +646,7 @@ const Product = () => {
                     </li>
                     <li>
                       <i className="far fa-check-circle"></i> Chasis No.:{" "}
-                      {carData.REG_PAPER}
+                      {(carData.REG_PAPER).replace(/_/g, ' ').toUpperCase()}
                     </li>
                   </ul>
                 </div>
