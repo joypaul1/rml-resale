@@ -343,7 +343,7 @@ const Product = () => {
                     {carData.CASH_PRICE <= 0 ? (
                       <del>
                         <NumericFormat
-                          value={carData.CASH_PRICE || ''}
+                          value={carData.CASH_PRICE || ""}
                           displayType={"text"}
                           thousandSeparator=","
                           allowLeadingZeros
@@ -354,7 +354,7 @@ const Product = () => {
                       </del>
                     ) : (
                       <NumericFormat
-                        value={carData.CASH_PRICE || ''}
+                        value={carData.CASH_PRICE || ""}
                         displayType={"text"}
                         thousandSeparator=","
                         allowLeadingZeros
@@ -373,7 +373,7 @@ const Product = () => {
                     {carData.CREDIT_PRICE <= 0 ? (
                       <del>
                         <NumericFormat
-                          value={carData.CREDIT_PRICE || ''}
+                          value={carData.CREDIT_PRICE || ""}
                           displayType={"text"}
                           thousandSeparator=","
                           allowLeadingZeros
@@ -384,7 +384,7 @@ const Product = () => {
                       </del>
                     ) : (
                       <NumericFormat
-                        value={carData.CREDIT_PRICE || ''}
+                        value={carData.CREDIT_PRICE || ""}
                         displayType={"text"}
                         thousandSeparator=","
                         allowLeadingZeros
@@ -467,7 +467,7 @@ const Product = () => {
                   <select
                     className="form-select"
                     onChange={handleReferenceByChange}
-                    value={selectedReferenceType || ''}
+                    value={selectedReferenceType || ""}
                   >
                     <option value="my_self">Myself</option>
                     <option value="sale_concern">Sale Concern</option>
@@ -479,7 +479,7 @@ const Product = () => {
                     name="selected_concern"
                     optionProps={concernList}
                     onChange={handleSaleConcernChange}
-                    selectedValue={selectedConcern || ''}
+                    selectedValue={selectedConcern || ""}
                   />
                 )}
 
@@ -496,7 +496,7 @@ const Product = () => {
                           style={{ padding: "1%" }}
                           placeholder="Bid Amount.."
                           aria-label="amount"
-                          value={bidAmount || ''}
+                          value={bidAmount || ""}
                           onChange={handleBidAmount}
                           aria-describedby="basic-addon1"
                         />
@@ -529,7 +529,7 @@ const Product = () => {
             </div>
           )}
 
-          <div className="d-flex  justify-content-start  align-items-center gap-2">
+          <div className="d-flex  justify-content-start  align-items-center mobileV1 gap-2">
             <div className="col-lg-3 car-single-widgets">
               <div className="car-single-top text-center">
                 <span className="car-status status-1">Reconditional</span>
@@ -769,7 +769,7 @@ const Product = () => {
                               {relatedcar.CASH_PRICE <= 0 ? (
                                 <del>
                                   <NumericFormat
-                                    value={relatedcar.CASH_PRICE || ''}
+                                    value={relatedcar.CASH_PRICE || ""}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros
@@ -780,7 +780,7 @@ const Product = () => {
                                 </del>
                               ) : (
                                 <NumericFormat
-                                  value={relatedcar.CASH_PRICE || ''}
+                                  value={relatedcar.CASH_PRICE || ""}
                                   displayType={"text"}
                                   thousandSeparator=","
                                   allowLeadingZeros
@@ -797,7 +797,7 @@ const Product = () => {
                               {relatedcar.CREDIT_PRICE <= 0 ? (
                                 <del>
                                   <NumericFormat
-                                    value={relatedcar.CREDIT_PRICE || ''}
+                                    value={relatedcar.CREDIT_PRICE || ""}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros
@@ -808,7 +808,7 @@ const Product = () => {
                                 </del>
                               ) : (
                                 <NumericFormat
-                                  value={relatedcar.CREDIT_PRICE || ''}
+                                  value={relatedcar.CREDIT_PRICE || ""}
                                   displayType={"text"}
                                   thousandSeparator=","
                                   allowLeadingZeros

@@ -8,6 +8,7 @@ function Dashboard(props) {
   const userlogData = JSON.parse(localStorage.getItem("lg_us_data"));
   const [biddingList, setBiddingList] = useState([]);
   const [userProfile, setUserProfile] = useState([]);
+  let hasAcceptedBids = false; // Initialize a flag
 
   const notifySuccess = (msg) => {
     toast.success(msg);
@@ -101,7 +102,7 @@ function Dashboard(props) {
                   </li> */}
                   <li>
                     <Link to="/change-password">
-                      <i className="far fa-gear"></i> Change Password
+                      <i className="far fa-gear fa-spin"></i> Change Password
                     </Link>
                   </li>
 
@@ -144,123 +145,303 @@ function Dashboard(props) {
               <div className="row">
                 <div className="col-lg-12">
                   <div className="user-profile-card">
-                    <h4 className="user-profile-card-title">Bidding Listing</h4>
-                    <div className="table-responsive">
-                      <table className="table text-nowrap">
-                        <thead>
-                          <tr>
-                            <th>SL.</th>
-                            <th>Vehicle Info</th>
-                            <th>Bidding Amount</th>
-                            <th>Bidding Date</th>
-                            <th>Bidding Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {biddingList.map((biddingItem, index) => {
-                            return (
+                    <nav>
+                      <div class="nav nav-tabs d-flex justify-content-center gap-1" id="nav-tab" role="tablist">
+                        <button
+                          class="nav-link active"
+                          id="nav-home-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#nav-home"
+                          type="button"
+                          role="tab"
+                          aria-controls="nav-home"
+                          aria-selected="true"
+                        >
+                            Total Bidding Listing
+                          <span className="user-profile-card-title">
+                          </span>
+                        </button>
+                        <button
+                          class="nav-link"
+                          id="nav-profile-tab"
+                          data-bs-toggle="tab"
+                          data-bs-target="#nav-profile"
+                          type="button"
+                          role="tab"
+                          aria-controls="nav-profile"
+                          aria-selected="false"
+                        >
+                            Accepted Bidding Listing
+                          <span className="user-profile-card-title">
+                          </span>
+                        </button>
+                      </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                      <div
+                        class="tab-pane fade show active"
+                        id="nav-home"
+                        role="tabpanel"
+                        aria-labelledby="nav-home-tab"
+                      >
+                        <div className="table-responsive">
+                          <table className="table text-nowrap">
+                            <thead>
                               <tr>
-                                <td>{index + 1}</td>
-                                <td>
-                                  <div className="table-list-info">
-                                    <Link to={`/product/${biddingItem.ID}`}>
-                                      <ImgSrc src={biddingItem.PIC_URL} />
-                                      <div className="table-ad-content">
-                                        <h6>{biddingItem.MODEL}</h6>
-                                        <span>
-                                          Chs No.: {biddingItem.CHS_NO}
-                                        </span>{" "}
-                                        <br />
-                                        <span>
-                                          Brand: {biddingItem.BRAND_NAME}
-                                        </span>{" "}
-                                        <br />
-                                        <span>
-                                          Category: {biddingItem.CATEGORY}
-                                        </span>{" "}
-                                        <br />
-                                        CASH Price:{" "}
-                                        <NumericFormat
-                                          value={biddingItem.CASH_PRICE || ''}
-                                          displayType={"text"}
-                                          thousandSeparator=","
-                                          allowLeadingZeros
-                                          decimalScale={2}
-                                          fixedDecimalScale={true}
-                                          prefix={"TK "}
-                                        />
-                                        <br />
-                                        CREDIT Price:{" "}
-                                        <NumericFormat
-                                          value={
-                                            biddingItem.CREDIT_PRICE || ''
-                                          }
-                                          displayType={"text"}
-                                          thousandSeparator=","
-                                          allowLeadingZeros
-                                          decimalScale={2}
-                                          fixedDecimalScale={true}
-                                          prefix={"TK "}
-                                        />
+                                <th>SL.</th>
+                                <th>Vehicle Info</th>
+                                <th>Bidding Amount</th>
+                                <th>Bidding Date</th>
+                                <th>Bidding Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {biddingList.map((biddingItem, index) => {
+                                return (
+                                  <tr>
+                                    <td>{index + 1}</td>
+                                    <td>
+                                      <div className="table-list-info">
+                                        <Link to={`/product/${biddingItem.ID}`}>
+                                          <ImgSrc src={biddingItem.PIC_URL} />
+                                          <div className="table-ad-content">
+                                            <h6>{biddingItem.MODEL}</h6>
+                                            <span>
+                                              Chs No.: {biddingItem.CHS_NO}
+                                            </span>{" "}
+                                            <br />
+                                            <span>
+                                              Brand: {biddingItem.BRAND_NAME}
+                                            </span>{" "}
+                                            <br />
+                                            <span>
+                                              Category: {biddingItem.CATEGORY}
+                                            </span>{" "}
+                                            <br />
+                                            CASH Price:{" "}
+                                            <NumericFormat
+                                              value={
+                                                biddingItem.CASH_PRICE || ""
+                                              }
+                                              displayType={"text"}
+                                              thousandSeparator=","
+                                              allowLeadingZeros
+                                              decimalScale={2}
+                                              fixedDecimalScale={true}
+                                              prefix={"TK "}
+                                            />
+                                            <br />
+                                            CREDIT Price:{" "}
+                                            <NumericFormat
+                                              value={
+                                                biddingItem.CREDIT_PRICE || ""
+                                              }
+                                              displayType={"text"}
+                                              thousandSeparator=","
+                                              allowLeadingZeros
+                                              decimalScale={2}
+                                              fixedDecimalScale={true}
+                                              prefix={"TK "}
+                                            />
+                                          </div>
+                                        </Link>
                                       </div>
-                                    </Link>
-                                  </div>
-                                </td>
+                                    </td>
 
-                                <td>
-                                  <NumericFormat
-                                    value={biddingItem.BID_AMOUNT ||null}
-                                    displayType={"text"}
-                                    thousandSeparator=","
-                                    allowLeadingZeros
-                                    decimalScale={2}
-                                    fixedDecimalScale={true}
-                                    prefix={"TK "}
-                                  />
-                                  <br />
-                                  <small>
-                                    {" "}
-                                    BID FOR{""}: {biddingItem.BID_PRICE_TYPE}
-                                  </small>{" "}
-                                  <br />
-                                </td>
-
-                                <td>{biddingItem.BID_ENTRY_DATE}</td>
-                                <td className="text-center">
-                                  {biddingItem.BOOKED_STATUS === "Y" && (
-                                    <span className="badge badge-info">
-                                      Accepted
-                                    </span>
-                                  )}
-
-                                  {biddingItem.AUCTION_PENDING_DAY >= "0" ? (
-                                    <>
-                                      <Link
-                                        to={`/product/${biddingItem.ID}`}
-                                        className="badge badge-success"
-                                      >
-                                        OPEN{" "}
-                                        <i className="fa-solid fa-eye fa-beat"></i>
-                                      </Link>
+                                    <td>
+                                      <NumericFormat
+                                        value={biddingItem.BID_AMOUNT || null}
+                                        displayType={"text"}
+                                        thousandSeparator=","
+                                        allowLeadingZeros
+                                        decimalScale={2}
+                                        fixedDecimalScale={true}
+                                        prefix={"TK "}
+                                      />
                                       <br />
-
-                                      <span className="badge badge-info">
+                                      <small>
                                         {" "}
-                                        Remaining Days{" "}
-                                        {biddingItem.AUCTION_PENDING_DAY}{" "}
-                                      </span>
-                                    </>
-                                  ) : (
-                                    <span className="badge badge-danger">
-                                      CLOSE
-                                    </span>
-                                  )}
+                                        BID FOR{""}:{" "}
+                                        {biddingItem.BID_PRICE_TYPE}
+                                      </small>{" "}
+                                      <br />
+                                    </td>
+
+                                    <td>{biddingItem.BID_ENTRY_DATE}</td>
+                                    <td className="text-center">
+                                      {biddingItem.BOOKED_STATUS === "Y" && (
+                                        <span className="badge badge-info">
+                                          Accepted
+                                        </span>
+                                      )}
+
+                                      {biddingItem.AUCTION_PENDING_DAY >=
+                                      "0" ? (
+                                        <>
+                                          <Link
+                                            to={`/product/${biddingItem.ID}`}
+                                            className="badge badge-success"
+                                          >
+                                            OPEN{" "}
+                                            <i className="fa-solid fa-eye fa-beat"></i>
+                                          </Link>
+                                          <br />
+
+                                          <span className="badge badge-info">
+                                            {" "}
+                                            Remaining Days{" "}
+                                            {
+                                              biddingItem.AUCTION_PENDING_DAY
+                                            }{" "}
+                                          </span>
+                                        </>
+                                      ) : (
+                                        <span className="badge badge-danger">
+                                          CLOSE
+                                        </span>
+                                      )}
+                                    </td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div
+                        class="tab-pane fade"
+                        id="nav-profile"
+                        role="tabpanel"
+                        aria-labelledby="nav-profile-tab"
+                      >
+                        <div className="table-responsive">
+                          <table className="table text-nowrap">
+                            <thead>
+                              <tr>
+                                <th>SL.</th>
+                                <th>Vehicle Info</th>
+                                <th>Bidding Amount</th>
+                                <th>Bidding Date</th>
+                                <th>Bidding Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {biddingList.map((biddingItem, index) => {
+                                if (biddingItem.BOOKED_STATUS === "Y") {
+                                  hasAcceptedBids = true;
+                                  return (
+                                    <tr key={index}>
+                                      <td>{index + 1}</td>
+                                      <td>
+                                        <div className="table-list-info">
+                                          <Link
+                                            to={`/product/${biddingItem.ID}`}
+                                          >
+                                            <ImgSrc src={biddingItem.PIC_URL} />
+                                            <div className="table-ad-content">
+                                              <h6>{biddingItem.MODEL}</h6>
+                                              <span>
+                                                Chs No.: {biddingItem.CHS_NO}
+                                              </span>{" "}
+                                              <br />
+                                              <span>
+                                                Brand: {biddingItem.BRAND_NAME}
+                                              </span>{" "}
+                                              <br />
+                                              <span>
+                                                Category: {biddingItem.CATEGORY}
+                                              </span>{" "}
+                                              <br />
+                                              CASH Price:{" "}
+                                              <NumericFormat
+                                                value={
+                                                  biddingItem.CASH_PRICE || ""
+                                                }
+                                                displayType={"text"}
+                                                thousandSeparator=","
+                                                allowLeadingZeros
+                                                decimalScale={2}
+                                                fixedDecimalScale={true}
+                                                prefix={"TK "}
+                                              />
+                                              <br />
+                                              CREDIT Price:{" "}
+                                              <NumericFormat
+                                                value={
+                                                  biddingItem.CREDIT_PRICE || ""
+                                                }
+                                                displayType={"text"}
+                                                thousandSeparator=","
+                                                allowLeadingZeros
+                                                decimalScale={2}
+                                                fixedDecimalScale={true}
+                                                prefix={"TK "}
+                                              />
+                                            </div>
+                                          </Link>
+                                        </div>
+                                      </td>
+
+                                      <td>
+                                        <NumericFormat
+                                          value={biddingItem.BID_AMOUNT || null}
+                                          displayType={"text"}
+                                          thousandSeparator=","
+                                          allowLeadingZeros
+                                          decimalScale={2}
+                                          fixedDecimalScale={true}
+                                          prefix={"TK "}
+                                        />
+                                        <br />
+                                        <small>
+                                          {" "}
+                                          BID FOR{""}:{" "}
+                                          {biddingItem.BID_PRICE_TYPE}
+                                        </small>{" "}
+                                        <br />
+                                      </td>
+
+                                      <td>{biddingItem.BID_ENTRY_DATE}</td>
+                                      <td className="text-center">
+                                        <span className="badge badge-info">
+                                          Accepted
+                                        </span>
+                                        {biddingItem.AUCTION_PENDING_DAY >=
+                                        "0" ? (
+                                          <>
+                                            <Link
+                                              to={`/product/${biddingItem.ID}`}
+                                              className="badge badge-success"
+                                            >
+                                              OPEN{" "}
+                                              <i className="fa-solid fa-eye fa-beat"></i>
+                                            </Link>
+                                            <br />
+
+                                            <span className="badge badge-info">
+                                              Remaining Days{" "}
+                                              {biddingItem.AUCTION_PENDING_DAY}{" "}
+                                            </span>
+                                          </>
+                                        ) : (
+                                          <span className="badge badge-danger">
+                                            CLOSE
+                                          </span>
+                                        )}
+                                      </td>
+                                    </tr>
+                                  );
+                                }
+                              })}
+                              <tr>
+                                <td colspan="5" className="textcenter theme-color">
+                                  <strong>Sorry ! No Data Found.</strong>
                                 </td>
                               </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
