@@ -37,7 +37,6 @@ export default function Slider(props) {
       wow.current.init();
     }
   };
-
   const options = {
     items: 1,
     loop: true,
