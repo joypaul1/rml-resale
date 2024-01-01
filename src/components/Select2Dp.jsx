@@ -28,7 +28,7 @@ const Select2Dp = forwardRef(({ name, optionProps, onChange = () => {}, selected
         styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999999999 }) }}
         onChange={handleOnChange}
         options={optionProps}
-        value={defaultOption || null} // Set default value or null if not found
+        value={defaultOption || ''} // Set default value or null if not found
       />
     </>
   );

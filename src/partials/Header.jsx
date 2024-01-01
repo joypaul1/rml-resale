@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import HeaderManuList from "../components/CategortyList";
+import ImgSrc from "../components/ImgSrc";
 import Sidebar from "./Sidebar";
 import UserLoginModal from "./UserLoginModal";
-import ImgSrc from "../components/ImgSrc";
 export default function Header() {
   const navigate = useNavigate();
 
@@ -65,7 +65,7 @@ export default function Header() {
                   <div className="header-top-link">
                     <Link to="/dashboard">
                       {userlogData.PICTURE_LINK ? (
-                        <ImgSrc src={userlogData.PICTURE_LINK} width='20px' />
+                        <ImgSrc src={userlogData.PICTURE_LINK} width='20px' styleCsc={{ borderRadius:'50%' }} />
                       ) : (
                         <i className="fa-solid fa-circle-user"></i>
                       )}

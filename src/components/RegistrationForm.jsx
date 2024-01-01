@@ -32,7 +32,7 @@ export const RegistrationForm = ({
             placeholder="Your Full Name"
             aria-label="name"
             aria-describedby="basic-addon1"
-            value={userName}
+            value={userName||null}
             onChange={handleUserNameChange}
             required
           />

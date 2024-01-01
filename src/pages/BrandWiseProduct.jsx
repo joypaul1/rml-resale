@@ -77,7 +77,7 @@ export default function BrandWiseProduct() {
     cashOrder,
     creditOrder,
     pageNumber,
-    initialLoadComplete
+    initialLoadComplete,
   ]);
 
   const loadMore = (event) => {
@@ -304,7 +304,7 @@ export default function BrandWiseProduct() {
                               {carItem.CASH_PRICE <= 0 ? (
                                 <del>
                                   <NumericFormat
-                                    value={carItem.CASH_PRICE}
+                                    value={carItem.CASH_PRICE || ''}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros
@@ -315,7 +315,7 @@ export default function BrandWiseProduct() {
                                 </del>
                               ) : (
                                 <NumericFormat
-                                  value={carItem.CASH_PRICE}
+                                  value={carItem.CASH_PRICE || ''}
                                   displayType={"text"}
                                   thousandSeparator=","
                                   allowLeadingZeros
@@ -332,7 +332,7 @@ export default function BrandWiseProduct() {
                               {carItem.CREDIT_PRICE <= 0 ? (
                                 <del>
                                   <NumericFormat
-                                    value={carItem.CREDIT_PRICE}
+                                    value={carItem.CREDIT_PRICE || ''}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros
@@ -343,7 +343,7 @@ export default function BrandWiseProduct() {
                                 </del>
                               ) : (
                                 <NumericFormat
-                                  value={carItem.CREDIT_PRICE}
+                                  value={carItem.CREDIT_PRICE || ''}
                                   displayType={"text"}
                                   thousandSeparator=","
                                   allowLeadingZeros

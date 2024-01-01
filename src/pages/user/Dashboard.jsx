@@ -181,7 +181,7 @@ function Dashboard(props) {
                                         <br />
                                         CASH Price:{" "}
                                         <NumericFormat
-                                          value={biddingItem.CASH_PRICE}
+                                          value={biddingItem.CASH_PRICE || ''}
                                           displayType={"text"}
                                           thousandSeparator=","
                                           allowLeadingZeros
@@ -192,7 +192,9 @@ function Dashboard(props) {
                                         <br />
                                         CREDIT Price:{" "}
                                         <NumericFormat
-                                          value={biddingItem.CREDIT_PRICE}
+                                          value={
+                                            biddingItem.CREDIT_PRICE || ''
+                                          }
                                           displayType={"text"}
                                           thousandSeparator=","
                                           allowLeadingZeros
@@ -207,7 +209,7 @@ function Dashboard(props) {
 
                                 <td>
                                   <NumericFormat
-                                    value={biddingItem.BID_AMOUNT}
+                                    value={biddingItem.BID_AMOUNT ||null}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros

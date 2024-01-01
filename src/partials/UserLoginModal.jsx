@@ -127,7 +127,7 @@ const UserLoginModal = ({ previousLink }) => {
                           className="form-control"
                           placeholder="Your mobile number"
                           aria-label="name"
-                          value={mobileNumber}
+                          value={mobileNumber || ''}
                           onChange={handleUserMobileChange}
                           aria-describedby="basic-addon1"
                         />
@@ -143,18 +143,16 @@ const UserLoginModal = ({ previousLink }) => {
                         >
                           <i
                             className={`fa-regular ${
-                              isPasswordVisible
-                                ? " fa-eye"
-                                : " fa-eye-slash"
+                              isPasswordVisible ? " fa-eye" : " fa-eye-slash"
                             }`}
                           ></i>
                         </span>
                         <input
-                         type={isPasswordVisible ? "text" : "password"}
+                          type={isPasswordVisible ? "text" : "password"}
                           className="form-control"
                           placeholder="Your Password"
                           aria-label="password"
-                          value={password}
+                          value={password || ''}
                           onChange={handlePasswordChange}
                           aria-describedby="basic-addon2"
                         />

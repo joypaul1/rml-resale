@@ -130,7 +130,7 @@ export const OTPForm = ({
                 isOTPMatched ? "border-green" : "border-red"
               }`}
               type="text"
-              value={value}
+              value={value||null}
               onChange={(event) => handleInputChange(index, event)}
               onPaste={(event) => handlePaste(index, event)}
               maxLength="1"

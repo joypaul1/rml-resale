@@ -143,7 +143,7 @@ function SearchableProduct() {
                         <div className="form-check" key={indexkey}>
                           <input
                             name="model"
-                            value={modelData.NAME}
+                            value={modelData.NAME || ''}
                             checked={selectedModel === modelData.NAME}
                             onChange={handleModelChange}
                             className="form-check-input"
@@ -369,7 +369,7 @@ function SearchableProduct() {
                               {carItem.CASH_PRICE <= 0 ? (
                                 <del>
                                   <NumericFormat
-                                    value={carItem.CASH_PRICE}
+                                    value={carItem.CASH_PRICE || ''}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros
@@ -380,7 +380,7 @@ function SearchableProduct() {
                                 </del>
                               ) : (
                                 <NumericFormat
-                                  value={carItem.CASH_PRICE}
+                                  value={carItem.CASH_PRICE || ''}
                                   displayType={"text"}
                                   thousandSeparator=","
                                   allowLeadingZeros
@@ -397,7 +397,7 @@ function SearchableProduct() {
                               {carItem.CREDIT_PRICE <= 0 ? (
                                 <del>
                                   <NumericFormat
-                                    value={carItem.CREDIT_PRICE}
+                                    value={carItem.CREDIT_PRICE || ''}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros
@@ -408,7 +408,7 @@ function SearchableProduct() {
                                 </del>
                               ) : (
                                 <NumericFormat
-                                  value={carItem.CREDIT_PRICE}
+                                  value={carItem.CREDIT_PRICE || ''}
                                   displayType={"text"}
                                   thousandSeparator=","
                                   allowLeadingZeros

@@ -209,7 +209,10 @@ const Product = () => {
                   </li>
                   <li>
                     <div className="d-flex gap-2 justify-content-start align-items-center">
-                      <i className="fa-solid fa-gear fa-spin" style={KeyStyles} ></i>
+                      <i
+                        className="fa-solid fa-gear fa-spin"
+                        style={KeyStyles}
+                      ></i>
                       <span>Ref Code :</span>
                       <span>{carData.REF_CODE}</span>
                     </div>
@@ -217,42 +220,60 @@ const Product = () => {
 
                   <li>
                     <div className="d-flex gap-2 justify-content-start align-items-center">
-                      <i className="fa-brands fa-slack fa-spin" style={KeyStyles} ></i>
+                      <i
+                        className="fa-brands fa-slack fa-spin"
+                        style={KeyStyles}
+                      ></i>
                       <span>Chasis :</span>
                       <span>{carData.CHS_NO}</span>
                     </div>
                   </li>
                   <li>
                     <div className="d-flex gap-2 justify-content-start align-items-center">
-                      <i className="fa-solid fa-engine fa-beat" style={KeyStyles} ></i>
+                      <i
+                        className="fa-solid fa-engine fa-beat"
+                        style={KeyStyles}
+                      ></i>
                       <span>Engine :</span>
                       <span>{carData.ENG_NO}</span>
                     </div>
                   </li>
                   <li>
                     <div className="d-flex gap-2 justify-content-start align-items-center">
-                      <i className="fa-solid fa-file-pen fa-beat" style={KeyStyles}></i>
+                      <i
+                        className="fa-solid fa-file-pen fa-beat"
+                        style={KeyStyles}
+                      ></i>
                       <span>Reg :</span>
                       <span>{carData.REG_NO}</span>
                     </div>
                   </li>
                   <li>
                     <div className="d-flex gap-2 justify-content-start align-items-center">
-                      <i className="fa-solid fa-file-pen fa-beat" style={KeyStyles} ></i>
+                      <i
+                        className="fa-solid fa-file-pen fa-beat"
+                        style={KeyStyles}
+                      ></i>
                       <span>Reg Paper:</span>
                       <span>{carData.REG_PAPER}</span>
                     </div>
                   </li>
                   <li>
                     <div className="d-flex gap-2 justify-content-start align-items-center">
-                      <i className="fa-solid fa-car fa-beat-fade" style={KeyStyles} ></i>
+                      <i
+                        className="fa-solid fa-car fa-beat-fade"
+                        style={KeyStyles}
+                      ></i>
                       <span>Body /Seat :</span>
                       <span>{carData.BODY_SIT}</span>
                     </div>
                   </li>
                   <li>
                     <div className="d-flex gap-2 justify-content-start align-items-center">
-                      <i className="fa-solid fa-map-marked-alt fa-beat-fade" style={KeyStyles} ></i>
+                      <i
+                        className="fa-solid fa-map-marked-alt fa-beat-fade"
+                        style={KeyStyles}
+                      ></i>
                       <span>Depo :</span>
                       <span>
                         {carData.DEPO_LOCATION &&
@@ -322,7 +343,7 @@ const Product = () => {
                     {carData.CASH_PRICE <= 0 ? (
                       <del>
                         <NumericFormat
-                          value={carData.CASH_PRICE}
+                          value={carData.CASH_PRICE || ''}
                           displayType={"text"}
                           thousandSeparator=","
                           allowLeadingZeros
@@ -333,7 +354,7 @@ const Product = () => {
                       </del>
                     ) : (
                       <NumericFormat
-                        value={carData.CASH_PRICE}
+                        value={carData.CASH_PRICE || ''}
                         displayType={"text"}
                         thousandSeparator=","
                         allowLeadingZeros
@@ -352,7 +373,7 @@ const Product = () => {
                     {carData.CREDIT_PRICE <= 0 ? (
                       <del>
                         <NumericFormat
-                          value={carData.CREDIT_PRICE}
+                          value={carData.CREDIT_PRICE || ''}
                           displayType={"text"}
                           thousandSeparator=","
                           allowLeadingZeros
@@ -363,7 +384,7 @@ const Product = () => {
                       </del>
                     ) : (
                       <NumericFormat
-                        value={carData.CREDIT_PRICE}
+                        value={carData.CREDIT_PRICE || ''}
                         displayType={"text"}
                         thousandSeparator=","
                         allowLeadingZeros
@@ -446,7 +467,7 @@ const Product = () => {
                   <select
                     className="form-select"
                     onChange={handleReferenceByChange}
-                    value={selectedReferenceType}
+                    value={selectedReferenceType || ''}
                   >
                     <option value="my_self">Myself</option>
                     <option value="sale_concern">Sale Concern</option>
@@ -458,7 +479,7 @@ const Product = () => {
                     name="selected_concern"
                     optionProps={concernList}
                     onChange={handleSaleConcernChange}
-                    selectedValue={selectedConcern}
+                    selectedValue={selectedConcern || ''}
                   />
                 )}
 
@@ -475,7 +496,7 @@ const Product = () => {
                           style={{ padding: "1%" }}
                           placeholder="Bid Amount.."
                           aria-label="amount"
-                          value={bidAmount}
+                          value={bidAmount || ''}
                           onChange={handleBidAmount}
                           aria-describedby="basic-addon1"
                         />
@@ -748,7 +769,7 @@ const Product = () => {
                               {relatedcar.CASH_PRICE <= 0 ? (
                                 <del>
                                   <NumericFormat
-                                    value={relatedcar.CASH_PRICE}
+                                    value={relatedcar.CASH_PRICE || ''}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros
@@ -759,7 +780,7 @@ const Product = () => {
                                 </del>
                               ) : (
                                 <NumericFormat
-                                  value={relatedcar.CASH_PRICE}
+                                  value={relatedcar.CASH_PRICE || ''}
                                   displayType={"text"}
                                   thousandSeparator=","
                                   allowLeadingZeros
@@ -776,7 +797,7 @@ const Product = () => {
                               {relatedcar.CREDIT_PRICE <= 0 ? (
                                 <del>
                                   <NumericFormat
-                                    value={relatedcar.CREDIT_PRICE}
+                                    value={relatedcar.CREDIT_PRICE || ''}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros
@@ -787,7 +808,7 @@ const Product = () => {
                                 </del>
                               ) : (
                                 <NumericFormat
-                                  value={relatedcar.CREDIT_PRICE}
+                                  value={relatedcar.CREDIT_PRICE || ''}
                                   displayType={"text"}
                                   thousandSeparator=","
                                   allowLeadingZeros

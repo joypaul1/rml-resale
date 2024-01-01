@@ -128,7 +128,7 @@ function CarArea(props) {
                           {carItem.CASH_PRICE <= 0 ? (
                             <del>
                               <NumericFormat
-                                value={carItem.CASH_PRICE}
+                                value={carItem.CASH_PRICE || ''}
                                 displayType={"text"}
                                 thousandSeparator=","
                                 allowLeadingZeros

@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Select2Dp from "../../components/Select2Dp";
 import ImgSrc from "../../components/ImgSrc";
+import Select2Dp from "../../components/Select2Dp";
 
 function Profile(props) {
   // const [mobileNumber, setMobileNumber] = useState("");
@@ -233,7 +233,7 @@ function Profile(props) {
                             <label>Name</label>
                             <input
                               type="text"
-                              value={userName}
+                              value={userName || ''}
                               className="form-control"
                               placeholder="Your Full Name"
                               onChange={handleUserNameChange}
@@ -244,7 +244,7 @@ function Profile(props) {
                             <label>Email</label>
                             <input
                               type="email"
-                              value={userEmail}
+                              value={userEmail || ''}
                               className="form-control"
                               placeholder="Your Email Address"
                               onChange={handleUserEmailChange}
@@ -254,7 +254,7 @@ function Profile(props) {
                             <label>Address</label>
                             <input
                               type="text"
-                              value={userAddress}
+                              value={userAddress || ''}
                               className="form-control"
                               placeholder="Your Adress"
                               onChange={handleUserAddressChange}
@@ -266,7 +266,7 @@ function Profile(props) {
                               name="district_id"
                               optionProps={districtList}
                               onChange={handleDistrictChange}
-                              selectedValue={userDistrict}
+                              selectedValue={userDistrict || ''}
                             />
                           </div>
 
@@ -276,7 +276,7 @@ function Profile(props) {
                               name="upazila_id"
                               optionProps={upazilaList}
                               onChange={handleUpazilaChange}
-                              selectedValue={userUpazila}
+                              selectedValue={userUpazila || ''}
                             />
                           </div>
                           <div className="d-block text-right">

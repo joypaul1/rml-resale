@@ -318,7 +318,7 @@ export default function ViewAllProduct() {
                                 {carItem.CASH_PRICE <= 0 ? (
                                   <del>
                                     <NumericFormat
-                                      value={carItem.CASH_PRICE}
+                                      value={carItem.CASH_PRICE || ''}
                                       displayType={"text"}
                                       thousandSeparator=","
                                       allowLeadingZeros
@@ -329,7 +329,7 @@ export default function ViewAllProduct() {
                                   </del>
                                 ) : (
                                   <NumericFormat
-                                    value={carItem.CASH_PRICE}
+                                    value={carItem.CASH_PRICE || ''}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros
@@ -346,7 +346,7 @@ export default function ViewAllProduct() {
                                 {carItem.CREDIT_PRICE <= 0 ? (
                                   <del>
                                     <NumericFormat
-                                      value={carItem.CREDIT_PRICE}
+                                      value={carItem.CREDIT_PRICE || ''}
                                       displayType={"text"}
                                       thousandSeparator=","
                                       allowLeadingZeros
@@ -357,7 +357,7 @@ export default function ViewAllProduct() {
                                   </del>
                                 ) : (
                                   <NumericFormat
-                                    value={carItem.CREDIT_PRICE}
+                                    value={carItem.CREDIT_PRICE || ''}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros

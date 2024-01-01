@@ -39,9 +39,10 @@ const Login = () => {
         setTimeout(async () => {
           navigate("/");
         }, 1000);
-      }if (data.status === "false") {
+      }
+      if (data.status === "false") {
         notifyError(data.message);
-      } 
+      }
     } catch (error) {
       notifyError("Error Login:", error);
     }
@@ -59,7 +60,7 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       });
-  
+
       return response.data;
     } catch (error) {
       console.error("Error in user login request:", error);
@@ -90,7 +91,7 @@ const Login = () => {
                     className="form-control"
                     placeholder="Your mobile number"
                     aria-label="name"
-                    value={mobileNumber}
+                    value={mobileNumber || ''}
                     onChange={handleUserMobileChange}
                     aria-describedby="basic-addon1"
                   />
@@ -107,7 +108,7 @@ const Login = () => {
                     className="form-control"
                     placeholder="Your Password"
                     aria-label="password"
-                    value={password}
+                    value={password || ''}
                     onChange={handlePasswordChange}
                     aria-describedby="basic-addon2"
                   />
@@ -115,7 +116,7 @@ const Login = () => {
               </div>
 
               <div className="d-flex justify-content-end mb-4">
-                <Link  to='/forgot-password' className="forgot-pass">
+                <Link to="/forgot-password" className="forgot-pass">
                   Forgot Password?
                 </Link>
               </div>

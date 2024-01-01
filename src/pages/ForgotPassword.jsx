@@ -99,7 +99,7 @@ function ForgotPassword(props) {
                     placeholder="Ex: 01XXXXXXXXX"
                     aria-label="mobile"
                     aria-describedby="basic-addon1"
-                    value={mobileNumber}
+                    value={mobileNumber || ''}
                     onChange={handleMobileNumberChange}
                     style={{ borderColor: getBorderColor() }}
                   />

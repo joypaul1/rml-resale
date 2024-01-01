@@ -21,7 +21,7 @@ export default function Footer() {
   const subcribeSubmit = async (e) => {
     e.preventDefault();
     if (mobileNumber != 11) {
-      notifyError('Mobile number is not valid.');
+      notifyError("Mobile number is not valid.");
       return false;
     }
     try {
@@ -37,7 +37,7 @@ export default function Footer() {
       const data = response.data;
 
       if (data.status === "true") {
-        setMobileNumber(' ');
+        setMobileNumber(" ");
         notifySuccess("Subscribed Successfully.");
       } else {
         notifyError(data.message);
@@ -120,7 +120,7 @@ export default function Footer() {
                         className="form-control"
                         placeholder="Your Valid Mobile Number"
                         required
-                        value={mobileNumber}
+                        value={mobileNumber || ''}
                         onChange={handleUserMobileChange}
                       />
                       <button className="theme-btn" type="submit">

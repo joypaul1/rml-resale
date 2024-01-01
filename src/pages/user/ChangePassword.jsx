@@ -60,7 +60,6 @@ function ChangePassword(props) {
       }
     );
 
-    
     return response.data;
   };
   return (
@@ -132,7 +131,7 @@ function ChangePassword(props) {
                             <label>Password</label>
                             <input
                               type="text"
-                              value={userPassword}
+                              value={userPassword || ''}
                               className="form-control"
                               placeholder="Your Password"
                               onChange={handlePasswordChange}
@@ -142,7 +141,7 @@ function ChangePassword(props) {
                             <label>Re-Type Password</label>
                             <input
                               type="text"
-                              value={userRePassword}
+                              value={userRePassword || ''}
                               className="form-control"
                               placeholder="Re-Type Password"
                               onChange={handleRePasswordChange}

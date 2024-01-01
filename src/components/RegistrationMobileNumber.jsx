@@ -34,7 +34,7 @@ const RegistrationMobileNumber = ({
             placeholder="Ex: 01XXXXXXXXX"
             aria-label="mobile"
             aria-describedby="basic-addon1"
-            value={mobileNumber}
+            value={mobileNumber||null}
             onChange={handleMobileNumberChange}
             style={{ borderColor: getBorderColor() }}
           />

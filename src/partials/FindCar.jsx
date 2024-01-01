@@ -86,10 +86,9 @@ function FindCar() {
     setSelectedModel(model); // Handle selected model change here
   };
   const handleRegChange = (e) => {
-    if ((e.target.value).length <= 4) {
+    if (e.target.value.length <= 4) {
       setSelectedReg(e.target.value); // Handle reg change here
     }
-    
   };
 
   const handleSearchData = async (event) => {
@@ -151,7 +150,7 @@ function FindCar() {
                     name="brand_id"
                     optionProps={BrandOptions}
                     onChange={handleBrandChange}
-                    selectedValue={selectedBrand}
+                    selectedValue={selectedBrand || ''}
                   />
                 </div>
               </div>
@@ -163,7 +162,7 @@ function FindCar() {
                     name="category"
                     optionProps={categoryList}
                     onChange={handleCategoryChange}
-                    selectedValue={selectedCategory}
+                    selectedValue={selectedCategory || ''}
                   />
                 </div>
               </div>
@@ -175,7 +174,7 @@ function FindCar() {
                     name="model"
                     optionProps={modelList}
                     onChange={handleModelChange}
-                    selectedValue={selectedModel}
+                    selectedValue={selectedModel || ''}
                   />
                 </div>
               </div>
@@ -188,7 +187,7 @@ function FindCar() {
                     name="registation"
                     className="form-control"
                     placeholder="Last four Digit..(EX:8392)"
-                    value={selectedReg}
+                    value={selectedReg || ''}
                   />
                 </div>
               </div>
