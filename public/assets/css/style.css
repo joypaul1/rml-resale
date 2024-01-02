@@ -5081,7 +5081,7 @@ label {
 .single-item-details .nav-tabs .nav-link:hover,
 .single-item-details .nav-tabs .nav-link.active {
   border-bottom: 2px solid var(--theme-color);
-  color: var(--theme-color);
+  /* color: var(--theme-color); */
 }
 
 .related-item {

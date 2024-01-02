@@ -53,7 +53,7 @@ const Product = () => {
         }
         // console.log(response.data.status);
         const data = response.data;
-        console.log(data);
+
         setCarData(data.data);
         if (data.data.CASH_PRICE > 0 && data.data.CREDIT_PRICE > 0) {
           setSelectedBidType("cash");
@@ -255,7 +255,11 @@ const Product = () => {
                         style={KeyStyles}
                       ></i>
                       <span>Reg Paper:</span>
-                      <span>{carData.REG_PAPER}</span>
+                      <span>
+                        {carData.REG_PAPER
+                          ? (carData.REG_PAPER.toUpperCase()).replace(/_/g, ' ')
+                          : " "}
+                      </span>
                     </div>
                   </li>
                   <li>
@@ -645,8 +649,10 @@ const Product = () => {
                       {carData.CHS_NO}
                     </li>
                     <li>
-                      <i className="far fa-check-circle"></i> Chasis No.:{" "}
-                      {(carData.REG_PAPER).replace(/_/g, ' ').toUpperCase()}
+                      <i className="far fa-check-circle"></i> Reg. Paper :{" "}
+                      {carData && carData.REG_PAPER
+                        ? carData.REG_PAPER.replace(/_/g, " ").toUpperCase()
+                        : " "}
                     </li>
                   </ul>
                 </div>
