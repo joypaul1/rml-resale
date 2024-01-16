@@ -48,7 +48,7 @@ export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
                 <h6>Email</h6>
                 <Link>
                   <i className="far fa-envelope"></i>
-                  <span className="__cf_email__">info@rangsgroup.com</span>
+                  <span className="__cf_email__">info@garimela.com</span>
                 </Link>
               </li>
               <li>

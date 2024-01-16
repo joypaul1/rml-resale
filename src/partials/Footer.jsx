@@ -77,7 +77,7 @@ export default function Footer() {
                   </li>
                   <li>
                     <i className="far fa-paper-plane"></i>
-                    <span className="__cf_email__">info@rangsgroup.com</span>
+                    <span className="__cf_email__">info@garimela.com</span>
                   </li>
                 </ul>
               </div>

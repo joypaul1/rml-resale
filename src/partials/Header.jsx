@@ -42,7 +42,7 @@ export default function Header() {
                       <Link>
                         <i className="far fa-envelopes"></i>{" "}
                         <span className="__cf_email__">
-                          info@rangsgroup.com
+                          info@garimela.com
                         </span>
                       </Link>
                     </li>

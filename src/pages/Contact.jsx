@@ -119,7 +119,7 @@ const Contact = () => {
                       className="__cf_email__"
                       data-cfemail="aac3c4ccc5eacfd2cbc7dac6cf84c9c5c7"
                     >
-                      info@rangsgroup.com
+                      info@garimela.com
                     </a>
                   </p>
                 </div>
