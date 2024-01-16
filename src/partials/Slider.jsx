@@ -99,12 +99,12 @@ export default function Slider(props) {
                     }`}
                     data-wow-delay="1s"
                   >
-                    <Link className="theme-btn">
+                    <Link to={'/about-us'}  className="theme-btn">
                       About More <i className="fas fa-arrow-right-long"></i>
                     </Link>
-                    <Link className="theme-btn theme-btn2">
+                    {/* <Link className="theme-btn theme-btn2">
                       Learn More <i className="fas fa-arrow-right-long"></i>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>
@@ -167,12 +167,12 @@ export default function Slider(props) {
                     }`}
                     data-wow-delay="1s"
                   >
-                    <Link className="theme-btn">
+                    <Link to={'/about-us'} className="theme-btn">
                       About More <i className="fas fa-arrow-right-long"></i>
                     </Link>
-                    <Link className="theme-btn theme-btn2">
+                    {/* <Link className="theme-btn theme-btn2"> 
                       Learn More <i className="fas fa-arrow-right-long"></i>
-                    </Link>
+                    </Link>*/}
                   </div>
                 </div>
               </div>
@@ -237,12 +237,12 @@ export default function Slider(props) {
                     }`}
                     data-wow-delay="1s"
                   >
-                    <Link className="theme-btn">
+                    <Link to={'/about-us'}  className="theme-btn">
                       About More <i className="fas fa-arrow-right-long"></i>
                     </Link>
-                    <Link className="theme-btn theme-btn2">
+                    {/* <Link className="theme-btn theme-btn2">
                       Learn More <i className="fas fa-arrow-right-long"></i>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>
@@ -302,12 +302,12 @@ export default function Slider(props) {
                     manufacturing as the core of our business.
                   </p>
                   <div className="hero-btn wow fadeInUp" data-wow-delay="1s">
-                    <Link className="theme-btn">
+                    <Link  to={'/about-us'}  className="theme-btn">
                       About More <i className="fas fa-arrow-right-long"></i>
                     </Link>
-                    <Link className="theme-btn theme-btn2">
+                    {/* <Link className="theme-btn theme-btn2">
                       Learn More <i className="fas fa-arrow-right-long"></i>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>
