@@ -21,7 +21,7 @@ export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
           <div className="sidebar-about">
             <h4>About Us</h4>
             <p>
-              At Rangs Resale, we take pride in giving vehicles a second chance
+              At Gari Mela, we take pride in giving vehicles a second chance
               to hit the road with renewed vitality. As a dedicated entity under
               the trusted umbrella of Rangs Motors Limited, we bring a wealth of
               experience and a commitment to quality to the resale market. Our
