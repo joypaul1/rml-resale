@@ -105,7 +105,7 @@ const UserLoginModal = ({ previousLink }) => {
                 <div className="login-form ">
                   <span className="d-block text-center">
                     <img
-                      src={window.location.origin + "/assets/img/logo/logo.png"}
+                      src={window.location.origin + "/assets/img/logo/eng_logo.png"}
                       alt="logo"
                       width={"130px"}
                       height={"100px"}

@@ -55,7 +55,7 @@ export default function Footer() {
               <div className="footer-widget-box about-us">
                 <Link to="/" className="footer-logo">
                   <img
-                    src={window.location.origin + "/assets/img/logo/logo.png"}
+                    src={window.location.origin + "/assets/img/logo/eng_logo.png"}
                     alt="Company Logo"
                   />
                 </Link>

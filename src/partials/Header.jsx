@@ -107,7 +107,7 @@ export default function Header() {
             <div className="container position-relative">
               <Link to="/" className="navbar-brand">
                 <img
-                  src={window.location.origin + "/assets/img/logo/logo.png"}
+                  src={window.location.origin + "/assets/img/logo/eng_logo.png"}
                   alt="logo"
                 />
               </Link>

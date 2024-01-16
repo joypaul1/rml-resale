@@ -14,7 +14,7 @@ export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
           </button>
           <div className="sidebar-logo">
             <img
-              src={window.location.origin + "/assets/img/logo/logo.png"}
+              src={window.location.origin + "/assets/img/logo/eng_logo.png"}
               alt="logo"
             />
           </div>

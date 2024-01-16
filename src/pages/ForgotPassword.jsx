@@ -74,7 +74,7 @@ function ForgotPassword(props) {
           <div className="login-form">
             <div className="login-header">
               <img
-                src={window.location.origin + "/assets/img/logo/logo.png"}
+                src={window.location.origin + "/assets/img/logo/eng_logo.png"}
                 alt="logo"
               />
             </div>
