@@ -39,7 +39,7 @@ export default function BrandWiseProduct() {
     try {
       const encodedModel = encodeURIComponent(selectedModel ?? null);
       const encodedCategory = encodeURIComponent(selectedCategory ?? null);
-      const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&cat_name=${encodedCategory}&reg_number=${selectedReg}`;
+      const url = `https://api.garimela.com/?file_name=search_list&md_name=${encodedModel}&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&cat_name=${encodedCategory}&reg_number=${selectedReg}`;
 
       const response = await axios.get(url, {
         headers: {

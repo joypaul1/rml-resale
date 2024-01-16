@@ -26,7 +26,7 @@ function CountArea(props) {
         await delayedFetch(); // Wait for 1 second
   
         const response = await axios.get(
-          "https://api.rangsmotors.com?file_name=home_helping_data",
+          "https://api.garimela.com/?file_name=home_helping_data",
           {
             headers: {
               "Content-Type": "application/json",

@@ -59,7 +59,7 @@ const UserLoginModal = ({ previousLink }) => {
 
   const sendLoginRequest = async () => {
     try {
-      const response = await axios.get("https://api.rangsmotors.com", {
+      const response = await axios.get("https://api.garimela.com/", {
         params: {
           file_name: "user_login",
           u_num: mobileNumber,

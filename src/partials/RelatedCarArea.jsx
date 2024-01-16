@@ -11,7 +11,7 @@ function RelatedCarArea(props) {
     const fetchCarData = async () => {
       try {
         const response = await axios.get(
-          `https://api.rangsmotors.com?file_name=brand_wise_product_list&b_id=${props.brand_id}&ca_order=${props.cashOrder}&cre_order=${props.creditOrder}&pageNumber=${12}`,
+          `https://api.garimela.com/?file_name=brand_wise_product_list&b_id=${props.brand_id}&ca_order=${props.cashOrder}&cre_order=${props.creditOrder}&pageNumber=${12}`,
           {
             headers: {
               "Content-Type": "application/json",

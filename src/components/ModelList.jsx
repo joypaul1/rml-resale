@@ -11,7 +11,7 @@ export default function ModelList({ brand_id, category }) {
         await new Promise((resolve) => setTimeout(resolve, 2000));
 
         const response = await axios.get(
-          `https://api.rangsmotors.com?file_name=model_list&cat_name=${category}`,
+          `https://api.garimela.com/?file_name=model_list&cat_name=${category}`,
           {
             headers: {
               "Content-Type": "application/json",

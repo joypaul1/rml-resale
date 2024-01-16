@@ -68,7 +68,7 @@ function Testimonials() {
         await delayedFetch(); // Wait for 4 seconds
 
         const response = await axios.get(
-          "https://api.rangsmotors.com?file_name=client_comments",
+          "https://api.garimela.com/?file_name=client_comments",
           {
             headers: {
               "Content-Type": "application/json",

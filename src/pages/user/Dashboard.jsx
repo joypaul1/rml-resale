@@ -26,7 +26,7 @@ function Dashboard(props) {
     const fetchCommonData = async () => {
       try {
         const response = await axios.get(
-          `https://api.rangsmotors.com?file_name=user_profile&u_id=${userlogData.ID}`,
+          `https://api.garimela.com/?file_name=user_profile&u_id=${userlogData.ID}`,
           {
             headers: {
               "Content-Type": "application/json",

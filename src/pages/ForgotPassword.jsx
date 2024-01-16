@@ -56,7 +56,7 @@ function ForgotPassword(props) {
 
   const sendLoginRequest = async () => {
     const response = await axios.get(
-      `https://api.rangsmotors.com?file_name=forgot_password&u_num=${mobileNumber}`,
+      `https://api.garimela.com/?file_name=forgot_password&u_num=${mobileNumber}`,
       {
         headers: {
           "Content-Type": "application/json",

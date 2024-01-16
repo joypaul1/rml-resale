@@ -45,7 +45,7 @@ function SearchableProduct() {
   const fetchCarData = async () => {
     try {
       const encodedModel = encodeURIComponent(selectedModel);
-      const url = `https://api.rangsmotors.com?file_name=search_list&md_name=${encodedModel}&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&grade=${selectedGrade}`;
+      const url = `https://api.garimela.com/?file_name=search_list&md_name=${encodedModel}&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&grade=${selectedGrade}`;
 
       const response = await axios.get(url, {
         headers: {
@@ -78,7 +78,7 @@ function SearchableProduct() {
   const fetchModelData = async () => {
     try {
       const response = await axios.get(
-        `https://api.rangsmotors.com?file_name=model_list&cat_name=${selectedCategory}`,
+        `https://api.garimela.com/?file_name=model_list&cat_name=${selectedCategory}`,
         {
           headers: {
             "Content-Type": "application/json",
