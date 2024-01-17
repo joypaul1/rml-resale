@@ -139,7 +139,7 @@ export default function Footer() {
           <div className="row">
             <div className="col-md-6 align-self-center">
               <p className="copyright-text">
-                &copy; Copyright <span id="date"></span> <Link> RML </Link> All
+                &copy; Copyright <span id="date"></span> <Link> Gari Mela </Link> All
                 Rights Reserved.
               </p>
             </div>

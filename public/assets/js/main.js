@@ -1,9 +1,4 @@
-/*=====================================================
-Template Name   : RML
-Description     : Car Dealer And Automotive HTML5 Template
-Author          : Themesland
-Version         : 1.0
-=======================================================*/
+
 
 (function ($) {
   
