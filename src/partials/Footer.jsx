@@ -20,7 +20,7 @@ export default function Footer() {
 
   const subcribeSubmit = async (e) => {
     e.preventDefault();
-    if (mobileNumber != 11) {
+    if (mobileNumber !== 11) {
       notifyError("Mobile number is not valid.");
       return false;
     }
@@ -55,15 +55,19 @@ export default function Footer() {
               <div className="footer-widget-box about-us">
                 <Link to="/" className="footer-logo">
                   <img
-                    src={window.location.origin + "/assets/img/logo/eng_logo.png"}
+                    src={
+                      window.location.origin + "/assets/img/logo/eng_logo.png"
+                    }
                     alt="Company Logo"
                   />
                 </Link>
                 {/* Rest of the about us content */}
                 <p className="mb-3">
-                  We are many variations of passages available but the majority
-                  have suffered alteration in some form by injected humour words
-                  believable.
+                  Welcome to GariMela – your top spot for reconditioned
+                  commercial vehicles. As the latest platform dedicated to
+                  bidding on high-quality trucks, buses, and pickups, we blend
+                  innovation with automotive expertise for a seamless buying
+                  experience. Welcome to the future of online vehicle bidding!
                 </p>
                 <ul className="footer-contact">
                   <li>
@@ -120,7 +124,7 @@ export default function Footer() {
                         className="form-control"
                         placeholder="Your Valid Mobile Number"
                         required
-                        value={mobileNumber || ''}
+                        value={mobileNumber || ""}
                         onChange={handleUserMobileChange}
                       />
                       <button className="theme-btn" type="submit">
@@ -139,8 +143,8 @@ export default function Footer() {
           <div className="row">
             <div className="col-md-6 align-self-center">
               <p className="copyright-text">
-                &copy; Copyright <span id="date"></span> <Link> Gari Mela </Link> All
-                Rights Reserved.
+                &copy; Copyright <span id="date"></span>{" "}
+                <Link> Gari Mela </Link> All Rights Reserved.
               </p>
             </div>
             <div className="col-md-6 align-self-center">
