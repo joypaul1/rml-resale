@@ -69,13 +69,13 @@ export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
           <div className="sidebar-social">
             <h4>Follow Us</h4>
             <a
-              href="https://www.facebook.com/rangsmotorsbd"
+              href="https://www.facebook.com/garimela.bd"
               target="_blank"
               rel="noreferrer"
             >
               <i className="fab fa-facebook"></i>
             </a>
-            <a  href="https://www.linkedin.com/company/rangsmotorslimited "
+            <a  href="https://www.linkedin.com/company/gari-mela"
               target="_blank" rel="noreferrer">
               <i className="fab fa-linkedin"></i>
             </a>

@@ -14,6 +14,8 @@ export default function ViewAllProduct() {
   const [pageNumber, setPageNumber] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
+
   const navigate = useNavigate();
 
   const handleBrandChange = (event) => {
@@ -49,6 +51,9 @@ export default function ViewAllProduct() {
         setCarList((prevCarList) => {
           return pageNumber >= 1 ? [...prevCarList, ...data.data] : data.data;
         });
+        if (!initialLoadComplete) {
+          setInitialLoadComplete(true);
+        }
         // Check if there's more data available in the response
         if (data.data.length === 0) {
           setHasMoreData(false); // No more data available
@@ -62,9 +67,8 @@ export default function ViewAllProduct() {
   };
 
   useEffect(() => {
-    // gradingProduct();
     fetchCarData();
-  }, [selectedBrand, cashOrder, creditOrder, pageNumber]);
+  }, [selectedBrand, cashOrder, creditOrder, pageNumber, initialLoadComplete]);
 
   const loadMore = (event) => {
     setIsLoading(true);
@@ -318,7 +322,7 @@ export default function ViewAllProduct() {
                                 {carItem.CASH_PRICE <= 0 ? (
                                   <del>
                                     <NumericFormat
-                                      value={carItem.CASH_PRICE || ''}
+                                      value={carItem.CASH_PRICE || ""}
                                       displayType={"text"}
                                       thousandSeparator=","
                                       allowLeadingZeros
@@ -329,7 +333,7 @@ export default function ViewAllProduct() {
                                   </del>
                                 ) : (
                                   <NumericFormat
-                                    value={carItem.CASH_PRICE || ''}
+                                    value={carItem.CASH_PRICE || ""}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros
@@ -346,7 +350,7 @@ export default function ViewAllProduct() {
                                 {carItem.CREDIT_PRICE <= 0 ? (
                                   <del>
                                     <NumericFormat
-                                      value={carItem.CREDIT_PRICE || ''}
+                                      value={carItem.CREDIT_PRICE || ""}
                                       displayType={"text"}
                                       thousandSeparator=","
                                       allowLeadingZeros
@@ -357,7 +361,7 @@ export default function ViewAllProduct() {
                                   </del>
                                 ) : (
                                   <NumericFormat
-                                    value={carItem.CREDIT_PRICE || ''}
+                                    value={carItem.CREDIT_PRICE || ""}
                                     displayType={"text"}
                                     thousandSeparator=","
                                     allowLeadingZeros
@@ -384,18 +388,7 @@ export default function ViewAllProduct() {
                   </>
                 );
               })}
-              {carList.length === 0 && (
-                <>
-                  <strong
-                    style={{ color: "rgb(239, 29, 38)" }}
-                    className="shadow p-3 mb-5 bg-body rounded"
-                  >
-                    We appreciate your interest ! Unfortunately, the requested
-                    product is currently unavailable. Please explore our current
-                    product list as referred or filtering below :-
-                  </strong>
-                </>
-              )}
+              
               {hasMoreData && (
                 <div className="text-center mt-4">
                   {isLoading ? (

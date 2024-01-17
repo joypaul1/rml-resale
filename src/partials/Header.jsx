@@ -85,13 +85,13 @@ export default function Header() {
                   <span>Follow Us: </span>
                   <a
                     rel="noreferrer"
-                    href="https://www.facebook.com/rangsmotorsbd"
+                    href="https://www.facebook.com/garimela.bd"
                     target="_blank"
                   >
                     <i className="fab fa-facebook"></i>
                   </a>
                   <a
-                    href="https://www.linkedin.com/company/rangsmotorslimited "
+                    href="https://www.linkedin.com/company/gari-mela"
                     target="_blank"
                     rel="noreferrer"
                   >

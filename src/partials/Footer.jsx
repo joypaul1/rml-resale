@@ -151,7 +151,7 @@ export default function Footer() {
               <ul className="footer-social">
                 <li>
                   <a
-                    href="https://www.facebook.com/rangsmotorsbd"
+                    href="https://www.facebook.com/garimela.bd"
                     target="_blank"
                     rel="noreferrer"
                   >
