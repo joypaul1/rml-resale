@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { CustomChat, FacebookProvider } from 'react-facebook';
 
 export default class FacebookMessenger extends Component {
+  // Introduce a delay before executing any code
   componentDidMount() {
-    // Introduce a delay before executing any code
     setTimeout(() => {
     }, 2000); 
   }

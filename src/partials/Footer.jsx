@@ -164,7 +164,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <i className="fab fa-twitter"></i>
+                    <i className="fab fa-linkedin"></i>
                   </a>
                 </li>
                 {/* Other social media links */}
