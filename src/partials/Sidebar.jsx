@@ -77,7 +77,7 @@ export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
               <i className="fab fa-facebook"></i>
             </a>
             <a
-              href="https://www.linkedin.com/company/gari-mela"
+              href="https://www.linkedin.com/company/gari-mela/"
               target="_blank"
               rel="noreferrer"
             >

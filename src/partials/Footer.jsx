@@ -161,7 +161,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://www.linkedin.com/company/rangsmotorslimited"
+                    href="https://www.linkedin.com/company/gari-mela/"
                     target="_blank"
                     rel="noreferrer"
                   >
