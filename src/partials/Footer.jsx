@@ -76,8 +76,9 @@ export default function Footer() {
                     </a>
                   </li>
                   <li>
-                    <i className="far fa-map-marker-alt"></i> 117/A, Level-04,
-                    Old Air Port Road Bijoy Sarani, Tejgaon, Dhaka-1212.
+                    <i className="far fa-map-marker-alt"></i> Rangs Center,
+                    427/A, Tejgaon Industrial Area, Tejgaon 1208, Dhaka
+                    Division, Bangladesh.
                   </li>
                   <li>
                     <i className="far fa-paper-plane"></i>

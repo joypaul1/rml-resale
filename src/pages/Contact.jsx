@@ -51,7 +51,7 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try { 
+    try {
       setLoading(true);
       const response = await axios.post(
         "https://api.garimela.com/?file_name=client_contact",
@@ -59,7 +59,7 @@ const Contact = () => {
         {
           headers: {
             "Content-Type": "application/json",
-          }
+          },
         }
       );
       const data = response.data;
@@ -75,7 +75,7 @@ const Contact = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className="contact-area py-120">
       <div className="container">
@@ -89,8 +89,8 @@ const Contact = () => {
                 <div className="contact-info-content">
                   <h5>Office Address</h5>
                   <p>
-                    117/A, Level-04, Old Air Port Road Bijoy Sarani, Tejgaon,
-                    Dhaka-1212.
+                    Rangs Center, 427/A, Tejgaon Industrial Area, Tejgaon 1208,
+                    Dhaka Division, Bangladesh.
                   </p>
                 </div>
               </div>
@@ -152,7 +152,6 @@ const Contact = () => {
               <div className="contact-form">
                 <div className="contact-form-header">
                   <h2 className="text-center">Get In Touch with us</h2>
-                
                 </div>
                 <form
                   method="post"

@@ -21,8 +21,8 @@ export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
           <div className="sidebar-about">
             <h4>About Us</h4>
             <p>
-              At Gari Mela, we take pride in giving vehicles a second chance
-              to hit the road with renewed vitality. As a dedicated entity under
+              At Gari Mela, we take pride in giving vehicles a second chance to
+              hit the road with renewed vitality. As a dedicated entity under
               the trusted umbrella of Rangs Motors Limited, we bring a wealth of
               experience and a commitment to quality to the resale market. Our
               mission is to provide customers with a curated selection of
@@ -60,8 +60,9 @@ export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
               <li>
                 <h6>Address</h6>
                 <Link rel="noopener">
-                  <i className="far fa-location-dot"></i> 117/A, Level-04, Old
-                  Air Port Road Bijoy Sarani, Tejgaon, Dhaka-1212.
+                  <i className="far fa-location-dot"></i> Rangs Center, 427/A,
+                  Tejgaon Industrial Area, Tejgaon 1208, Dhaka
+                  Division, Bangladesh.
                 </Link>
               </li>
             </ul>
@@ -75,8 +76,11 @@ export default function Sidebar({ isSidebarOpen, handleSidebarClose }) {
             >
               <i className="fab fa-facebook"></i>
             </a>
-            <a  href="https://www.linkedin.com/company/gari-mela"
-              target="_blank" rel="noreferrer">
+            <a
+              href="https://www.linkedin.com/company/gari-mela"
+              target="_blank"
+              rel="noreferrer"
+            >
               <i className="fab fa-linkedin"></i>
             </a>
           </div>
