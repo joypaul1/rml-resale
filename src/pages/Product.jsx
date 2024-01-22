@@ -709,7 +709,7 @@ const Product = () => {
               {relatedcarData.map((relatedcar, index) => {
                 let currentStatus;
 
-                if (relatedcar.INVOICE_STATUS === "Y") {
+                if (relatedcar.INVOICE_STATUS === "Y" || relatedcar.SALES_STATUS === "Yes") {
                   currentStatus = {
                     text: "Sold",
                     color: "status-1", // red color
