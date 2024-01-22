@@ -708,7 +708,7 @@ const Product = () => {
             <div className="row">
               {relatedcarData.map((relatedcar, index) => {
                 let currentStatus;
-
+                
                 if (relatedcar.INVOICE_STATUS === "Y" || relatedcar.SALES_STATUS === "Yes") {
                   currentStatus = {
                     text: "Sold",
