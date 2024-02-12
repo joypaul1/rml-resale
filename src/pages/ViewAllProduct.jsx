@@ -39,7 +39,7 @@ export default function ViewAllProduct() {
 
   const fetchCarData = async () => {
     try {
-      const url = `https://api.garimela.com/?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&grade=${selectedGrade}`;
+      const url = `https://api.rangsmotors.com/?file_name=view_all_product_list&b_id=${selectedBrand}&ca_order=${cashOrder}&cre_order=${creditOrder}&pageNumber=${pageNumber}&grade=${selectedGrade}`;
       const response = await axios.get(url, {
         headers: {
           "Content-Type": "application/json",

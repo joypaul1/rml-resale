@@ -52,7 +52,7 @@ function ChangePassword(props) {
   };
   const sendPassRequest = async () => {
     const response = await axios.get(
-      `https://api.garimela.com/?file_name=pass_change&u_id=${userlogData.ID}&u_pass=${userPassword}`,
+      `https://api.rangsmotors.com/?file_name=pass_change&u_id=${userlogData.ID}&u_pass=${userPassword}`,
       {
         headers: {
           "Content-Type": "application/json",

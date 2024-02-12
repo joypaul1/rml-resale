@@ -89,7 +89,7 @@ const Register = () => {
 
   const sendOtpRequest = async () => {
     try {
-      const response = await axios.get("https://api.garimela.com/", {
+      const response = await axios.get("https://api.rangsmotors.com/", {
         params: {
           file_name: "send_otp",
           u_num: mobileNumber,
@@ -145,7 +145,7 @@ const Register = () => {
   const sendRegRequest = async () => {
     try {
       const response = await axios.get(
-        "https://api.garimela.com/",
+        "https://api.rangsmotors.com/",
         {
           params: {
             file_name: "user_registration",

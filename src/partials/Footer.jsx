@@ -26,7 +26,7 @@ export default function Footer() {
     }
     try {
       const response = await axios.get(
-        "https://api.garimela.com/?file_name=client_subscribe" +
+        "https://api.rangsmotors.com/?file_name=client_subscribe" +
           `&mobile=${mobileNumber}&sis_id=1`,
         {
           headers: {

@@ -12,7 +12,7 @@ export default  function CategortyList({ brand_id }) {
         await new Promise(resolve => setTimeout(resolve, 1000)); // Delay by 1 second
 
         const response = await axios.get(
-          `https://api.garimela.com/?file_name=cat_list&b_id=${brand_id}`,
+          `https://api.rangsmotors.com/?file_name=cat_list&b_id=${brand_id}`,
           {
             headers: {
               "Content-Type": "application/json",

@@ -18,7 +18,7 @@ export default function Team(props) {
         await delayedFetch(); // Wait for 2 seconds
 
         const response = await axios.get(
-          "https://api.garimela.com/?file_name=resale_team",
+          "https://api.rangsmotors.com/?file_name=resale_team",
           {
             headers: {
               "Content-Type": "application/json",

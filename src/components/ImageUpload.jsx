@@ -28,7 +28,7 @@ function ImageUpload(props) {
       formData.append("file", selectedFile);
       try {
         const res = await axios.post(
-          "https://api.garimela.com//upload.php",
+          "https://api.rangsmotors.com//upload.php",
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },

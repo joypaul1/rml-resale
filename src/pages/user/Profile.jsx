@@ -67,7 +67,7 @@ function Profile(props) {
 
   const sendUpdateRequest = async () => {
     const response = await axios.get(
-      `https://api.garimela.com/?file_name=user_profile_update&u_id=${userlogData.ID}&u_name=${userName}&u_email=${userEmail}&u_address=${userAddress}&u_dis_id=${userDistrict}&u_up_id=${userUpazila}`,
+      `https://api.rangsmotors.com/?file_name=user_profile_update&u_id=${userlogData.ID}&u_name=${userName}&u_email=${userEmail}&u_address=${userAddress}&u_dis_id=${userDistrict}&u_up_id=${userUpazila}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +92,7 @@ function Profile(props) {
     const fetchCommonData = async () => {
       try {
         const response = await axios.get(
-          `https://api.garimela.com/?file_name=user_profile&u_id=${userlogData.ID}`,
+          `https://api.rangsmotors.com/?file_name=user_profile&u_id=${userlogData.ID}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -128,7 +128,7 @@ function Profile(props) {
     setUserDistrict(districtId);
     try {
       const response = await axios.get(
-        `https://api.garimela.com/?file_name=upazila&dis_id=${districtId}`,
+        `https://api.rangsmotors.com/?file_name=upazila&dis_id=${districtId}`,
         {
           headers: {
             "Content-Type": "application/json",

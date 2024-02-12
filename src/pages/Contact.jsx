@@ -54,7 +54,7 @@ const Contact = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://api.garimela.com/?file_name=client_contact",
+        "https://api.rangsmotors.com/?file_name=client_contact",
         JSON.stringify(formData), // Data should be directly passed as the second argument
         {
           headers: {

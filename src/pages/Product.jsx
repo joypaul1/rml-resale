@@ -41,7 +41,7 @@ const Product = () => {
     const fetchCarData = async () => {
       try {
         const response = await axios.get(
-          `https://api.garimela.com/?file_name=product_details&p_id=${product_id}`,
+          `https://api.rangsmotors.com/?file_name=product_details&p_id=${product_id}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const Product = () => {
     if (parseFloat(bidAmount) >= parseFloat(minBidAmount)) {
       try {
         const response = await axios.get(
-          "https://api.garimela.com/?file_name=bid_entry" +
+          "https://api.rangsmotors.com/?file_name=bid_entry" +
             `&u_id=${userlogData.ID}` +
             `&p_id=${product_id}` +
             `&bid_amount=${bidAmount}` +
@@ -139,9 +139,9 @@ const Product = () => {
   carImage.forEach((element) => {
     images.push({
       original:
-        "https://api.garimela.com/?file_name=img_src&imgSr=" + element.URL,
+        "https://api.rangsmotors.com/?file_name=img_src&imgSr=" + element.URL,
       thumbnail:
-        "https://api.garimela.com/?file_name=img_src&imgSr=" + element.URL,
+        "https://api.rangsmotors.com/?file_name=img_src&imgSr=" + element.URL,
     });
   });
   const handleReferenceByChange = async (e) => {
@@ -151,7 +151,7 @@ const Product = () => {
       setRefSaleConcern(true);
       try {
         const response = await axios.get(
-          "https://api.garimela.com/?file_name=resale_team",
+          "https://api.rangsmotors.com/?file_name=resale_team",
           {
             headers: {
               "Content-Type": "application/json",

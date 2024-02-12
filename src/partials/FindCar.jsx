@@ -29,7 +29,7 @@ function FindCar() {
     setModelList([]);
     try {
       const response = await axios.get(
-        `https://api.garimela.com/?file_name=cat_list&b_id=${brandId}`,
+        `https://api.rangsmotors.com/?file_name=cat_list&b_id=${brandId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -59,7 +59,7 @@ function FindCar() {
 
     try {
       const response = await axios.get(
-        `https://api.garimela.com/?file_name=model_list&cat_name=${category}`,
+        `https://api.rangsmotors.com/?file_name=model_list&cat_name=${category}`,
         {
           headers: {
             "Content-Type": "application/json",
