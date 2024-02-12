@@ -19,7 +19,7 @@ function CountArea(props) {
       try {
         const delayedFetch = () => {
           return new Promise((resolve) => {
-            setTimeout(resolve, 3000);
+            setTimeout(resolve, 2000);
           });
         };
   

@@ -13,7 +13,7 @@ export default function Slider(props) {
       boxClass: "wow",
       animateClass: "animated",
       offset: 0,
-      mobile: true,
+      mobile: false,
       live: true
     });
     wow.current.init();
@@ -324,9 +324,8 @@ export default function Slider(props) {
                       }}
                       src={
                         window.location.origin +
-                        "/assets/img/slider/Dongfeng_E_94.png"
+                        "/assets/img/slider/Big_Bolero.png"
                       }
-                      // src="../assets/img/slider/hero-6.png"
                       alt="sliderImage"
                     />
                   </div>
