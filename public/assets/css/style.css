@@ -1696,7 +1696,7 @@ label {
 
   .hero-single .hero-content .hero-title {
     font-size: 50px;
-    margin-top: 15%;
+    margin-top: 22%;
   }
 
   .hero-single .hero-img {
@@ -6873,7 +6873,7 @@ body.rtl-mode .price-wrapper {
 /*====================
 59. Home 2
 ======================*/
-
+/* 
 .home-2 .header-top {
   background: var(--theme-color);
   border-bottom: 5px solid var(--color-dark);
@@ -6926,7 +6926,7 @@ body.rtl-mode .price-wrapper {
 
 .home-2 .copyright::before {
   display: none;
-}
+} */
 
 
 
@@ -6934,7 +6934,7 @@ body.rtl-mode .price-wrapper {
 /*====================
 60. Home 3
 ======================*/
-
+/* 
 .home-3 .header-top::before,
 .home-3 .header-top::after {
   bottom: -.5px;
@@ -7000,15 +7000,15 @@ body.rtl-mode .price-wrapper {
 .home-3 .hero-single .hero-title span {
   -webkit-text-stroke: 2px var(--theme-color);
   -webkit-text-fill-color: transparent;
-}
+} */
 
 
-@media all and (max-width: 1199px) {
+/* @media all and (max-width: 1199px) {
   .home-3 .hero-single .hero-img::before {
     width: 450px;
     height: 450px;
   }
-}
+} 
 
 @media all and (max-width: 991px) {
   .home-3 .hero-single {
@@ -7029,7 +7029,7 @@ body.rtl-mode .price-wrapper {
     top: -10px;
     right: 50px;
   }
-}
+}*/
 
 .car-single-widget ul li {
   list-style: none;
@@ -7205,4 +7205,19 @@ div>i {
 .nav-link:focus,
 .nav-link:hover {
   color: #EF1D26;
+}
+
+
+@media only screen and (min-width: 768px) {
+  .hero-right>.hero-img {
+    /* width: 100px; */
+    height: 400px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .hero-right>.hero-img {
+    /* width: 100px; */
+    height: 200px;
+  }
 }

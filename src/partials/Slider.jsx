@@ -39,11 +39,11 @@ export default function Slider(props) {
   };
   const options = {
     items: 1,
-    loop: true,
+    // loop: true,
     nav: true,
-    autoplay: true,
-    autoplayHoverPause: true,
-    autoplayTimeout: 5000,
+    // autoplay: true,
+    // autoplayHoverPause: true,
+    // autoplayTimeout: 5000,
     onChanged: handleSlideChange,
     onInitialized: (e) => {
       owl.current = e.target;
@@ -120,7 +120,7 @@ export default function Slider(props) {
                       data-wow-delay="0.50s"
                       src={
                         window.location.origin +
-                        "/assets/img/slider/10.90L.webp"
+                        "/assets/img/slider/10.90L.png"
                       }
                       // style={{ width: "575px", height: "575px" }}
                       alt="sliderImage"
@@ -326,7 +326,7 @@ export default function Slider(props) {
                       }}
                       src={
                         window.location.origin +
-                        "/assets/img/slider/Big_Bolero.png"
+                        "/assets/img/slider/big_bolero.png"
                       }
                       alt="sliderImage"
                     />
