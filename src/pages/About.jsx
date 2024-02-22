@@ -38,7 +38,7 @@ const About = () => {
                     <i className="flaticon-drive"></i> About Us
                   </span>
                   <h2 className="site-title">
-                    World Largest <span>Vehicle Dealer</span> Marketplace.
+                    Country Largest <span>Vehicle Dealer</span> Marketplace.
                   </h2>
                 </div>
                 <p className="about-text text-justify">
